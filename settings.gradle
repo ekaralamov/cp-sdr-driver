@@ -1,0 +1,4 @@
+rootProject.name='rtl-sdr-app'
+include ':app'
+include ':rtl-sdr'
+include ':libusb'
