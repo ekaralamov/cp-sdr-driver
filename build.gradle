@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        kotlin_version = '1.3.61'
+        kotlin_version = '1.3.70'
     }
     repositories {
         google()
@@ -24,11 +24,13 @@ allprojects {
         jcenter()
         
     }
+}
 
-    ext {
-        compile_sdk_version = 29
-        min_sdk_version = 23
-    }
+ext {
+    CompileSdkVersion = 29
+    MinSdkVersion = 23
+
+    CppLibNamesUsage = "cplusplus-lib-names"
 }
 
 task clean(type: Delete) {

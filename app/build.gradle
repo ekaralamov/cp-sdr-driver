@@ -3,13 +3,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion compile_sdk_version
-
+    compileSdkVersion CompileSdkVersion
 
     defaultConfig {
-        applicationId "app.ekaralamov.rtl_sdr"
-        minSdkVersion min_sdk_version
-        targetSdkVersion compile_sdk_version
+        applicationId "app.ekaralamov.sdr.driver"
+        minSdkVersion MinSdkVersion
+        targetSdkVersion CompileSdkVersion
         versionCode 1
         versionName "1.0"
 

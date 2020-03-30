@@ -1,11 +1,114 @@
+import com.android.build.gradle.api.BaseVariant
+
+import javax.inject.Inject
+import java.nio.file.Files
+
 apply plugin: 'com.android.library'
 
+
+final RtlSdrSourceRoot = file('rtl-sdr')
+
+final CppImportsLinksRoot = buildDir.toPath().resolve('cppImportsLinks')
+final CppApiImportsLinksDir = CppImportsLinksRoot.resolve('api')
+final CppRuntimeImportsLinksDir = CppImportsLinksRoot.resolve('runtime')
+final CppImportLibNamesLinksDir = CppImportsLinksRoot.resolve('libnames')
+
+final CppImportsRootArg = 'MY_CPP_IMPORTS_ROOT'
+
+
+final implementationConf = configurations.getByName('implementation')
+
+final cppApiImportsConf = configurations.create('cppApiImports') {
+    canBeConsumed = false
+    canBeResolved = true
+
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.C_PLUS_PLUS_API))
+
+    extendsFrom implementationConf
+}
+
+final cppImportLibNamesConf = configurations.create('cppImportLibNames') {
+    canBeConsumed = false
+    canBeResolved = true
+
+    attributes.attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, CppLibNamesUsage))
+
+    extendsFrom implementationConf
+}
+
+final prepareCppImportsLinksDir = tasks.create('prepareCppImportsLinksDir', Delete) {
+    delete CppImportsLinksRoot
+    doLast {
+        Files.createDirectories(CppImportsLinksRoot)
+    }
+}
+
+final createCppApiImportsLinks = tasks.create('createCppApiImportsLinks') {
+    dependsOn prepareCppImportsLinksDir
+    doLast {
+        Files.createDirectory(CppApiImportsLinksDir)
+        def n = 0
+        cppApiImportsConf.incoming.files.each {
+            Files.createSymbolicLink(CppApiImportsLinksDir.resolve(++n as String), it.toPath())
+        }
+    }
+}
+
+final createCppImportLibNamesLinks = tasks.create('createCppImportLibNamesLinks') {
+    dependsOn prepareCppImportsLinksDir
+    doLast {
+        Files.createDirectory(CppImportLibNamesLinksDir)
+        def n = 0
+        cppImportLibNamesConf.incoming.files.each {
+            Files.createSymbolicLink(CppImportLibNamesLinksDir.resolve(++n as String), it.toPath())
+        }
+    }
+}
+
+class CreateCppRuntimeImportsLinks extends DefaultTask {
+    @Inject
+    CreateCppRuntimeImportsLinks(BaseVariant variant, java.nio.file.Path cppRuntimeImportsLinksDir) {
+        doLast {
+            Files.createDirectory(cppRuntimeImportsLinksDir)
+            final variantDir = cppRuntimeImportsLinksDir.resolve(variant.name)
+            Files.createDirectory(variantDir)
+            def n = 0
+            variant.runtimeConfiguration.incoming.artifactView {
+                it.attributes {
+                    it.attribute(Attribute.of("artifactType", String.class), "android-jni")
+                }
+            }.files.each {
+                Files.createSymbolicLink(variantDir.resolve(++n as String), it.toPath())
+            }
+        }
+    }
+}
+
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion CompileSdkVersion
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion compile_sdk_version
+        minSdkVersion MinSdkVersion
+        targetSdkVersion CompileSdkVersion
+
+        externalNativeBuild.cmake.arguments "-D$CppImportsRootArg=$CppImportsLinksRoot", "-DANDROID_STL=c++_shared"
+    }
+
+    externalNativeBuild.cmake.path new File(RtlSdrSourceRoot, 'CMakeLists.txt')
+
+    libraryVariants.all { variant ->
+        final createCppRuntimeImportsLinks = tasks.create(
+            "${variant.name}CreateCppRuntimeImportsLinks",
+            CreateCppRuntimeImportsLinks,
+            variant,
+            CppRuntimeImportsLinksDir
+        )
+        createCppRuntimeImportsLinks.dependsOn prepareCppImportsLinksDir
+        variant.externalNativeBuildProviders.each {
+            it.configure {
+                dependsOn createCppRuntimeImportsLinks, createCppApiImportsLinks, createCppImportLibNamesLinks
+            }
+        }
     }
 }
 

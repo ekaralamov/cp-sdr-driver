@@ -1,4 +1,4 @@
-package app.ekaralamov.rtl_sdr
+package app.ekaralamov.sdr.driver
 
 import org.junit.Test
 

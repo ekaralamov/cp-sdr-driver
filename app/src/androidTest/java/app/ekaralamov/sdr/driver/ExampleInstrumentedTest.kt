@@ -1,4 +1,4 @@
-package app.ekaralamov.rtl_sdr
+package app.ekaralamov.sdr.driver
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

@@ -1,10 +1,42 @@
 apply plugin: 'com.android.library'
 
+def LibUsbSourceRoot = file('libusb')
+
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion CompileSdkVersion
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion compile_sdk_version
+        minSdkVersion MinSdkVersion
+        targetSdkVersion CompileSdkVersion
+    }
+
+    externalNativeBuild.ndkBuild.path new File(LibUsbSourceRoot, "android/jni/libusb.mk")
+}
+
+configurations {
+    create('cppApiExports') {
+        canBeConsumed = true
+        canBeResolved = false
+
+        attributes {
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, Usage.C_PLUS_PLUS_API))
+        }
+
+        outgoing {
+            (file('cppApiExports.lst') as String[]).each {
+                artifact(new File(LibUsbSourceRoot, it))
+            }
+        }
+    }
+
+    create('cppLibNames') {
+        canBeConsumed = true
+        canBeResolved = false
+
+        attributes {
+            attribute(Usage.USAGE_ATTRIBUTE, objects.named(Usage, CppLibNamesUsage))
+        }
+
+        outgoing.artifact(file('cppLibNames.lst'))
     }
 }
