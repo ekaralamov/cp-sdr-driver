@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.ekaralamov.sdr.driver">
-
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.ekaralamov.sdr.driver"
+    >
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" />
+        android:theme="@style/AppTheme"
+        android:name=".DriverApplication"
+        >
+        <provider
+            android:name=".RtlContentProvider"
+            android:authorities="@string/provider_authority"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            />
+    </application>
 </manifest>

@@ -1,0 +1,38 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion CompileSdkVersion
+
+    defaultConfig {
+        applicationId "app.ekaralamov.sdr.driver.testutils"
+        minSdkVersion MinSdkVersion
+        targetSdkVersion CompileSdkVersion
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$KotlinVersion"
+}
+
+afterEvaluate {
+    configurations {
+        create('exposedApk') {
+            canBeConsumed = true
+            canBeResolved = false
+
+            outgoing.artifact(new File(buildDir, "outputs/apk/debug/testutilsapp-debug.apk")) {
+                builtBy(tasks.getByName('assembleDebug'))
+            }
+        }
+    }
+}

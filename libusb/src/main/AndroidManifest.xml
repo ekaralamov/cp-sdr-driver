@@ -1,2 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.ekaralamov.libusb" />
+    package="app.ekaralamov.libusb">
+
+    <uses-feature android:name="android.hardware.usb.host" />
+</manifest>

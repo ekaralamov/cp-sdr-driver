@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/libusb" />
             <option value="$PROJECT_DIR$/rtl-sdr" />
+            <option value="$PROJECT_DIR$/testutilsapp" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
