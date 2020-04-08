@@ -1,15 +1,10 @@
-apply plugin: 'com.android.library'
+import app.ekaralamov.gradle.BaseLibraryPlugin
+
+new BaseLibraryPlugin().apply(project)
 
 def LibUsbSourceRoot = file('libusb')
 
 android {
-    compileSdkVersion CompileSdkVersion
-
-    defaultConfig {
-        minSdkVersion MinSdkVersion
-        targetSdkVersion CompileSdkVersion
-    }
-
     externalNativeBuild.ndkBuild.path new File(LibUsbSourceRoot, "android/jni/libusb.mk")
 }
 

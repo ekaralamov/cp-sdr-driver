@@ -1,9 +1,10 @@
+import app.ekaralamov.gradle.BaseLibraryPlugin
 import com.android.build.gradle.api.BaseVariant
 
 import javax.inject.Inject
 import java.nio.file.Files
 
-apply plugin: 'com.android.library'
+new BaseLibraryPlugin().apply(project)
 
 
 final RtlSdrSourceRoot = file('rtl-sdr')
@@ -85,12 +86,7 @@ class CreateCppRuntimeImportsLinks extends DefaultTask {
 }
 
 android {
-    compileSdkVersion CompileSdkVersion
-
     defaultConfig {
-        minSdkVersion MinSdkVersion
-        targetSdkVersion CompileSdkVersion
-
         externalNativeBuild.cmake.arguments "-D$CppImportsRootArg=$CppImportsLinksRoot", "-DANDROID_STL=c++_shared"
     }
 
