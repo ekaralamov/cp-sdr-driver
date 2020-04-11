@@ -1,4 +1,4 @@
-rootProject.name='rtl-sdr-app'
+rootProject.name = 'SDR Driver'
 include ':app'
 include ':rtl-sdr'
 include ':libusb'
