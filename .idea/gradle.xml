@@ -12,9 +12,11 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
+            <option value="$PROJECT_DIR$/instrumentedtests" />
             <option value="$PROJECT_DIR$/libusb" />
             <option value="$PROJECT_DIR$/rtl-sdr" />
-            <option value="$PROJECT_DIR$/testutilsapp" />
+            <option value="$PROJECT_DIR$/testbuddy" />
+            <option value="$PROJECT_DIR$/testbuddyinterface" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

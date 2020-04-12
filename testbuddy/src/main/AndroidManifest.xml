@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="app.ekaralamov.sdr.driver.test.buddy"
+    >
+
+    <permission
+        android:name="app.ekaralamov.sdr.driver.test"
+        android:protectionLevel="signature"
+        />
+
+    <application
+        android:label="@string/app_name"
+        android:permission="app.ekaralamov.sdr.driver.test"
+        >
+
+        <service
+            android:name=".MainService"
+            android:exported="true"
+            />
+
+        <activity android:name=".MainActivity" />
+    </application>
+
+</manifest>

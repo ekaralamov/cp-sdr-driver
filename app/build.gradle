@@ -7,8 +7,6 @@ android {
         applicationId "app.ekaralamov.sdr.driver"
         versionCode 1
         versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -17,16 +15,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions 'testing'
+    productFlavors {
+        notTesting
+        buddy
+    }
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
     testImplementation Deps.JUnit
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':rtl-sdr')
-
-    androidTestUtil project(path: ':testutilsapp', configuration: "exposedApk")
 }

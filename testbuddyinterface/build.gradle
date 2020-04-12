@@ -1,0 +1,3 @@
+import app.ekaralamov.gradle.BaseLibraryPlugin
+
+new BaseLibraryPlugin().apply(project)

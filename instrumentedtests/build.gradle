@@ -1,0 +1,20 @@
+import app.ekaralamov.gradle.BaseTestPlugin
+
+new BaseTestPlugin().apply(project)
+
+android {
+    targetProjectPath ':app'
+
+    flavorDimensions 'testing'
+    productFlavors {
+        buddy
+    }
+}
+
+dependencies {
+    implementation 'androidx.test.ext:junit:1.1.1'
+    implementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(':testbuddyinterface')
+
+    androidTestUtil project(configuration: "exposedApk", path: ':testbuddy')
+}

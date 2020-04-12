@@ -1,0 +1,26 @@
+import app.ekaralamov.gradle.BaseApplicationPlugin
+
+new BaseApplicationPlugin().apply(project)
+
+android {
+    defaultConfig {
+        applicationId "app.ekaralamov.sdr.driver.test.buddy"
+    }
+}
+
+dependencies {
+    implementation project(':testbuddyinterface')
+}
+
+afterEvaluate {
+    configurations {
+        create('exposedApk') {
+            canBeConsumed = true
+            canBeResolved = false
+
+            outgoing.artifact(new File(buildDir, "outputs/apk/debug/testbuddy-debug.apk")) {
+                builtBy(tasks.getByName('assembleDebug'))
+            }
+        }
+    }
+}
