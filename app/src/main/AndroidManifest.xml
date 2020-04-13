@@ -14,11 +14,10 @@
         android:name=".DriverApplication"
         >
 
-        <activity android:name=".GetTunerAccessActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".GetTunerAccessActivity"
+            android:exported="true"
+            />
 
         <provider
             android:name=".TunerContentProvider"

@@ -2,6 +2,7 @@ package app.ekaralamov.sdr.driver.onetuner
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.ekaralamov.sdr.driver.BuddyRule
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -13,7 +14,7 @@ class EndToEndTest {
     val buddyRule = BuddyRule()
 
     @Test
-    fun openUri() {
+    fun openTunerOne() {
 //        val uri = buildContentUri(TunerOneId)
 //        InstrumentationRegistry.getInstrumentation().targetContext.grantUriPermission(
 //            "app.ekaralamov.sdr.driver.test.buddy",
@@ -21,19 +22,9 @@ class EndToEndTest {
 //            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 //        )
 
-//        InstrumentationRegistry.getInstrumentation().context.startActivity(
-//            Intent().apply {
-//                component = ComponentName(
-//                    "app.ekaralamov.sdr.driver.test.buddy",
-//                    "app.ekaralamov.sdr.driver.test.buddy.MainActivity"
-//                )
-//                action = Intent.ACTION_MAIN
-//                data = uri
-//                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            }
-//        )
-//
-//        Thread.sleep(5000)
+        val requestKey = buddyRule.buddy.requestAccess(TunerOneUri)
 
+        if (!buddyRule.buddy.waitForAccess(requestKey))
+            fail("could not obtain tuner access")
     }
 }
