@@ -100,10 +100,9 @@ android {
             CppRuntimeImportsLinksDir
         )
         createCppRuntimeImportsLinks.dependsOn prepareCppImportsLinksDir
-        variant.externalNativeBuildProviders.each {
-            it.configure {
-                dependsOn createCppRuntimeImportsLinks, createCppApiImportsLinks, createCppImportLibNamesLinks
-            }
+
+        variant.preBuildProvider.configure {
+            dependsOn createCppRuntimeImportsLinks, createCppApiImportsLinks, createCppImportLibNamesLinks
         }
     }
 }
