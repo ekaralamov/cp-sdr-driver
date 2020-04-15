@@ -1,17 +1,7 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+import app.ekaralamov.gradle.BaseClientLibPlugin
 
-android {
-    compileSdkVersion 29
-
-    defaultConfig {
-        minSdkVersion 1
-        targetSdkVersion 29
-    }
-}
+new BaseClientLibPlugin().apply(project)
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${Versions.Kotlin}"
-
     api project(':clientshared')
 }
