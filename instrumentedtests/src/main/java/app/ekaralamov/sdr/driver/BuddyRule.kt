@@ -56,6 +56,6 @@ class BuddyRule : ExternalResource(), ServiceConnection {
     }
 
     companion object {
-        const val ConnectTimeout = 3000L
+        const val ConnectTimeout = 10_000L
     }
 }
