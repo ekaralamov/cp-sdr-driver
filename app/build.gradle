@@ -28,4 +28,5 @@ dependencies {
     testImplementation Deps.JUnit
 
     implementation project(':rtl-sdr')
+    api project(':clientshared')
 }

@@ -7,23 +7,24 @@ internal object ActivityRegistry {
 
     private class Result {
 
-        private var outcome: Boolean? = null
+        private var outcome: Int? = null
 
         @Synchronized
-        fun waitFor(): Boolean =
+        fun waitFor(): Int =
             outcome ?: run {
                 (this as Object).wait(Timeout)
-                outcome ?: throw Exception("timed out waiting for activity result")
+                outcome ?: InvalidActivityResult
             }
 
         @Synchronized
-        fun set(outcome: Boolean) {
+        fun set(outcome: Int) {
             this.outcome = outcome
             (this as Object).notifyAll()
         }
 
         companion object {
             private const val Timeout = 10_000L
+            private const val InvalidActivityResult = Int.MIN_VALUE
         }
     }
 
@@ -48,7 +49,7 @@ internal object ActivityRegistry {
             }
         }
 
-    fun set(outcome: Boolean, key: Int) = result(key).set(outcome)
+    fun set(outcome: Int, key: Int) = result(key).set(outcome)
 
     @Synchronized
     private fun result(key: Int): Result = map.getValue(key)

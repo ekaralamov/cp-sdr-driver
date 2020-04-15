@@ -1,8 +1,11 @@
 package app.ekaralamov.sdr.driver.onetuner
 
-import app.ekaralamov.sdr.driver.TunerUri
+import app.ekaralamov.sdr.driver.Tuner
 
-val TunerOneUri = TunerUri.build(
-    vendorID = 0x0bda,
-    productID = 0x2832
-)
+object TunerOne {
+
+    private const val VendorID = 0x0bda
+    private const val ProductID = 0x2832
+
+    val DeviceName = Tuner.findDevice(vendorID = VendorID, productID = ProductID).deviceName
+}

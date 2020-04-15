@@ -1,8 +1,10 @@
 package app.ekaralamov.sdr.driver.onetuner
 
+import android.app.Activity
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import app.ekaralamov.sdr.driver.BuddyRule
-import org.junit.Assert.fail
+import org.hamcrest.CoreMatchers.equalTo
+import org.junit.Assert.assertThat
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,9 +24,10 @@ class EndToEndTest {
 //            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 //        )
 
-        val requestKey = buddyRule.buddy.requestAccess(TunerOneUri)
+        val getAccessRequestKey = buddyRule.buddy.requestAccess(TunerOne.DeviceName)
 
-        if (!buddyRule.buddy.waitForAccess(requestKey))
-            fail("could not obtain tuner access")
+        val getAccessResult = buddyRule.buddy.waitForAccess(getAccessRequestKey)
+
+        assertThat(getAccessResult, equalTo(Activity.RESULT_OK))
     }
 }

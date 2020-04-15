@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">Prinos SDR Driver</string>
-
-    <string name="provider_authority">app.ekaralamov.sdr.driver</string>
 </resources>

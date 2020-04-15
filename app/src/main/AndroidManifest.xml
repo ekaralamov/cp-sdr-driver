@@ -21,7 +21,7 @@
 
         <provider
             android:name=".TunerContentProvider"
-            android:authorities="@string/provider_authority"
+            android:authorities="@string/prinos_sdr_driver_authority"
             android:exported="false"
             android:grantUriPermissions="true"
             />
