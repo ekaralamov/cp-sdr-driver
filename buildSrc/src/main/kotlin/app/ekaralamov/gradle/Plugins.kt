@@ -17,7 +17,7 @@ class BaseApplicationPlugin : BaseKotlinPlugin() {
     }
 }
 
-open class BaseTestPlugin : BaseKotlinPlugin() {
+class BaseTestPlugin : BaseKotlinPlugin() {
     override fun apply(project: Project) = with(project) {
         apply(plugin = "com.android.test")
         super.apply(project)
@@ -26,6 +26,17 @@ open class BaseTestPlugin : BaseKotlinPlugin() {
             defaultConfig {
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
+        }
+    }
+}
+
+class BaseKotlinLibraryPlugin : BaseKotlinPlugin() {
+    override fun apply(project: Project) = with(project) {
+        apply(plugin = "com.android.library")
+        super.apply(project)
+
+        dependencies {
+            "testImplementation"(project(":kotest"))
         }
     }
 }

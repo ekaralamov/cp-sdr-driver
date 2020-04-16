@@ -15,7 +15,9 @@
             <option value="$PROJECT_DIR$/clientlib" />
             <option value="$PROJECT_DIR$/clientshared" />
             <option value="$PROJECT_DIR$/instrumentedtests" />
+            <option value="$PROJECT_DIR$/kotest" />
             <option value="$PROJECT_DIR$/libusb" />
+            <option value="$PROJECT_DIR$/operations" />
             <option value="$PROJECT_DIR$/rtl-sdr" />
             <option value="$PROJECT_DIR$/testbuddy" />
             <option value="$PROJECT_DIR$/testbuddyinterface" />

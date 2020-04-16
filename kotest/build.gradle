@@ -1,0 +1,10 @@
+import app.ekaralamov.gradle.BaseKotlinPlugin
+
+apply plugin: 'com.android.library'
+
+new BaseKotlinPlugin().apply(project)
+
+dependencies {
+    api 'io.kotest:kotest-runner-junit5-jvm:4.0.2'
+    api 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+}
