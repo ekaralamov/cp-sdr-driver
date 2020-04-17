@@ -7,5 +7,5 @@ object TunerOne {
     private const val VendorID = 0x0bda
     private const val ProductID = 0x2832
 
-    val DeviceName = Tuner.findDevice(vendorID = VendorID, productID = ProductID).deviceName
+    val Device = Tuner.findDevice(vendorID = VendorID, productID = ProductID)
 }

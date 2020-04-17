@@ -4,7 +4,7 @@ package app.ekaralamov.sdr.driver.test.buddy;
 
 interface Buddy {
 
-    int requestAccess(in String deviceName);
+    int requestAccess(in UsbDevice device);
 
     int waitForAccess(int requestKey);
 }

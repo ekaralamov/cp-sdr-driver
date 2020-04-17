@@ -1,4 +1,4 @@
-package app.ekaralamov.sdr.driver.operations
+package app.ekaralamov.sdr.driver
 
 import android.hardware.usb.UsbDevice
 

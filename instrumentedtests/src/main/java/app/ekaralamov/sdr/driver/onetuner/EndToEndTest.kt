@@ -24,7 +24,7 @@ class EndToEndTest {
 //            Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
 //        )
 
-        val getAccessRequestKey = buddyRule.buddy.requestAccess(TunerOne.DeviceName)
+        val getAccessRequestKey = buddyRule.buddy.requestAccess(TunerOne.Device)
 
         val getAccessResult = buddyRule.buddy.waitForAccess(getAccessRequestKey)
 

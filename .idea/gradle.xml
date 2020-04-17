@@ -18,6 +18,7 @@
             <option value="$PROJECT_DIR$/kotest" />
             <option value="$PROJECT_DIR$/libusb" />
             <option value="$PROJECT_DIR$/operations" />
+            <option value="$PROJECT_DIR$/presentation" />
             <option value="$PROJECT_DIR$/rtl-sdr" />
             <option value="$PROJECT_DIR$/testbuddy" />
             <option value="$PROJECT_DIR$/testbuddyinterface" />

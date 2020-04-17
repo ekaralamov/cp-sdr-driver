@@ -1,0 +1,7 @@
+import app.ekaralamov.gradle.BaseKotlinLibraryPlugin
+
+new BaseKotlinLibraryPlugin().apply(project)
+
+dependencies {
+    implementation project(':operations')
+}

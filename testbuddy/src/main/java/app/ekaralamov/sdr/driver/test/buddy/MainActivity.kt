@@ -3,7 +3,7 @@ package app.ekaralamov.sdr.driver.test.buddy
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import app.ekaralamov.sdr.driver.GetTunerAccessDeviceNameExtra
+import app.ekaralamov.sdr.driver.GetTunerAccessDeviceExtra
 import app.ekaralamov.sdr.driver.client.getTunerAccessIntent
 
 class MainActivity : Activity() {
@@ -15,14 +15,13 @@ class MainActivity : Activity() {
             startActivityForResult(
                 getTunerAccessIntent(
                     checkNotNull(
-                        intent.getStringExtra(
-                            GetTunerAccessDeviceNameExtra
+                        intent.getParcelableExtra(
+                            GetTunerAccessDeviceExtra
                         )
                     )
                 ),
                 0
             )
-//        contentResolver.delete(intent.data ?: throw IllegalArgumentException(), null, null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -7,17 +7,16 @@ import android.net.Uri
 import androidx.test.platform.app.InstrumentationRegistry
 
 object Tuner {
-    fun contentUri(vendorID: Int, productID: Int): Uri {
-        val deviceName = findDevice(vendorID = vendorID, productID = productID).deviceName
+    fun contentUri(device: UsbDevice): Uri {
         return Uri.Builder()
             .scheme("content")
             .authority(
                 InstrumentationRegistry.getInstrumentation().targetContext
                     .getString(R.string.prinos_sdr_driver_authority)
             )
-            .appendPath(vendorID.toString(16))
-            .appendPath(productID.toString(16))
-            .appendPath(deviceName)
+            .appendPath(device.vendorId.toString(16))
+            .appendPath(device.productId.toString(16))
+            .appendPath(device.deviceName)
             .build()
     }
 

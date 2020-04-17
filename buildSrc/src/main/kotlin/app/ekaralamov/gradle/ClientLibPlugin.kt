@@ -17,7 +17,7 @@ class BaseClientLibPlugin : Plugin<Project> {
             setCompileSdkVersion(versionOf<Int>("CompileSdk"))
 
             defaultConfig {
-                setMinSdkVersion(1)
+                setMinSdkVersion(12)
                 setTargetSdkVersion(versionOf<Int>("CompileSdk"))
             }
         }
