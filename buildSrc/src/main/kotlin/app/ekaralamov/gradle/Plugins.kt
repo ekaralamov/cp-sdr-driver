@@ -9,6 +9,7 @@ import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 class BaseApplicationPlugin : BaseKotlinPlugin() {
     override fun apply(project: Project) = with(project) {
@@ -66,7 +67,16 @@ open class BaseKotlinPlugin : BasePlugin() {
                     name = "core-ktx",
                     version = "1.2.0"
                 )
+                invoke(
+                    group = "org.jetbrains.kotlinx",
+                    name = "kotlinx-coroutines-core",
+                    version = "1.3.5"
+                )
             }
+        }
+
+        tasks.withType(KotlinCompile::class.java).configureEach {
+            kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
         }
     }
 }

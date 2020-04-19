@@ -2,6 +2,7 @@ import org.gradle.internal.extensibility.DefaultExtraPropertiesExtension
 
 rootProject.extensions.add('Versions', new DefaultExtraPropertiesExtension().tap {
     Kotlin = '1.3.71'
+    Lifecycle = '2.2.0'
 
     CompileSdk = 29
     MinSdk = 23
