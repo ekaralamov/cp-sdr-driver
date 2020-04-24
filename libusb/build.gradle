@@ -1,6 +1,4 @@
-import app.ekaralamov.gradle.BaseLibraryPlugin
-
-new BaseLibraryPlugin().apply(project)
+apply plugin: 'app.ekaralamov.library'
 
 def LibUsbSourceRoot = file('libusb')
 

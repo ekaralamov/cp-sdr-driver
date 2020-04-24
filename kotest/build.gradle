@@ -1,8 +1,5 @@
-import app.ekaralamov.gradle.BaseKotlinPlugin
-
 apply plugin: 'com.android.library'
-
-new BaseKotlinPlugin().apply(project)
+apply plugin: 'app.ekaralamov.kotlin'
 
 dependencies {
     api 'io.kotest:kotest-runner-junit5-jvm:4.0.2'

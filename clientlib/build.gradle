@@ -1,6 +1,4 @@
-import app.ekaralamov.gradle.BaseClientLibPlugin
-
-new BaseClientLibPlugin().apply(project)
+apply plugin: 'app.ekaralamov.clientlib'
 
 dependencies {
     api project(':clientshared')

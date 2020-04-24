@@ -1,6 +1,4 @@
-import app.ekaralamov.gradle.BaseApplicationPlugin
-
-new BaseApplicationPlugin().apply(project)
+apply plugin: 'app.ekaralamov.application'
 
 android {
     defaultConfig {

@@ -1,6 +1,4 @@
-import app.ekaralamov.gradle.BaseTestPlugin
-
-new BaseTestPlugin().apply(project)
+apply plugin: 'app.ekaralamov.test'
 
 android {
     targetProjectPath ':app'

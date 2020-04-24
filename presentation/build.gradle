@@ -1,9 +1,11 @@
-import app.ekaralamov.gradle.BaseKotlinLibraryPlugin
-
-new BaseKotlinLibraryPlugin().apply(project)
+apply plugin: 'app.ekaralamov.kotlin.library'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
+    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$Versions.AssistedInject"
 
-    implementation project(':operations')
+    api project(':operations')
+
+    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$Versions.AssistedInject"
 }

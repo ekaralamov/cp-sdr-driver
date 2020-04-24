@@ -3,11 +3,13 @@ import org.gradle.internal.extensibility.DefaultExtraPropertiesExtension
 rootProject.extensions.add('Versions', new DefaultExtraPropertiesExtension().tap {
     Kotlin = '1.3.71'
     Lifecycle = '2.2.0'
+    Dagger = '2.27'
+    AssistedInject = '0.5.2'
 
     CompileSdk = 29
     MinSdk = 23
 })
 
 rootProject.extensions.add('Deps', new DefaultExtraPropertiesExtension().tap {
-    JUnit = "junit:junit:4.13"
+    JUnit = 'junit:junit:4.13'
 })

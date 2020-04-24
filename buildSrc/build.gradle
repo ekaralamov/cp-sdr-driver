@@ -1,0 +1,52 @@
+plugins {
+    id 'org.gradle.kotlin.kotlin-dsl' version "1.2.9"
+}
+
+apply from: '../dependencies.gradle'
+
+repositories {
+    google()
+    jcenter()
+}
+
+dependencies {
+    implementation("com.android.tools.build:gradle:3.6.3")
+    implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$rootProject.Versions.Kotlin")
+}
+
+gradlePlugin {
+    plugins {
+        myApplication {
+            id = "app.ekaralamov.application"
+            implementationClass = "app.ekaralamov.gradle.ApplicationPlugin"
+        }
+        myTest {
+            id = "app.ekaralamov.test"
+            implementationClass = "app.ekaralamov.gradle.TestPlugin"
+        }
+        myKotlinLibrary {
+            id = "app.ekaralamov.kotlin.library"
+            implementationClass = "app.ekaralamov.gradle.KotlinLibraryPlugin"
+        }
+        myKotlin {
+            id = "app.ekaralamov.kotlin"
+            implementationClass = "app.ekaralamov.gradle.KotlinPlugin"
+        }
+        myLibrary {
+            id = "app.ekaralamov.library"
+            implementationClass = "app.ekaralamov.gradle.LibraryPlugin"
+        }
+        myBase {
+            id = "app.ekaralamov.base"
+            implementationClass = "app.ekaralamov.gradle.BasePlugin"
+        }
+        myClientLib {
+            id = "app.ekaralamov.clientlib"
+            implementationClass = "app.ekaralamov.gradle.ClientLibPlugin"
+        }
+        myExposeJavaDependencies {
+            id = "app.ekaralamov.exposejavadependencies"
+            implementationClass = "app.ekaralamov.gradle.ExposeJavaDependencies"
+        }
+    }
+}

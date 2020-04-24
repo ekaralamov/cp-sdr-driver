@@ -1,6 +1,6 @@
-import app.ekaralamov.gradle.BaseApplicationPlugin
-
-new BaseApplicationPlugin().apply(project)
+apply plugin: 'app.ekaralamov.application'
+apply plugin: 'app.ekaralamov.exposejavadependencies'
+apply plugin: 'kotlin-kapt'
 
 android {
     defaultConfig {
@@ -24,9 +24,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.activity:activity:1.1.0'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$Versions.Lifecycle"
     testImplementation Deps.JUnit
 
     implementation project(':rtl-sdr')
+    implementation project(':presentation')
     api project(':clientshared')
+
+    kapt "com.google.dagger:dagger-compiler:$Versions.Dagger"
 }

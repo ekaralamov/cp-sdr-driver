@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
 
-class BaseClientLibPlugin : Plugin<Project> {
+class ClientLibPlugin : Plugin<Project> {
     override fun apply(project: Project) = with(project) {
         apply(plugin = "com.android.library")
         apply(plugin = "kotlin-android")
