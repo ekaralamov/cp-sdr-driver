@@ -24,13 +24,15 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.activity:activity:1.1.0'
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$Versions.Lifecycle"
-    testImplementation Deps.JUnit
+    implementation project(':permissions:shell')
+    implementation project(':permissions:shell:operations')
+    implementation project(':permissions:presentation')
+    implementation project(':permissions:usecases')
+    implementation project(':permissions:operations')
+    implementation project(':opening:shell')
+    implementation project(':opening:shell:operations')
+    implementation project(':opening:usecases')
+    implementation project(':opening:operations')
 
-    implementation project(':rtl-sdr')
-    implementation project(':presentation')
-    api project(':clientshared')
-
-    kapt "com.google.dagger:dagger-compiler:$Versions.Dagger"
+    kapt Deps.DaggerProcessor
 }

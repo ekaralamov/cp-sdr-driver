@@ -12,4 +12,6 @@ rootProject.extensions.add('Versions', new DefaultExtraPropertiesExtension().tap
 
 rootProject.extensions.add('Deps', new DefaultExtraPropertiesExtension().tap {
     JUnit = 'junit:junit:4.13'
+    DaggerApi = "com.google.dagger:dagger:$Versions.Dagger"
+    DaggerProcessor = "com.google.dagger:dagger-compiler:$Versions.Dagger"
 })

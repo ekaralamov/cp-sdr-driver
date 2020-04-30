@@ -1,0 +1,6 @@
+apply plugin: 'app.ekaralamov.kotlin.library'
+
+dependencies {
+    implementation project(':opening:usecases')
+    implementation project(':opening:shell:clientshared')
+}

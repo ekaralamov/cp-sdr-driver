@@ -1,0 +1,7 @@
+apply plugin: 'app.ekaralamov.kotlin.library'
+
+dependencies {
+    api Deps.DaggerApi
+
+    implementation project(':permissions:operations')
+}

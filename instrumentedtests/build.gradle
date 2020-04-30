@@ -12,7 +12,7 @@ android {
 dependencies {
     implementation 'androidx.test.ext:junit:1.1.1'
     implementation 'androidx.test.espresso:espresso-core:3.2.0'
-    implementation project(':testbuddyinterface')
+    implementation project(':instrumentedtests:buddy:interface')
 
-    androidTestUtil project(configuration: "exposedApk", path: ':testbuddy')
+    androidTestUtil project(configuration: "exposedApk", path: ':instrumentedtests:buddy')
 }

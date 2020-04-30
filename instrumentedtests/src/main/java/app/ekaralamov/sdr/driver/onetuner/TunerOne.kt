@@ -8,4 +8,6 @@ object TunerOne {
     private const val ProductID = 0x2832
 
     val Device = Tuner.findDevice(vendorID = VendorID, productID = ProductID)
+
+    val ContentUri = Tuner.contentUri(Device)
 }

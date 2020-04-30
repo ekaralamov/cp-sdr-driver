@@ -1,7 +1,7 @@
 package app.ekaralamov.sdr.driver.di
 
-import app.ekaralamov.sdr.driver.DevicePermissionService
-import app.ekaralamov.sdr.driver.DriverApplication
+import android.content.Context
+import android.hardware.usb.UsbManager
 import dagger.Module
 import dagger.Provides
 
@@ -9,6 +9,6 @@ import dagger.Provides
 object AppModule {
 
     @Provides
-    fun provideDevicePermissionService(): DevicePermissionService =
-        DriverApplication.appComponent.injectTheDevicePermissionService()
+    fun Context.provideUsbManager(): UsbManager =
+        getSystemService(Context.USB_SERVICE) as UsbManager
 }

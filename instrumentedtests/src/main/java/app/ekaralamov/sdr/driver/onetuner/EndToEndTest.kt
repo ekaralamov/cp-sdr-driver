@@ -26,7 +26,7 @@ class EndToEndTest {
 
         val getAccessRequestKey = buddyRule.buddy.requestAccess(TunerOne.Device)
 
-        val getAccessResult = buddyRule.buddy.waitForAccess(getAccessRequestKey)
+        val getAccessResult = buddyRule.buddy.waitForResult(getAccessRequestKey)
 
         assertThat(getAccessResult, equalTo(Activity.RESULT_OK))
     }

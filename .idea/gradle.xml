@@ -13,15 +13,29 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/clientlib" />
-            <option value="$PROJECT_DIR$/clientshared" />
             <option value="$PROJECT_DIR$/instrumentedtests" />
+            <option value="$PROJECT_DIR$/instrumentedtests/buddy" />
+            <option value="$PROJECT_DIR$/instrumentedtests/buddy/interface" />
             <option value="$PROJECT_DIR$/kotest" />
             <option value="$PROJECT_DIR$/libusb" />
-            <option value="$PROJECT_DIR$/operations" />
-            <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/opening" />
+            <option value="$PROJECT_DIR$/opening/entities" />
+            <option value="$PROJECT_DIR$/opening/entities/clientshared" />
+            <option value="$PROJECT_DIR$/opening/operations" />
+            <option value="$PROJECT_DIR$/opening/shell" />
+            <option value="$PROJECT_DIR$/opening/shell/clientshared" />
+            <option value="$PROJECT_DIR$/opening/shell/operations" />
+            <option value="$PROJECT_DIR$/opening/usecases" />
+            <option value="$PROJECT_DIR$/permissions" />
+            <option value="$PROJECT_DIR$/permissions/clientlib" />
+            <option value="$PROJECT_DIR$/permissions/entities" />
+            <option value="$PROJECT_DIR$/permissions/operations" />
+            <option value="$PROJECT_DIR$/permissions/presentation" />
+            <option value="$PROJECT_DIR$/permissions/shell" />
+            <option value="$PROJECT_DIR$/permissions/shell/clientshared" />
+            <option value="$PROJECT_DIR$/permissions/shell/operations" />
+            <option value="$PROJECT_DIR$/permissions/usecases" />
             <option value="$PROJECT_DIR$/rtl-sdr" />
-            <option value="$PROJECT_DIR$/testbuddy" />
-            <option value="$PROJECT_DIR$/testbuddyinterface" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
