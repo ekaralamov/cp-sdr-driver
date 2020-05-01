@@ -44,7 +44,7 @@ final prepareCppImportsLinksDir = tasks.create('prepareCppImportsLinksDir', Dele
 }
 
 final createCppApiImportsLinks = tasks.create('createCppApiImportsLinks') {
-    dependsOn prepareCppImportsLinksDir
+    dependsOn prepareCppImportsLinksDir, cppApiImportsConf
     doLast {
         Files.createDirectory(CppApiImportsLinksDir)
         def n = 0
@@ -55,7 +55,7 @@ final createCppApiImportsLinks = tasks.create('createCppApiImportsLinks') {
 }
 
 final createCppImportLibNamesLinks = tasks.create('createCppImportLibNamesLinks') {
-    dependsOn prepareCppImportsLinksDir
+    dependsOn prepareCppImportsLinksDir, cppImportLibNamesConf
     doLast {
         Files.createDirectory(CppImportLibNamesLinksDir)
         def n = 0
@@ -67,17 +67,17 @@ final createCppImportLibNamesLinks = tasks.create('createCppImportLibNamesLinks'
 
 class CreateCppRuntimeImportsLinks extends DefaultTask {
     @Inject
-    CreateCppRuntimeImportsLinks(BaseVariant variant, java.nio.file.Path cppRuntimeImportsLinksDir) {
+    CreateCppRuntimeImportsLinks(
+        BaseVariant variant,
+        Configuration jniRuntimeDependenciesConf,
+        java.nio.file.Path cppRuntimeImportsLinksDir
+    ) {
+        dependsOn jniRuntimeDependenciesConf
         doLast {
-            Files.createDirectory(cppRuntimeImportsLinksDir)
             final variantDir = cppRuntimeImportsLinksDir.resolve(variant.name)
-            Files.createDirectory(variantDir)
+            Files.createDirectories(variantDir)
             def n = 0
-            variant.runtimeConfiguration.incoming.artifactView {
-                it.attributes {
-                    it.attribute(Attribute.of("artifactType", String.class), "android-jni")
-                }
-            }.files.each {
+            jniRuntimeDependenciesConf.incoming.files.each {
                 Files.createSymbolicLink(variantDir.resolve(++n as String), it.toPath())
             }
         }
@@ -92,10 +92,23 @@ android {
     externalNativeBuild.cmake.path new File(RtlSdrSourceRoot, 'CMakeLists.txt')
 
     libraryVariants.all { variant ->
+        final jniRuntimeDependenciesConf = configurations.create("${variant.name}JniRuntimeDependencies") {
+            canBeConsumed = false
+            canBeResolved = true
+
+            extendsFrom variant.runtimeConfiguration
+
+            variant.runtimeConfiguration.attributes.keySet().each {
+                attributes.attribute(it, variant.runtimeConfiguration.attributes.getAttribute(it))
+            }
+            attributes.attribute(Attribute.of("artifactType", String.class), "android-jni")
+        }
+
         final createCppRuntimeImportsLinks = tasks.create(
             "${variant.name}CreateCppRuntimeImportsLinks",
             CreateCppRuntimeImportsLinks,
             variant,
+            jniRuntimeDependenciesConf,
             CppRuntimeImportsLinksDir
         )
         createCppRuntimeImportsLinks.dependsOn prepareCppImportsLinksDir
@@ -107,5 +120,5 @@ android {
 }
 
 dependencies {
-    implementation project(':libusb')
+    implementation project(':opening:operations:libusb')
 }

@@ -2,4 +2,5 @@ apply plugin: 'app.ekaralamov.kotlin.library'
 
 dependencies {
     api project(':opening:entities')
+    implementation project(':opening:operations:rtl-sdr')
 }

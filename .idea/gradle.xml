@@ -17,11 +17,12 @@
             <option value="$PROJECT_DIR$/instrumentedtests/buddy" />
             <option value="$PROJECT_DIR$/instrumentedtests/buddy/interface" />
             <option value="$PROJECT_DIR$/kotest" />
-            <option value="$PROJECT_DIR$/libusb" />
             <option value="$PROJECT_DIR$/opening" />
             <option value="$PROJECT_DIR$/opening/entities" />
             <option value="$PROJECT_DIR$/opening/entities/clientshared" />
             <option value="$PROJECT_DIR$/opening/operations" />
+            <option value="$PROJECT_DIR$/opening/operations/libusb" />
+            <option value="$PROJECT_DIR$/opening/operations/rtl-sdr" />
             <option value="$PROJECT_DIR$/opening/shell" />
             <option value="$PROJECT_DIR$/opening/shell/clientshared" />
             <option value="$PROJECT_DIR$/opening/shell/operations" />
@@ -35,7 +36,6 @@
             <option value="$PROJECT_DIR$/permissions/shell/clientshared" />
             <option value="$PROJECT_DIR$/permissions/shell/operations" />
             <option value="$PROJECT_DIR$/permissions/usecases" />
-            <option value="$PROJECT_DIR$/rtl-sdr" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
