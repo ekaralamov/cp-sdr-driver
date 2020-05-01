@@ -2,9 +2,10 @@ package app.ekaralamov.sdr.driver.opening
 
 import dagger.Module
 import dagger.Provides
+import dagger.Subcomponent
 
 @Module
-object OpeningOperationsModule {
+object OperationsModule {
 
     @Provides
     fun provideDeviceLocator(): DeviceLocator =
@@ -13,6 +14,7 @@ object OpeningOperationsModule {
 
 object OpeningOperationsComponent {
 
+    @Subcomponent
     interface Interface {
 
         fun injectTheDeviceLocator(): TheDeviceLocator

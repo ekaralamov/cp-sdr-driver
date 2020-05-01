@@ -1,0 +1,10 @@
+apply plugin: 'app.ekaralamov.kotlin.library'
+apply plugin: 'kotlin-kapt'
+
+dependencies {
+    api Deps.DaggerApi
+    implementation project(':permissions:shell:operations')
+    implementation project(':permissions:operations')
+
+    kapt Deps.DaggerProcessor
+}

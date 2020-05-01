@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/opening/shell" />
             <option value="$PROJECT_DIR$/opening/shell/clientshared" />
             <option value="$PROJECT_DIR$/opening/shell/operations" />
+            <option value="$PROJECT_DIR$/opening/shell/operations/di" />
             <option value="$PROJECT_DIR$/opening/usecases" />
             <option value="$PROJECT_DIR$/permissions" />
             <option value="$PROJECT_DIR$/permissions/clientlib" />
@@ -35,6 +36,7 @@
             <option value="$PROJECT_DIR$/permissions/shell" />
             <option value="$PROJECT_DIR$/permissions/shell/clientshared" />
             <option value="$PROJECT_DIR$/permissions/shell/operations" />
+            <option value="$PROJECT_DIR$/permissions/shell/operations/di" />
             <option value="$PROJECT_DIR$/permissions/usecases" />
           </set>
         </option>

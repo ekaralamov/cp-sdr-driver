@@ -2,5 +2,6 @@ apply plugin: 'app.ekaralamov.kotlin.library'
 
 dependencies {
     implementation project(':opening:usecases')
-    implementation project(':opening:shell:clientshared')
+    api project(':opening:shell:clientshared')
+    implementation project(':opening:shell:operations:di')
 }

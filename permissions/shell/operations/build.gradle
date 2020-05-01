@@ -1,5 +1,4 @@
 apply plugin: 'app.ekaralamov.kotlin.library'
-apply plugin: 'kotlin-kapt'
 
 android.testOptions.unitTests.includeAndroidResources = true
 
@@ -11,6 +10,4 @@ dependencies {
     testImplementation "com.google.truth:truth:1.0.1"
 
     implementation project(':permissions:operations')
-
-    kapt Deps.DaggerProcessor
 }

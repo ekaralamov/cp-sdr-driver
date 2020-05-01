@@ -2,9 +2,10 @@ package app.ekaralamov.sdr.driver.permissions
 
 import dagger.Module
 import dagger.Provides
+import dagger.Subcomponent
 
 @Module
-object PermissionsOperationsModule {
+object OperationsModule {
 
     @Provides
     fun provideDevicePermissionService(): DevicePermissionService =
@@ -13,6 +14,7 @@ object PermissionsOperationsModule {
 
 object PermissionsOperationsComponent {
 
+    @Subcomponent
     interface Interface {
 
         fun injectTheDevicePermissionService(): TheDevicePermissionService

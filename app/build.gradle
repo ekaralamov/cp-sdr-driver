@@ -25,12 +25,14 @@ android {
 
 dependencies {
     implementation project(':permissions:shell')
+    implementation project(':permissions:shell:operations:di')
     implementation project(':permissions:shell:operations')
     implementation project(':permissions:presentation')
     implementation project(':permissions:usecases')
     implementation project(':permissions:operations')
     implementation project(':opening:shell')
     implementation project(':opening:shell:operations')
+    implementation project(':opening:shell:operations:di')
     implementation project(':opening:usecases')
     implementation project(':opening:operations')
 

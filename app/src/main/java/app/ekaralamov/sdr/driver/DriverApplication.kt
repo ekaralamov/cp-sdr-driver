@@ -12,11 +12,11 @@ class DriverApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        DaggerAppComponent.factory().create(this).let {
-            OpeningOperationsComponent.setInstance(it)
-            OpeningComponent.setInstance(it)
-            PermissionsComponent.setInstance(it)
-            PermissionsOperationsComponent.setInstance(it)
+        DaggerAppComponent.factory().create(this).run {
+            OpeningOperationsComponent.setInstance(injectOpeningOperationsComponent())
+            OpeningComponent.setInstance(injectOpeningComponent())
+            PermissionsComponent.setInstance(injectPermissionsComponent())
+            PermissionsOperationsComponent.setInstance(injectPermissionsOperationsComponent())
         }
     }
 }
