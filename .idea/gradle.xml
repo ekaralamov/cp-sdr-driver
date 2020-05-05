@@ -13,6 +13,13 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/clientlib" />
+            <option value="$PROJECT_DIR$/common" />
+            <option value="$PROJECT_DIR$/common/entities" />
+            <option value="$PROJECT_DIR$/common/entities/clientshared" />
+            <option value="$PROJECT_DIR$/common/operations" />
+            <option value="$PROJECT_DIR$/common/shell" />
+            <option value="$PROJECT_DIR$/common/shell/operations" />
+            <option value="$PROJECT_DIR$/common/shell/operations/di" />
             <option value="$PROJECT_DIR$/instrumentedtests" />
             <option value="$PROJECT_DIR$/instrumentedtests/buddy" />
             <option value="$PROJECT_DIR$/instrumentedtests/buddy/interface" />
@@ -31,6 +38,7 @@
             <option value="$PROJECT_DIR$/permissions" />
             <option value="$PROJECT_DIR$/permissions/clientlib" />
             <option value="$PROJECT_DIR$/permissions/entities" />
+            <option value="$PROJECT_DIR$/permissions/entities/clientshared" />
             <option value="$PROJECT_DIR$/permissions/operations" />
             <option value="$PROJECT_DIR$/permissions/presentation" />
             <option value="$PROJECT_DIR$/permissions/shell" />

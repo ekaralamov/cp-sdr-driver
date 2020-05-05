@@ -17,12 +17,12 @@ import org.junit.runner.RunWith
 import org.robolectric.Shadows
 
 @RunWith(AndroidJUnit4::class)
-class TheDevicePermissionServiceTest {
+class ThePlatformDevicePermissionAuthorityTest {
 
     private lateinit var context: Application
     private lateinit var pendingIntentSlot: CapturingSlot<PendingIntent>
 
-    private lateinit var sut: TheDevicePermissionService
+    private lateinit var sut: ThePlatformDevicePermissionAuthority
 
     private val device = mockk<UsbDevice> {
         every { vendorId } returns 1
@@ -40,13 +40,13 @@ class TheDevicePermissionServiceTest {
             every { requestPermission(device, capture(pendingIntentSlot)) } just Runs
         }
 
-        sut = TheDevicePermissionService(context, usbManager)
+        sut = ThePlatformDevicePermissionAuthority(context, usbManager)
     }
 
     @Test
     fun permissionGranted() {
         val testContainer = coroutineTestRule.run {
-            sut.getDevicePermission(device)
+            sut.getPermissionFor(device)
         }
         pendingIntentSlot.captured.send(context, 0, Intent().apply {
             putExtra(UsbManager.EXTRA_DEVICE, device)
@@ -58,7 +58,7 @@ class TheDevicePermissionServiceTest {
     @Test
     fun permissionDenied() {
         val testContainer = coroutineTestRule.run {
-            sut.getDevicePermission(device)
+            sut.getPermissionFor(device)
         }
         pendingIntentSlot.captured.send(context, 0, Intent().apply {
             putExtra(UsbManager.EXTRA_DEVICE, device)
@@ -70,7 +70,7 @@ class TheDevicePermissionServiceTest {
     @Test
     fun anotherDevice() {
         val testContainer = coroutineTestRule.run {
-            sut.getDevicePermission(device)
+            sut.getPermissionFor(device)
         }
         pendingIntentSlot.captured.send(context, 0, Intent().apply {
             putExtra(UsbManager.EXTRA_DEVICE, mockk<UsbDevice>())
@@ -82,7 +82,7 @@ class TheDevicePermissionServiceTest {
     @Test
     fun cancel() {
         val testContainer = coroutineTestRule.run {
-            sut.getDevicePermission(device)
+            sut.getPermissionFor(device)
         }
         testContainer.cancel()
         assertThat(Shadows.shadowOf(context).registeredReceivers).isEmpty()

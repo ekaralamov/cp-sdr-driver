@@ -18,10 +18,7 @@ class CoroutineTestRule : TestRule {
             try {
                 base.evaluate()
             } finally {
-                containersList.forEach {
-                    it.cancel()
-                    it.close()
-                }
+                containersList.forEach { it.close() }
             }
         }
     }

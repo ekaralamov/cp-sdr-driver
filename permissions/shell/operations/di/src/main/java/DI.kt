@@ -8,8 +8,8 @@ import dagger.Subcomponent
 object OperationsModule {
 
     @Provides
-    fun provideDevicePermissionService(): DevicePermissionService =
-        PermissionsOperationsComponent.instance.injectTheDevicePermissionService()
+    fun providePlatformDevicePermissionAuthority(): PlatformDevicePermissionAuthority =
+        PermissionsOperationsComponent.instance.injectThePlatformDevicePermissionAuthority()
 }
 
 object PermissionsOperationsComponent {
@@ -17,7 +17,7 @@ object PermissionsOperationsComponent {
     @Subcomponent
     interface Interface {
 
-        fun injectTheDevicePermissionService(): TheDevicePermissionService
+        fun injectThePlatformDevicePermissionAuthority(): ThePlatformDevicePermissionAuthority
     }
 
     internal lateinit var instance: Interface

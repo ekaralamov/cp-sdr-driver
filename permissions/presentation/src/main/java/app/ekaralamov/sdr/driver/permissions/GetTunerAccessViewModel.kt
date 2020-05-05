@@ -5,21 +5,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.launch
 
 class GetTunerAccessViewModel @AssistedInject constructor(
-    private val getDevicePermission: GetDevicePermission,
-    @Assisted private val device: UsbDevice
+    @Assisted private val clientPackageName: String,
+    @Assisted private val device: UsbDevice,
+    private val getTunerAccess: GetTunerAccess
 ) : ViewModel() {
 
     @AssistedInject.Factory
     interface Factory {
 
-        fun create(device: UsbDevice): GetTunerAccessViewModel
+        fun create(clientPackageName: String, device: UsbDevice): GetTunerAccessViewModel
     }
 
     private val _outcomeChannel = Channel<Boolean>()
@@ -27,8 +27,12 @@ class GetTunerAccessViewModel @AssistedInject constructor(
         get() = _outcomeChannel
 
     init {
-        viewModelScope.launch(Dispatchers.Unconfined) {
-            getDevicePermission(device).sendVia(_outcomeChannel)
+        viewModelScope.launch {
+            (getTunerAccess(
+                clientPackageName,
+                device
+            ) == GetTunerAccess.Result.DeviceAccess.Granted)
+                .sendVia(_outcomeChannel)
         }
     }
 

@@ -44,7 +44,10 @@ class KotlinPlugin : Plugin<Project> {
         }
 
         tasks.withType(KotlinCompile::class.java).configureEach {
-            kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            kotlinOptions.freeCompilerArgs += arrayOf(
+                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xopt-in=kotlin.time.ExperimentalTime"
+            )
         }
     }
 }

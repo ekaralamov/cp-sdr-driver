@@ -1,0 +1,5 @@
+apply plugin: 'app.ekaralamov.kotlin.library'
+
+dependencies {
+    api project(':common:entities:clientshared')
+}

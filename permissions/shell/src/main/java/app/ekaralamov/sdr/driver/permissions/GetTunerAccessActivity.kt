@@ -6,9 +6,8 @@ import androidx.activity.ComponentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class GetTunerAccessActivity : ComponentActivity() {
 
@@ -22,18 +21,30 @@ class GetTunerAccessActivity : ComponentActivity() {
             return
         }
 
+        val clientPackageName = callingPackage
+        if (clientPackageName == null) {
+            Timber.d("must be started for result")
+            finish()
+            return
+        }
+
         @Suppress("UNCHECKED_CAST")
         val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>) = when (modelClass) {
-                GetTunerAccessViewModel::class.java -> PermissionsComponent.instance
-                    .injectGetTunerAccessViewModelFactory().create(device)
-                else -> throw Exception("unknown view model type")
-            } as T
+            override fun <T : ViewModel> create(modelClass: Class<T>) =
+                when (modelClass) {
+                    GetTunerAccessViewModel::class.java -> {
+                        PermissionsComponent.instance.injectGetTunerAccessViewModelFactory()
+                            .create(clientPackageName, device)
+                    }
+                    else -> {
+                        throw Exception("unknown view model type")
+                    }
+                } as T
         })
 
         val getTunerAccessViewModel = viewModelProvider.get(GetTunerAccessViewModel::class.java)
 
-        lifecycleScope.launch(Dispatchers.Main, CoroutineStart.UNDISPATCHED) {
+        lifecycleScope.launch {
             val result =
                 if (getTunerAccessViewModel.outcomeChannel.receive())
                     RESULT_OK

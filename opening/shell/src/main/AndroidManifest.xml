@@ -9,8 +9,7 @@
         <provider
             android:name=".TunerContentProvider"
             android:authorities="@string/prinos_sdr_driver_authority"
-            android:exported="false"
-            android:grantUriPermissions="true"
+            android:exported="true"
             />
 
     </application>

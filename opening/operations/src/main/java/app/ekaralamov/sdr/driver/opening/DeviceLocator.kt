@@ -1,16 +1,14 @@
 package app.ekaralamov.sdr.driver.opening
 
 import android.hardware.usb.UsbDevice
-import android.net.Uri
 import java.io.FileNotFoundException
+import javax.inject.Inject
 
-interface DeviceLocator {
+class DeviceLocator @Inject constructor(private val platformDeviceLocator: PlatformDeviceLocator) {
 
-    operator fun get(path: String): UsbDevice
+    fun getDeviceFor(address: DeviceAddress): UsbDevice =
+        platformDeviceLocator.getDeviceFor(address.path).apply {
+            if (vendorId != address.vendorId || productId != address.productId)
+                throw FileNotFoundException("$this does not match $address")
+        }
 }
-
-internal operator fun DeviceLocator.get(address: DeviceAddress): UsbDevice =
-    get(address.path).apply {
-        if (vendorId != address.vendorId || productId != address.productId)
-            throw FileNotFoundException("$this does not match $address")
-    }

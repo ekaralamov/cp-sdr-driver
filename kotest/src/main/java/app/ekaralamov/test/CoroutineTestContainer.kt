@@ -17,6 +17,7 @@ class CoroutineTestContainer<T>(
     fun cancel() = deferredResult.cancel()
 
     fun close() {
+        cancel()
         supervisorJob.complete()
     }
 

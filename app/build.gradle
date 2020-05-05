@@ -24,6 +24,8 @@ android {
 }
 
 dependencies {
+    implementation Deps.Timber
+
     implementation project(':permissions:shell')
     implementation project(':permissions:shell:operations:di')
     implementation project(':permissions:shell:operations')
@@ -35,6 +37,9 @@ dependencies {
     implementation project(':opening:shell:operations:di')
     implementation project(':opening:usecases')
     implementation project(':opening:operations')
+    implementation project(':common:operations')
+    implementation project(':common:shell:operations')
+    implementation project(':common:shell:operations:di')
 
     kapt Deps.DaggerProcessor
 }

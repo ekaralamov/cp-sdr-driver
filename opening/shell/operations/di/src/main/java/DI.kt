@@ -8,8 +8,8 @@ import dagger.Subcomponent
 object OperationsModule {
 
     @Provides
-    fun provideDeviceLocator(): DeviceLocator =
-        OpeningOperationsComponent.instance.injectTheDeviceLocator()
+    fun providePlatformDeviceLocator(): PlatformDeviceLocator =
+        OpeningOperationsComponent.instance.injectThePlatformDeviceLocator()
 }
 
 object OpeningOperationsComponent {
@@ -17,7 +17,7 @@ object OpeningOperationsComponent {
     @Subcomponent
     interface Interface {
 
-        fun injectTheDeviceLocator(): TheDeviceLocator
+        fun injectThePlatformDeviceLocator(): ThePlatformDeviceLocator
     }
 
     internal lateinit var instance: Interface

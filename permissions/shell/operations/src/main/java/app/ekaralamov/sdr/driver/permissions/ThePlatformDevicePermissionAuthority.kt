@@ -10,12 +10,12 @@ import android.hardware.usb.UsbManager
 import kotlinx.coroutines.channels.Channel
 import javax.inject.Inject
 
-class TheDevicePermissionService @Inject constructor(
+class ThePlatformDevicePermissionAuthority @Inject constructor(
     private val context: Context,
     private val usbManager: UsbManager
-) : DevicePermissionService {
+) : PlatformDevicePermissionAuthority {
 
-    override suspend fun getDevicePermission(device: UsbDevice): Boolean {
+    override suspend fun getPermissionFor(device: UsbDevice): Boolean {
         val channel = Channel<Boolean>(Channel.CONFLATED)
         val broadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) = with(intent) {
