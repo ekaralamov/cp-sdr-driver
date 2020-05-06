@@ -34,17 +34,7 @@ class GetTunerAccessSpec : DescribeSpec({
             sut("client package name", device)
         }
 
-        it("waits for client permission resolution retrieval") {
-            retrieveClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
-        }
-
-        describe("when cancelled while waiting for client permission resolution retrieval") {
-            testContainer.cancel()
-
-            it("cancels the permission resolution call") {
-                retrieveClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
-            }
-        }
+        itCallsFor("client permission resolution retrieval", retrieveClientPermissionPrompter, testContainer)
 
         describe("when permission storage responds") {
 
@@ -83,17 +73,11 @@ class GetTunerAccessSpec : DescribeSpec({
                                 permissionDeniedPermanentlyContinuation()
                             }
 
-                            it("calls for storing client permission permanently denied resolution and waits for it to complete") {
-                                storeClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
-                            }
-
-                            describe("when cancelled while waiting for client permission resolution storing") {
-                                testContainer.cancel()
-
-                                it("cancels the permission resolution call") {
-                                    storeClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
-                                }
-                            }
+                            itCallsFor(
+                                "storing client permission permanently denied resolution",
+                                storeClientPermissionPrompter,
+                                testContainer
+                            )
 
                             describe("when the client permission resolution is stored") {
                                 storeClientPermissionPrompter.prompt(Unit).thatsIt()
@@ -124,17 +108,11 @@ class GetTunerAccessSpec : DescribeSpec({
                             askForClientPermission.permissionDeniedContinuation()
                         }
 
-                        it("calls for storing client permission denied resolution and waits for it to complete") {
-                            storeClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
-                        }
-
-                        describe("when cancelled while waiting for client permission resolution storing") {
-                            testContainer.cancel()
-
-                            it("cancels the permission resolution call") {
-                                storeClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
-                            }
-                        }
+                        itCallsFor(
+                            "storing client permission denied resolution",
+                            storeClientPermissionPrompter,
+                            testContainer
+                        )
 
                         describe("when the client permission resolution is stored") {
                             storeClientPermissionPrompter.prompt(Unit).thatsIt()
@@ -161,17 +139,11 @@ class GetTunerAccessSpec : DescribeSpec({
                             askForClientPermission.permissionGrantedContinuation()
                         }
 
-                        it("calls for storing client permission granted resolution and waits for it to complete") {
-                            storeClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
-                        }
-
-                        describe("when cancelled while waiting for client permission resolution storing") {
-                            testContainer.cancel()
-
-                            it("cancels the permission resolution call") {
-                                storeClientPermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
-                            }
-                        }
+                        itCallsFor(
+                            "storing client permission granted resolution",
+                            storeClientPermissionPrompter,
+                            testContainer
+                        )
 
                         describe("when the client permission resolution is stored") {
                             val platformDevicePermissionAuthority =
@@ -183,17 +155,7 @@ class GetTunerAccessSpec : DescribeSpec({
 
                             storeClientPermissionPrompter.prompt(Unit).thatsIt()
 
-                            it("waits for device permission") {
-                                devicePermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
-                            }
-
-                            describe("when cancelled while waiting for device permission") {
-                                testContainer.cancel()
-
-                                it("cancels the device permission call") {
-                                    devicePermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
-                                }
-                            }
+                            itCallsFor("obtaining device permission", devicePermissionPrompter, testContainer)
 
                             describe("when device permission") {
                                 forAll(
@@ -229,17 +191,7 @@ class GetTunerAccessSpec : DescribeSpec({
                 retrieveClientPermissionPrompter.prompt(ClientPermissionResolution.Permanent.Granted)
                     .thatsIt()
 
-                it("waits for device permission") {
-                    devicePermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
-                }
-
-                describe("when cancelled while waiting for device permission") {
-                    testContainer.cancel()
-
-                    it("cancels the device permission call") {
-                        devicePermissionPrompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
-                    }
-                }
+                itCallsFor("obtaining device permission", devicePermissionPrompter, testContainer)
 
                 describe("when device permission") {
                     forAll(
