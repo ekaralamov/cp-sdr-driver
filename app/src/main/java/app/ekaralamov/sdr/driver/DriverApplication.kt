@@ -1,6 +1,7 @@
 package app.ekaralamov.sdr.driver
 
 import android.app.Application
+import android.content.Context
 import app.ekaralamov.sdr.driver.di.DaggerAppComponent
 import app.ekaralamov.sdr.driver.opening.OpeningComponent
 import app.ekaralamov.sdr.driver.opening.OpeningOperationsComponent
@@ -10,13 +11,13 @@ import timber.log.Timber
 
 class DriverApplication : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
 
         Timber.plant(Timber.DebugTree())
 
-        DaggerAppComponent.factory().create(this).apply {
-            OpeningOperationsComponent.setInstance(injectOpeningOperationsComponent())
+        DaggerAppComponent.factory().create(base).apply {
+            OpeningOperationsComponent.instance = injectOpeningOperationsComponent()
             OpeningComponent.setInstance(injectOpeningComponent())
             PermissionsComponent.setInstance(injectPermissionsComponent())
             PermissionsOperationsComponent.setInstance(injectPermissionsOperationsComponent())

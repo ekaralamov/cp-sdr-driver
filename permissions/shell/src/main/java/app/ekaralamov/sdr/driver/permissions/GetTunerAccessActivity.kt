@@ -14,9 +14,9 @@ class GetTunerAccessActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val device: UsbDevice? = intent.getParcelableExtra(GetTunerAccessConstants.DeviceExtra)
+        val device: UsbDevice? = intent.getParcelableExtra(TunerAccessClient.DeviceExtra)
         if (device == null) {
-            setResult(GetTunerAccessConstants.Result.IllegalArgument)
+            setResult(TunerAccessClient.Result.IllegalArgument)
             finish()
             return
         }
@@ -49,7 +49,7 @@ class GetTunerAccessActivity : ComponentActivity() {
                 if (getTunerAccessViewModel.outcomeChannel.receive())
                     RESULT_OK
                 else
-                    GetTunerAccessConstants.Result.AccessDenied
+                    TunerAccessClient.Result.AccessDenied
             setResult(result)
             finish()
         }

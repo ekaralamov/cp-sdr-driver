@@ -5,9 +5,9 @@ android.testOptions.unitTests.includeAndroidResources = true
 dependencies {
     api Deps.DaggerApi
     testImplementation project(":kotest")
-    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation Deps.AndroidJUnit
     testImplementation 'org.robolectric:robolectric:4.3'
-    testImplementation "com.google.truth:truth:1.0.1"
+    testImplementation Deps.Truth
 
     implementation project(':permissions:operations')
 }

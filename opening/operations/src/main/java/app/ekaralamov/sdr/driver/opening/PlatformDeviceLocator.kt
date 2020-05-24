@@ -4,5 +4,5 @@ import android.hardware.usb.UsbDevice
 
 interface PlatformDeviceLocator {
 
-    fun getDeviceFor(path: String): UsbDevice
+    fun getDeviceFor(address: DeviceAddress): UsbDevice
 }

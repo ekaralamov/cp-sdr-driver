@@ -9,7 +9,9 @@ import app.ekaralamov.sdr.driver.permissions.PermissionsComponent
 import app.ekaralamov.sdr.driver.permissions.PermissionsOperationsComponent
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(modules = [AppModule::class, CommonOperationsModule::class])
 interface AppComponent : CommonOperationsComponent.Interface {
 

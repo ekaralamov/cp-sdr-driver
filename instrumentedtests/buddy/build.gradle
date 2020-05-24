@@ -1,25 +1,6 @@
-apply plugin: 'app.ekaralamov.application'
-
-android {
-    defaultConfig {
-        applicationId "app.ekaralamov.sdr.driver.test.buddy"
-    }
-}
+apply plugin: 'app.ekaralamov.kotlin.library'
 
 dependencies {
     implementation project(':instrumentedtests:buddy:interface')
     implementation project(':clientlib')
-}
-
-afterEvaluate {
-    configurations {
-        create('exposedApk') {
-            canBeConsumed = true
-            canBeResolved = false
-
-            outgoing.artifact(new File(buildDir, "outputs/apk/debug/buddy-debug.apk")) {
-                builtBy(tasks.getByName('assembleDebug'))
-            }
-        }
-    }
 }

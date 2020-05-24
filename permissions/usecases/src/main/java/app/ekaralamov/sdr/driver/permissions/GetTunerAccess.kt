@@ -6,6 +6,8 @@ import app.ekaralamov.sdr.driver.ClientPermissionStorage
 import javax.inject.Inject
 import javax.inject.Provider
 
+// TODO synchronize permission granting with permission revoking via mutex
+
 class GetTunerAccess @Inject constructor(
     private val clientPermissionStorage: ClientPermissionStorage,
     private val platformDevicePermissionAuthorityProvider: Provider<PlatformDevicePermissionAuthority>

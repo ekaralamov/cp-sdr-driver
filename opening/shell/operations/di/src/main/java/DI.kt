@@ -1,10 +1,12 @@
 package app.ekaralamov.sdr.driver.opening
 
+import android.hardware.usb.UsbDevice
+import app.ekaralamov.sdr.driver.TunerAccessToken
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
 
-@Module
+@Module(includes = [OperationsAssistModule::class])
 object OperationsModule {
 
     @Provides
@@ -18,11 +20,9 @@ object OpeningOperationsComponent {
     interface Interface {
 
         fun injectThePlatformDeviceLocator(): ThePlatformDeviceLocator
+
+        fun injectAccessTokenRegistry(): TunerAccessToken.Registry<UsbDevice, TunerSession>
     }
 
-    internal lateinit var instance: Interface
-
-    fun setInstance(instance: Interface) {
-        this.instance = instance
-    }
+    lateinit var instance: Interface
 }

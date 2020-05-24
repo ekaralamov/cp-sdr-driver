@@ -33,6 +33,10 @@ class TunerContentProvider : ContentProvider() {
     override fun getType(p0: Uri) = throw UnsupportedOperationException()
 
     override fun openFile(uri: Uri, mode: String): ParcelFileDescriptor? {
-        return null
+        return OpeningComponent.instance.injectOpenTuner()(
+            uri,
+            mode,
+            callingPackage ?: throw AssertionError()
+        )
     }
 }

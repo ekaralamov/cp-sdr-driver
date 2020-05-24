@@ -11,7 +11,7 @@ import app.ekaralamov.sdr.driver.test.buddy.Buddy
 import org.junit.rules.ExternalResource
 
 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
-class BuddyRule : ExternalResource(), ServiceConnection {
+class BuddyRule private constructor(private val id: String = "one") : ExternalResource(), ServiceConnection {
 
     private var _buddy: Buddy? = null
     val buddy: Buddy
@@ -21,7 +21,7 @@ class BuddyRule : ExternalResource(), ServiceConnection {
             else synchronized(this) {
                 _buddy ?: run {
                     (this as Object).wait(ConnectTimeout)
-                    _buddy ?: throw Exception("no connection to buddy service")
+                    _buddy ?: throw Exception("no connection to buddy $id service")
                 }
             }
 
@@ -29,7 +29,7 @@ class BuddyRule : ExternalResource(), ServiceConnection {
         val bound = InstrumentationRegistry.getInstrumentation().context.bindService(
             Intent().apply {
                 component = ComponentName(
-                    "app.ekaralamov.sdr.driver.test.buddy",
+                    "app.ekaralamov.sdr.driver.test.buddy.$id",
                     "app.ekaralamov.sdr.driver.test.buddy.MainService"
                 )
             },
@@ -37,7 +37,7 @@ class BuddyRule : ExternalResource(), ServiceConnection {
             Context.BIND_AUTO_CREATE or Context.BIND_IMPORTANT
         )
         if (!bound)
-            throw Exception("binding to buddy service failed")
+            throw Exception("binding to buddy $id service failed")
     }
 
     override fun after() {
@@ -57,5 +57,8 @@ class BuddyRule : ExternalResource(), ServiceConnection {
 
     companion object {
         const val ConnectTimeout = 10_000L
+
+        fun one() = BuddyRule("one")
+        fun two() = BuddyRule("two")
     }
 }

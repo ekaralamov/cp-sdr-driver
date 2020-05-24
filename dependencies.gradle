@@ -12,7 +12,11 @@ rootProject.extensions.add('Versions', new DefaultExtraPropertiesExtension().tap
 
 rootProject.extensions.add('Deps', new DefaultExtraPropertiesExtension().tap {
     JUnit = 'junit:junit:4.13'
+    AndroidJUnit = 'androidx.test.ext:junit:1.1.1'
     DaggerApi = "com.google.dagger:dagger:$Versions.Dagger"
     DaggerProcessor = "com.google.dagger:dagger-compiler:$Versions.Dagger"
+    AssisteInjectApi = "com.squareup.inject:assisted-inject-annotations-dagger2:$Versions.AssistedInject"
+    AssisteInjectProcessor = "com.squareup.inject:assisted-inject-processor-dagger2:$Versions.AssistedInject"
     Timber = 'com.jakewharton.timber:timber:4.7.1'
+    Truth = 'com.google.truth:truth:1.0.1'
 })

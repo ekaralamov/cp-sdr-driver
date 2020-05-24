@@ -7,10 +7,6 @@ allprojects {
     }
 }
 
-ext {
-    CppLibNamesUsage = "cplusplus-lib-names"
-}
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

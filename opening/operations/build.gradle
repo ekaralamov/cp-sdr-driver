@@ -1,7 +1,12 @@
 apply plugin: 'app.ekaralamov.kotlin.library'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
+    compileOnly Deps.AssisteInjectApi
+
     api project(':opening:entities')
     api project(':common:operations')
     implementation project(':opening:operations:rtl-sdr')
+
+    kapt Deps.AssisteInjectProcessor
 }

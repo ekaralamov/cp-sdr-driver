@@ -3,8 +3,8 @@ package app.ekaralamov.sdr.driver.test.buddy
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import app.ekaralamov.sdr.driver.permissions.GetTunerAccessConstants
-import app.ekaralamov.sdr.driver.permissions.getTunerAccessIntent
+import app.ekaralamov.sdr.driver.permissions.TunerAccessClient
+import app.ekaralamov.sdr.driver.permissions.intent
 
 class AccessWantingActivity : Activity() {
 
@@ -13,10 +13,10 @@ class AccessWantingActivity : Activity() {
 
         if (savedInstanceState == null)
             startActivityForResult(
-                getTunerAccessIntent(
+                TunerAccessClient.intent(
                     checkNotNull(
                         intent.getParcelableExtra(
-                            GetTunerAccessConstants.DeviceExtra
+                            TunerAccessClient.DeviceExtra
                         )
                     )
                 ),

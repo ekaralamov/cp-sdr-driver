@@ -2,4 +2,5 @@ apply plugin: 'app.ekaralamov.clientlib'
 
 dependencies {
     api project(':permissions:clientlib')
+    api project(':opening:clientlib')
 }

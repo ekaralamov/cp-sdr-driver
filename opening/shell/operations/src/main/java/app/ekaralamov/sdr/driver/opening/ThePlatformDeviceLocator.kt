@@ -7,6 +7,6 @@ import javax.inject.Inject
 class ThePlatformDeviceLocator @Inject constructor(private val usbManager: UsbManager) :
     PlatformDeviceLocator {
 
-    override fun getDeviceFor(path: String) = usbManager.deviceList[path]
-        ?: throw FileNotFoundException("no USB device at the specified path: $path")
+    override fun getDeviceFor(address: DeviceAddress) = usbManager.deviceList[address.path]
+        ?: throw FileNotFoundException("no USB device at the specified path: ${address.path}")
 }

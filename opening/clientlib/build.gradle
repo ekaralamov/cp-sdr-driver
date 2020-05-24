@@ -1,0 +1,5 @@
+apply plugin: 'app.ekaralamov.clientlib'
+
+dependencies {
+    api project(':opening:shell:clientshared')
+}

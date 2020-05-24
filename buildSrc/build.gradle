@@ -36,6 +36,14 @@ gradlePlugin {
             id = "app.ekaralamov.library"
             implementationClass = "app.ekaralamov.gradle.LibraryPlugin"
         }
+        myNativeExport {
+            id = "app.ekaralamov.library.nativeexport"
+            implementationClass = "app.ekaralamov.gradle.NativeExport"
+        }
+        myNativeImport {
+            id = "app.ekaralamov.library.nativeimport"
+            implementationClass = "app.ekaralamov.gradle.NativeImport"
+        }
         myBase {
             id = "app.ekaralamov.base"
             implementationClass = "app.ekaralamov.gradle.BasePlugin"

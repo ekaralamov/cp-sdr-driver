@@ -3,11 +3,11 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
-    compileOnly "com.squareup.inject:assisted-inject-annotations-dagger2:$Versions.AssistedInject"
+    compileOnly Deps.AssisteInjectApi
     api Deps.DaggerApi
 
     implementation project(':permissions:usecases')
     api project(':common:entities:clientshared')
 
-    kapt "com.squareup.inject:assisted-inject-processor-dagger2:$Versions.AssistedInject"
+    kapt Deps.AssisteInjectProcessor
 }

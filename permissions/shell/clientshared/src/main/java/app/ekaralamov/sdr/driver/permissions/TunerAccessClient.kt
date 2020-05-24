@@ -2,7 +2,7 @@ package app.ekaralamov.sdr.driver.permissions
 
 import android.app.Activity
 
-object GetTunerAccessConstants {
+object TunerAccessClient {
 
     const val DeviceExtra =
         "app.ekaralamov.sdr.driver.permissions.GetTunerAccessActivity.device"

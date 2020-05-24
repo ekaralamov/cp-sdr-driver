@@ -19,6 +19,10 @@ class TestPlugin : Plugin<Project> {
                 testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             }
 
+            packagingOptions {
+                exclude("META-INF/*.kotlin_module")
+            }
+
             applicationVariants.all {
                 val variant: ApplicationVariant = this
                 val configuration = configurations.create("${variant.name}TargetJavaDependencies") {

@@ -5,4 +5,4 @@ import dagger.Module
 
 @AssistedModule
 @Module(includes = [AssistedInject_PresentationModule::class])
-abstract class PresentationModule
+object PresentationModule

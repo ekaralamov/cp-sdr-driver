@@ -10,9 +10,13 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.test.ext:junit:1.1.1'
+    implementation Deps.AndroidJUnit
     implementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+    implementation Deps.Truth
+
     implementation project(':instrumentedtests:buddy:interface')
 
-    androidTestUtil project(configuration: "exposedApk", path: ':instrumentedtests:buddy')
+    androidTestUtil project(configuration: "exposedApk", path: ':instrumentedtests:buddy:buddy1')
+    androidTestUtil project(configuration: "exposedApk", path: ':instrumentedtests:buddy:buddy2')
 }

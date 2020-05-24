@@ -7,4 +7,8 @@ interface Buddy {
     int requestAccess(in UsbDevice device);
 
     int waitForResult(int requestKey);
+
+    ParcelFileDescriptor openCommandsChannel(in UsbDevice device);
+
+    ParcelFileDescriptor openDataChannel(in UsbDevice device);
 }
