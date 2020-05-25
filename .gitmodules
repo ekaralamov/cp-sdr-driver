@@ -2,5 +2,5 @@
 	path = opening/operations/libusb/libusb
 	url = https://github.com/libusb/libusb.git
 [submodule "rtl-sdr"]
-	path = opening/operations/rtl-sdr/rtl-sdr
+	path = opening/operations/rtl-sdr2
 	url = git://git.osmocom.org/rtl-sdr.git

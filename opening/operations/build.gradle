@@ -1,12 +1,22 @@
 apply plugin: 'app.ekaralamov.kotlin.library'
+apply plugin: 'app.ekaralamov.library.nativeimport'
 apply plugin: 'kotlin-kapt'
+
+android {
+    externalNativeBuild.cmake.path 'rtl-sdr2/CMakeLists.txt'
+
+    defaultConfig.externalNativeBuild.cmake {
+        arguments "-DANDROID_STL=c++_shared"
+        targets "rtlsdr_shared"
+    }
+}
 
 dependencies {
     compileOnly Deps.AssisteInjectApi
 
     api project(':opening:entities')
     api project(':common:operations')
-    implementation project(':opening:operations:rtl-sdr')
+    implementation project(':opening:operations:libusb')
 
     kapt Deps.AssisteInjectProcessor
 }

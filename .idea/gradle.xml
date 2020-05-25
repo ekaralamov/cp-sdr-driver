@@ -32,7 +32,6 @@
             <option value="$PROJECT_DIR$/opening/entities/clientshared" />
             <option value="$PROJECT_DIR$/opening/operations" />
             <option value="$PROJECT_DIR$/opening/operations/libusb" />
-            <option value="$PROJECT_DIR$/opening/operations/rtl-sdr" />
             <option value="$PROJECT_DIR$/opening/shell" />
             <option value="$PROJECT_DIR$/opening/shell/clientshared" />
             <option value="$PROJECT_DIR$/opening/shell/operations" />

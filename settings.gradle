@@ -1,6 +1,5 @@
 rootProject.name = 'SDR Driver'
 include ':app'
-include ':opening:operations:rtl-sdr'
 include ':opening:operations:libusb'
 include ':instrumentedtests:buddy'
 include ':instrumentedtests:buddy:buddy1'
