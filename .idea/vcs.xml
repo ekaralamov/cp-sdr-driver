@@ -3,6 +3,6 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/opening/operations/libusb/libusb" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/opening/operations/rtl-sdr2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/opening/operations/rtl-sdr" vcs="Git" />
   </component>
 </project>

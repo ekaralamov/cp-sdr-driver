@@ -3,7 +3,7 @@ apply plugin: 'app.ekaralamov.library.nativeimport'
 apply plugin: 'kotlin-kapt'
 
 android {
-    externalNativeBuild.cmake.path 'rtl-sdr2/CMakeLists.txt'
+    externalNativeBuild.cmake.path 'rtl-sdr/CMakeLists.txt'
 
     defaultConfig.externalNativeBuild.cmake {
         arguments "-DANDROID_STL=c++_shared"
