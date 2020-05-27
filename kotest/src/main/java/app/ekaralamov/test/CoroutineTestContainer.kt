@@ -23,21 +23,27 @@ class CoroutineTestContainer<T>(
 
     companion object {
 
-        suspend fun <T> run(block: suspend CoroutineScope.() -> T): CoroutineTestContainer<T> =
-            run(block, checkNotNull(coroutineContext[Job]))
+        suspend fun <T> run(
+            dispatcher: CoroutineDispatcher = TestDispatcher,
+            block: suspend CoroutineScope.() -> T
+        ): CoroutineTestContainer<T> =
+            run(checkNotNull(coroutineContext[Job]), dispatcher, block)
 
         fun <T> runOrphan(block: suspend CoroutineScope.() -> T): CoroutineTestContainer<T> =
-            run(block, null)
+            run(null, TestDispatcher, block)
 
         private fun <T> run(
-            block: suspend CoroutineScope.() -> T,
-            parent: Job?
+            parent: Job?,
+            dispatcher: CoroutineDispatcher,
+            block: suspend CoroutineScope.() -> T
         ): CoroutineTestContainer<T> {
             val supervisorJob = SupervisorJob(parent)
             return CoroutineTestContainer(
                 supervisorJob,
-                GlobalScope.async(TestCoroutineDispatcher() + supervisorJob, block = block)
+                GlobalScope.async(dispatcher + supervisorJob, block = block)
             )
         }
     }
 }
+
+val TestDispatcher = TestCoroutineDispatcher()

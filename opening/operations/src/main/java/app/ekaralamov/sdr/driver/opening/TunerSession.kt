@@ -1,8 +1,6 @@
 package app.ekaralamov.sdr.driver.opening
 
 import android.hardware.usb.UsbDevice
-import android.hardware.usb.UsbDeviceConnection
-import android.hardware.usb.UsbManager
 import android.os.ParcelFileDescriptor
 import app.ekaralamov.sdr.driver.PermissionRevokedException
 import app.ekaralamov.sdr.driver.TunerAccessToken
@@ -14,24 +12,17 @@ import javax.inject.Named
 import kotlin.concurrent.withLock
 
 class TunerSession @AssistedInject constructor(
-    @Assisted device: UsbDevice,
-    usbManager: UsbManager,
-    @Named("IO") private val ioDispatcher: CoroutineDispatcher
+    @Assisted private val nativeSession: NativeTunerSession,
+    @Named("IO") private val pumpDispatcher: CoroutineDispatcher,
+    @Named("Default") private val releaseTokenDispatcher: CoroutineDispatcher
 ) : TunerAccessToken.Session {
 
     @AssistedInject.Factory
     interface Factory {
 
-        fun create(device: UsbDevice): TunerSession
+        fun create(nativeSession: NativeTunerSession): TunerSession
     }
 
-    private val connection: UsbDeviceConnection = usbManager.openDevice(device) ?: throw Exception()
-    private var nativeHandle = NativeCalls.open(connection.fileDescriptor).also {
-        if (it <= 0) {
-            connection.close()
-            throw Exception()
-        }
-    }
     private val lock = ReentrantLock()
 
     private var commandsPipe: Pipe? = null
@@ -42,54 +33,45 @@ class TunerSession @AssistedInject constructor(
     private var dataPumping: Job? = null
     private val dataClosed = lock.newCondition()
 
+    private var closing = false
+
     @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun close() {
-        var savedNativeHandle = 0L
         lock.withLock {
-            if (nativeHandle == 0L)
+            if (closing)
                 throw AssertionError("closing should be managed by TunerAccessToken and should happen only once")
-            savedNativeHandle = nativeHandle
-            nativeHandle = 0L
-        }
+            closing = true
 
-        try {
-            NativeCalls.stopDataPump(savedNativeHandle)
             dataPipe?.close()
             commandsPipe?.close()
-
-            try {
-                commandsPumping?.join()
-            } catch (cancellationException: CancellationException) {
-                // ignore
-            }
-            try {
-                dataPumping?.join()
-            } catch (cancellationException: CancellationException) {
-                // ignore
-            }
-
-            NativeCalls.close(savedNativeHandle)
-            connection.close()
-        } catch (throwable: Throwable) {
-            throw AssertionError(throwable)
         }
+
+        nativeSession.stopDataPump()
+
+        commandsPumping?.join()
+        dataPumping?.join()
+
+        nativeSession.close()
     }
 
     fun startCommandsPump(accessToken: TunerAccessToken<UsbDevice, TunerSession>): ParcelFileDescriptor =
         lock.withLock {
             try {
-                if (nativeHandle == 0L) throw PermissionRevokedException()
-                if (commandsPipe != null) commandsClosed.await()
-                commandsPipe = Pipe()
-                commandsPumping = GlobalScope.launch(ioDispatcher) {
+                if (closing) throw PermissionRevokedException()
+                if (commandsPipe != null) {
+                    commandsClosed.await()
+                    if (closing) {
+                        commandsClosed.signal()
+                        throw PermissionRevokedException()
+                    }
+                }
+                val pipe = Pipe()
+                commandsPipe = pipe
+                commandsPumping = GlobalScope.launch(pumpDispatcher) {
                     try {
-                        NativeCalls.pumpCommands(
-                            nativeSessionHandle = nativeHandle,
-                            inputFD = commandsPipe!!.input.fd
-                        )
+                        nativeSession.pumpCommands(inputFD = commandsPipe!!.input.fd)
                     } finally {
-                        commandsPumping!!.cancel()
-                        accessToken.release()
+                        release(accessToken)
 
                         commandsPipe!!.close()
                         lock.withLock {
@@ -98,9 +80,9 @@ class TunerSession @AssistedInject constructor(
                         }
                     }
                 }
-                commandsPipe!!.output
+                pipe.output
             } catch (throwable: Throwable) {
-                GlobalScope.launch { accessToken.release() }
+                release(accessToken)
                 throw throwable
             }
         }
@@ -108,18 +90,21 @@ class TunerSession @AssistedInject constructor(
     fun startDataPump(accessToken: TunerAccessToken<UsbDevice, TunerSession>): ParcelFileDescriptor =
         lock.withLock {
             try {
-                if (nativeHandle == 0L) throw PermissionRevokedException()
-                if (dataPipe != null) dataClosed.await()
-                dataPipe = Pipe()
-                dataPumping = GlobalScope.launch(ioDispatcher) {
+                if (closing) throw PermissionRevokedException()
+                if (dataPipe != null) {
+                    dataClosed.await()
+                    if (closing) {
+                        dataClosed.signal()
+                        throw PermissionRevokedException()
+                    }
+                }
+                val pipe = Pipe()
+                dataPipe = pipe
+                dataPumping = GlobalScope.launch(pumpDispatcher) {
                     try {
-                        NativeCalls.pumpData(
-                            nativeSessionHandle = nativeHandle,
-                            outputFD = dataPipe!!.output.fd
-                        )
+                        nativeSession.pumpData(dataPipe!!.output.fd)
                     } finally {
-                        dataPumping!!.cancel()
-                        accessToken.release()
+                        release(accessToken)
 
                         dataPipe!!.close()
                         lock.withLock {
@@ -128,12 +113,16 @@ class TunerSession @AssistedInject constructor(
                         }
                     }
                 }
-                dataPipe!!.input
+                pipe.input
             } catch (throwable: Throwable) {
-                GlobalScope.launch { accessToken.release() }
+                release(accessToken)
                 throw throwable
             }
         }
+
+    private fun release(accessToken: TunerAccessToken<UsbDevice, TunerSession>) {
+        GlobalScope.launch(releaseTokenDispatcher) { accessToken.release() }
+    }
 }
 
 private inline class Pipe(private val descriptors: Array<ParcelFileDescriptor>) {

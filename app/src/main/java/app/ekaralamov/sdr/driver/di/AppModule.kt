@@ -22,6 +22,10 @@ object AppModule {
     fun provideIODispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
+    @Named("Default")
+    fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+
+    @Provides
     fun provideAccessTokenRegistry(): TunerAccessToken.Registry<*, *> =
         OpeningOperationsComponent.instance.injectAccessTokenRegistry()
 }
