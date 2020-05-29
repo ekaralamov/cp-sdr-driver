@@ -58,12 +58,10 @@ class TunerSession @AssistedInject constructor(
         lock.withLock {
             try {
                 if (closing) throw PermissionRevokedException()
-                if (commandsPipe != null) {
-                    commandsClosed.await()
-                    if (closing) {
-                        commandsClosed.signal()
-                        throw PermissionRevokedException()
-                    }
+                while (commandsPipe != null) commandsClosed.await()
+                if (closing) {
+                    commandsClosed.signal()
+                    throw PermissionRevokedException()
                 }
                 val pipe = Pipe()
                 commandsPipe = pipe
@@ -91,12 +89,10 @@ class TunerSession @AssistedInject constructor(
         lock.withLock {
             try {
                 if (closing) throw PermissionRevokedException()
-                if (dataPipe != null) {
-                    dataClosed.await()
-                    if (closing) {
-                        dataClosed.signal()
-                        throw PermissionRevokedException()
-                    }
+                while (dataPipe != null) dataClosed.await()
+                if (closing) {
+                    dataClosed.signal()
+                    throw PermissionRevokedException()
                 }
                 val pipe = Pipe()
                 dataPipe = pipe
