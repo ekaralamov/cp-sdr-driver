@@ -397,7 +397,12 @@ class TunerSessionSpec : DescribeSpec({
 
         unmockkStatic(ParcelFileDescriptor::class)
     }
-})
+}) {
+
+    private val failOnThreadExceptionListener = FailOnThreadExceptionListener()
+
+    override fun listeners() = listOf(failOnThreadExceptionListener)
+}
 
 private class MockPipe {
 
