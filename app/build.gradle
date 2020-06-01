@@ -21,6 +21,10 @@ android {
         notTesting
         buddy
     }
+
+    packagingOptions {
+        pickFirst 'lib/*/libusb.so'
+    }
 }
 
 dependencies {
