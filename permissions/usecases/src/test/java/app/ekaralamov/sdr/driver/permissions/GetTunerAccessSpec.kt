@@ -9,7 +9,6 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.data.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
-import io.mockk.coEvery
 import io.mockk.mockk
 import javax.inject.Provider
 
@@ -26,9 +25,9 @@ class GetTunerAccessSpec : DescribeSpec({
 
         val device = mockk<UsbDevice>()
 
-        val retrieveClientPermissionPrompter = answerPrompterFor(
-            coEvery { clientPermissionStorage.retrieveResolutionFor("client package name") }
-        )
+        val retrieveClientPermissionPrompter = AnswerPrompter.ofSuspend {
+            clientPermissionStorage.retrieveResolutionFor("client package name")
+        }
 
         val testContainer = CoroutineTestContainer.run {
             sut("client package name", device)
@@ -62,12 +61,12 @@ class GetTunerAccessSpec : DescribeSpec({
                         }
 
                         describe("when permission denied permanently continuation is invoked") {
-                            val storeClientPermissionPrompter = answerPrompterFor(coEvery {
+                            val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
                                 clientPermissionStorage.storeResolution(
                                     "client package name",
                                     ClientPermissionResolution.Permanent.Denied
                                 )
-                            })
+                            }
 
                             val testContainer = CoroutineTestContainer.run {
                                 permissionDeniedPermanentlyContinuation()
@@ -97,12 +96,12 @@ class GetTunerAccessSpec : DescribeSpec({
                         }
 
                     describe("when permission denied _not permanently_ continuation is invoked") {
-                        val storeClientPermissionPrompter = answerPrompterFor(coEvery {
+                        val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
                             clientPermissionStorage.storeResolution(
                                 "client package name",
                                 ClientPermissionResolution.Denied
                             )
-                        })
+                        }
 
                         val testContainer = CoroutineTestContainer.run {
                             askForClientPermission.permissionDeniedContinuation()
@@ -128,12 +127,12 @@ class GetTunerAccessSpec : DescribeSpec({
                     }
 
                     describe("when permission granted continuation is invoked") {
-                        val storeClientPermissionPrompter = answerPrompterFor(coEvery {
+                        val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
                             clientPermissionStorage.storeResolution(
                                 "client package name",
                                 ClientPermissionResolution.Permanent.Granted
                             )
-                        })
+                        }
 
                         val testContainer = CoroutineTestContainer.run {
                             askForClientPermission.permissionGrantedContinuation()
@@ -149,9 +148,9 @@ class GetTunerAccessSpec : DescribeSpec({
                             val platformDevicePermissionAuthority =
                                 mockk<PlatformDevicePermissionAuthority>()
                             one { platformDevicePermissionAuthorityProvider.get() } returns platformDevicePermissionAuthority
-                            val devicePermissionPrompter = answerPrompterFor(coEvery {
+                            val devicePermissionPrompter = AnswerPrompter.ofSuspend {
                                 platformDevicePermissionAuthority.getPermissionFor(device)
-                            })
+                            }
 
                             storeClientPermissionPrompter.prompt(Unit).thatsIt()
 
@@ -184,9 +183,9 @@ class GetTunerAccessSpec : DescribeSpec({
                 val platformDevicePermissionAuthority =
                     mockk<PlatformDevicePermissionAuthority>()
                 one { platformDevicePermissionAuthorityProvider.get() } returns platformDevicePermissionAuthority
-                val devicePermissionPrompter = answerPrompterFor(coEvery {
+                val devicePermissionPrompter = AnswerPrompter.ofSuspend {
                     platformDevicePermissionAuthority.getPermissionFor(device)
-                })
+                }
 
                 retrieveClientPermissionPrompter.prompt(ClientPermissionResolution.Permanent.Granted)
                     .thatsIt()

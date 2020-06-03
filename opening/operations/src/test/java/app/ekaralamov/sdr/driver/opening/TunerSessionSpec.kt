@@ -35,9 +35,7 @@ class TunerSessionSpec : DescribeSpec({
                 )
 
                 one { nativeSession.pumpCommands(pipe.inputFD) } just Runs
-                val releasePrompter = answerPrompterFor(
-                    coEvery { token.release() }
-                )
+                val releasePrompter = AnswerPrompter.ofSuspend{ token.release() }
 
                 val fd = sut.startCommandsPump(token)
 
@@ -83,17 +81,13 @@ class TunerSessionSpec : DescribeSpec({
                     delay(10)
 
                     describe("when pumping for first request ends") {
-                        val releasePrompter = answerPrompterFor(
-                            coEvery { token.release() }
-                        )
+                        val releasePrompter = AnswerPrompter.ofSuspend { token.release() }
 
                         val pipe2 = MockPipe()
                         one { ParcelFileDescriptor.createPipe() } returns pipe2.descriptors
                         one { nativeSession.pumpCommands(pipe2.inputFD) } just Runs
 
-                        val releasePrompter2 = answerPrompterFor(
-                            coEvery { token2.release() }
-                        )
+                        val releasePrompter2 = AnswerPrompter.ofSuspend { token2.release() }
 
                         latch.countDown()
                         delay(10)
@@ -220,9 +214,7 @@ class TunerSessionSpec : DescribeSpec({
                 )
 
                 one { nativeSession.pumpData(pipe.outputFD) } just Runs
-                val releasePrompter = answerPrompterFor(
-                    coEvery { token.release() }
-                )
+                val releasePrompter = AnswerPrompter.ofSuspend { token.release() }
 
                 val fd = sut.startDataPump(token)
 
@@ -268,17 +260,13 @@ class TunerSessionSpec : DescribeSpec({
                     delay(10)
 
                     describe("when pumping for first request ends") {
-                        val releasePrompter = answerPrompterFor(
-                            coEvery { token.release() }
-                        )
+                        val releasePrompter = AnswerPrompter.ofSuspend { token.release() }
 
                         val pipe2 = MockPipe()
                         one { ParcelFileDescriptor.createPipe() } returns pipe2.descriptors
                         one { nativeSession.pumpData(pipe2.outputFD) } just Runs
 
-                        val releasePrompter2 = answerPrompterFor(
-                            coEvery { token2.release() }
-                        )
+                        val releasePrompter2 = AnswerPrompter.ofSuspend { token2.release() }
 
                         latch.countDown()
                         delay(10)
