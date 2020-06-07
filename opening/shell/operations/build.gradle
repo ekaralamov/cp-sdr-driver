@@ -1,7 +1,11 @@
 apply plugin: 'app.ekaralamov.kotlin.library'
 
+android.testOptions.unitTests.includeAndroidResources = true
+
 dependencies {
     api Deps.DaggerApi
+    testImplementation Deps.AndroidJUnit
+    testImplementation 'org.robolectric:robolectric:4.3'
 
     implementation project(':opening:operations')
 }
