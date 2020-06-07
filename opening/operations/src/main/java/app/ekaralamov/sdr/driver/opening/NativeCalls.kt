@@ -1,6 +1,6 @@
 package app.ekaralamov.sdr.driver.opening
 
-object NativeCalls {
+internal object NativeCalls {
 
     init {
         System.loadLibrary("rtlsdr")
@@ -18,3 +18,9 @@ object NativeCalls {
 
     external fun close(nativeSessionHandle: Long)
 }
+
+fun isDeviceSupported(vendorID: Int, productID: Int) =
+    NativeCalls.isDeviceSupported(
+        vendorID = vendorID,
+        productID = productID
+    )

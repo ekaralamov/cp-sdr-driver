@@ -2,7 +2,8 @@ package app.ekaralamov.sdr.driver.opening
 
 import android.net.Uri
 
-inline class DeviceAddress(val path: String) {
+// Not inline, because of this MockK issue - https://github.com/mockk/mockk/issues/152
+/*inline*/data class DeviceAddress(val path: String) {
 
     companion object {
 
