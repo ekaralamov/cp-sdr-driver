@@ -19,4 +19,6 @@ rootProject.extensions.add('Deps', new DefaultExtraPropertiesExtension().tap {
     AssisteInjectProcessor = "com.squareup.inject:assisted-inject-processor-dagger2:$Versions.AssistedInject"
     Timber = 'com.jakewharton.timber:timber:4.7.1'
     Truth = 'com.google.truth:truth:1.0.1'
+    MockK = 'io.mockk:mockk:1.9.3'
+    Robolectric = 'org.robolectric:robolectric:4.3'
 })

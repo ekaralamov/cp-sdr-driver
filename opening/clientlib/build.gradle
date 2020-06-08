@@ -1,5 +1,14 @@
 apply plugin: 'app.ekaralamov.clientlib'
 
+android.testOptions.unitTests.includeAndroidResources = true
+
 dependencies {
+    testImplementation Deps.JUnit
+    testImplementation Deps.MockK
+    testImplementation Deps.Truth
+    testImplementation project(':opening:entities')
+    testImplementation Deps.AndroidJUnit
+    testImplementation Deps.Robolectric
+
     api project(':opening:shell:clientshared')
 }

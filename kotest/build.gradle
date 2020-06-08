@@ -3,7 +3,7 @@ apply plugin: 'app.ekaralamov.kotlin'
 
 dependencies {
     api 'io.kotest:kotest-runner-junit5-jvm:4.0.2'
-    api 'io.mockk:mockk:1.9.3'
+    api Deps.MockK
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5'
     api Deps.JUnit
     api Deps.Truth

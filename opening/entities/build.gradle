@@ -1,5 +1,10 @@
 apply plugin: 'app.ekaralamov.kotlin.library'
 
+android.testOptions.unitTests.includeAndroidResources = true
+
 dependencies {
+    testImplementation Deps.AndroidJUnit
+    testImplementation Deps.Robolectric
+
     api project(':opening:entities:clientshared')
 }

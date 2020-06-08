@@ -12,15 +12,7 @@ class ClientLibPlugin : Plugin<Project> {
     override fun apply(project: Project) = with(project) {
         apply(plugin = "com.android.library")
         apply(plugin = "kotlin-android")
-
-        configure<BaseExtension> {
-            setCompileSdkVersion(versionOf<Int>("CompileSdk"))
-
-            defaultConfig {
-                setMinSdkVersion(12)
-                setTargetSdkVersion(versionOf<Int>("CompileSdk"))
-            }
-        }
+        apply(plugin = "app.ekaralamov.base")
 
         dependencies {
             with(configurations["implementation"]) {
