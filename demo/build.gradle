@@ -1,0 +1,28 @@
+apply plugin: 'app.ekaralamov.application'
+
+android {
+    defaultConfig {
+        applicationId "app.ekaralamov.sdr.driver.demo"
+        versionCode 1
+        versionName "1.0"
+    }
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_STL=c++_shared"
+            }
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.media2:media2-session:1.0.3'
+    implementation 'com.google.oboe:oboe:1.4.2'
+    implementation project(':clientlib')
+}

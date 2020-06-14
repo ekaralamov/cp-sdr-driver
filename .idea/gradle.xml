@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/common/shell" />
             <option value="$PROJECT_DIR$/common/shell/operations" />
             <option value="$PROJECT_DIR$/common/shell/operations/di" />
+            <option value="$PROJECT_DIR$/demo" />
             <option value="$PROJECT_DIR$/instrumentedtests" />
             <option value="$PROJECT_DIR$/instrumentedtests/buddy" />
             <option value="$PROJECT_DIR$/instrumentedtests/buddy/buddy1" />
