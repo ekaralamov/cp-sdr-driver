@@ -4,7 +4,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.time.Duration
 
 @Singleton
 class TheClientPermissionStorage @Inject constructor() : ClientPermissionStorage {
@@ -19,10 +18,8 @@ class TheClientPermissionStorage @Inject constructor() : ClientPermissionStorage
     ) {
     }
 
-    override suspend fun retrievePermanentResolutions(): Flow<List<Pair<String, ClientPermissionResolution.Permanent>>> =
+    override fun retrievePermanentResolutions(): Flow<List<Pair<String, ClientPermissionResolution.Permanent>>> =
         emptyFlow()
 
     override suspend fun deleteResolutionFor(packageName: String) {}
-
-    override suspend fun deleteNonPermanentResolutions(olderThan: Duration) {}
 }

@@ -47,20 +47,20 @@ class GetTunerAccessSpec : DescribeSpec({
                 describe("with $responseDescription") {
                     retrieveClientPermissionPrompter.prompt(clientPermissionResponse).thatsIt()
 
-                    val askForClientPermission: GetTunerAccess.Result.AskForClientPermission by nosynchLazy {
-                        testContainer.getResult() as GetTunerAccess.Result.AskForClientPermission
+                    val grantPermissionToClientQuestion: GetTunerAccess.Result.GrantPermissionToClientQuestion by nosynchLazy {
+                        testContainer.getResult() as GetTunerAccess.Result.GrantPermissionToClientQuestion
                     }
 
                     if (permanentDenialOptionPresent) {
-                        val permissionDeniedPermanentlyContinuation: (suspend () -> Unit) by nosynchLazy {
-                            askForClientPermission.permissionDeniedPermanentlyContinuation!!
+                        val never: (suspend () -> Unit) by nosynchLazy {
+                            grantPermissionToClientQuestion.never!!
                         }
 
-                        it("returns AskForClientPermission with permanent denial option") {
-                            shouldNotThrowAny { permissionDeniedPermanentlyContinuation }
+                        it("returns `GrantPermissionToClientQuestion` with permanent denial option") {
+                            shouldNotThrowAny { never }
                         }
 
-                        describe("when permission denied permanently continuation is invoked") {
+                        describe("when permanent denial answer is given") {
                             val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
                                 clientPermissionStorage.storeResolution(
                                     "client package name",
@@ -69,7 +69,7 @@ class GetTunerAccessSpec : DescribeSpec({
                             }
 
                             val testContainer = CoroutineTestContainer.run {
-                                permissionDeniedPermanentlyContinuation()
+                                never()
                             }
 
                             itCallsFor(
@@ -91,11 +91,11 @@ class GetTunerAccessSpec : DescribeSpec({
                             testContainer.close()
                         }
                     } else
-                        it("returns AskForClientPermission without permanent denial option") {
-                            askForClientPermission.permissionDeniedPermanentlyContinuation shouldBe null
+                        it("returns `GrantPermissionToClientQuestion` without permanent denial option") {
+                            grantPermissionToClientQuestion.never shouldBe null
                         }
 
-                    describe("when permission denied _not permanently_ continuation is invoked") {
+                    describe("when _not_ permanent denial answer is given") {
                         val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
                             clientPermissionStorage.storeResolution(
                                 "client package name",
@@ -104,7 +104,7 @@ class GetTunerAccessSpec : DescribeSpec({
                         }
 
                         val testContainer = CoroutineTestContainer.run {
-                            askForClientPermission.permissionDeniedContinuation()
+                            grantPermissionToClientQuestion.no()
                         }
 
                         itCallsFor(
@@ -126,7 +126,7 @@ class GetTunerAccessSpec : DescribeSpec({
                         testContainer.close()
                     }
 
-                    describe("when permission granted continuation is invoked") {
+                    describe("when grant answer is given") {
                         val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
                             clientPermissionStorage.storeResolution(
                                 "client package name",
@@ -135,7 +135,7 @@ class GetTunerAccessSpec : DescribeSpec({
                         }
 
                         val testContainer = CoroutineTestContainer.run {
-                            askForClientPermission.permissionGrantedContinuation()
+                            grantPermissionToClientQuestion.yes()
                         }
 
                         itCallsFor(

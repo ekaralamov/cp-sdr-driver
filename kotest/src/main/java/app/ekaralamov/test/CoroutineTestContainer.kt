@@ -4,7 +4,7 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlin.coroutines.coroutineContext
 
-class CoroutineTestContainer<T>(
+class CoroutineTestContainer<T> private constructor(
     private val supervisorJob: CompletableJob,
     private val deferredResult: Deferred<T>
 ) {

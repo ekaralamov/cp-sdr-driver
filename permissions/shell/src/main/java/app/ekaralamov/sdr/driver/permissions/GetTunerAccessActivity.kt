@@ -46,7 +46,7 @@ class GetTunerAccessActivity : ComponentActivity() {
 
         lifecycleScope.launch {
             val result =
-                if (getTunerAccessViewModel.outcomeChannel.receive())
+                if (getTunerAccessViewModel.outcome() == GetTunerAccessViewModel.Outcome.Granted)
                     RESULT_OK
                 else
                     TunerAccessClient.Result.AccessDenied

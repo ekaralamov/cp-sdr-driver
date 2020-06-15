@@ -29,3 +29,21 @@ suspend fun DescribeSpecDsl.DescribeScope.itCallsFor(
         }
     }
 }
+
+suspend fun DescribeSpecDsl.DescribeScope.itInvokes(
+    callDesc: String,
+    prompter: AnswerPrompter<*>,
+    testContainer: ViewModelTestContainer
+) {
+    it("invokes $callDesc") {
+        prompter.lastCallState shouldBe AnswerPrompter.CallState.Waiting
+    }
+
+    describe("when cleared while waiting for $callDesc to complete") {
+        testContainer.clear()
+
+        it("cancels the $callDesc invocation") {
+            prompter.lastCallState shouldBe AnswerPrompter.CallState.Cancelled
+        }
+    }
+}
