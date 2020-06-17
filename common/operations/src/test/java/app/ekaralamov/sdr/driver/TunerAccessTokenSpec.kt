@@ -17,16 +17,16 @@ import kotlinx.coroutines.delay
 class TunerAccessTokenSpec : DescribeSpec({
 
     describe("TunerAccessToken.Registry") {
-        val permissionStorage = mockk<ClientPermissionStorage>()
+        val permissionRepository = mockk<ClientPermissionRepository>()
 
-        val sut = TunerAccessToken.Registry<Any, TunerAccessToken.Session>(permissionStorage)
+        val sut = TunerAccessToken.Registry<Any, TunerAccessToken.Session>(permissionRepository)
 
         describe("when a token is being acquired initially") {
             val address = Any()
             val sessionFactory = mockk<(Any) -> TunerAccessToken.Session>()
 
             context("permission has been granted to the calling package") {
-                coEvery { permissionStorage.retrieveResolutionFor("package") } returns ClientPermissionResolution.Permanent.Granted
+                coEvery { permissionRepository.retrieveResolutionFor("package") } returns ClientPermissionResolution.Permanent.Granted
                 val sessionPrompter = AnswerPrompter.of { sessionFactory(address) }
 
                 val testContainer = CoroutineTestContainer.run(Dispatchers.IO) {
@@ -139,7 +139,7 @@ class TunerAccessTokenSpec : DescribeSpec({
                 row(ClientPermissionResolution.Permanent.Denied)
             ) { permissionResolution ->
                 context("permission resolution for the calling package is $permissionResolution") {
-                    coOne { permissionStorage.retrieveResolutionFor("package") } returns permissionResolution
+                    coOne { permissionRepository.retrieveResolutionFor("package") } returns permissionResolution
 
                     it("throws SecurityException") {
                         shouldThrow<SecurityException> {
@@ -150,7 +150,7 @@ class TunerAccessTokenSpec : DescribeSpec({
             }
 
             context("permission resolution for the calling package can't be retrieved") {
-                coEvery { permissionStorage.retrieveResolutionFor("package") } throws Exception("test exception")
+                coEvery { permissionRepository.retrieveResolutionFor("package") } throws Exception("test exception")
 
                 it("throws exception") {
                     shouldThrowAny {

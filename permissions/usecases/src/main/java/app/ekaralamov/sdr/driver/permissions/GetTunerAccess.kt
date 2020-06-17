@@ -1,13 +1,13 @@
 package app.ekaralamov.sdr.driver.permissions
 
 import android.hardware.usb.UsbDevice
+import app.ekaralamov.sdr.driver.ClientPermissionRepository
 import app.ekaralamov.sdr.driver.ClientPermissionResolution
-import app.ekaralamov.sdr.driver.ClientPermissionStorage
 import javax.inject.Inject
 import javax.inject.Provider
 
 class GetTunerAccess @Inject constructor(
-    private val clientPermissionStorage: ClientPermissionStorage,
+    private val clientPermissionRepository: ClientPermissionRepository,
     private val platformDevicePermissionAuthorityProvider: Provider<PlatformDevicePermissionAuthority>
 ) {
 
@@ -30,7 +30,7 @@ class GetTunerAccess @Inject constructor(
             val never: (suspend () -> Unit)? =
                 if (permanentDenialOption) {
                     {
-                        useCase.clientPermissionStorage.storeResolution(
+                        useCase.clientPermissionRepository.storeResolution(
                             clientPackageName,
                             ClientPermissionResolution.Permanent.Denied
                         )
@@ -39,7 +39,7 @@ class GetTunerAccess @Inject constructor(
                     null
 
             suspend fun yes(): DeviceAccess = with(useCase) {
-                clientPermissionStorage.storeResolution(
+                clientPermissionRepository.storeResolution(
                     clientPackageName,
                     ClientPermissionResolution.Permanent.Granted
                 )
@@ -47,7 +47,7 @@ class GetTunerAccess @Inject constructor(
             }
 
             suspend fun no() {
-                useCase.clientPermissionStorage.storeResolution(
+                useCase.clientPermissionRepository.storeResolution(
                     clientPackageName,
                     ClientPermissionResolution.Denied
                 )
@@ -65,7 +65,7 @@ class GetTunerAccess @Inject constructor(
                 permanentDenialOption
             )
 
-        return when (clientPermissionStorage.retrieveResolutionFor(clientPackageName)) {
+        return when (clientPermissionRepository.retrieveResolutionFor(clientPackageName)) {
             null -> grantPermissionToClientQuestion(permanentDenialOption = false)
             ClientPermissionResolution.Denied -> grantPermissionToClientQuestion(permanentDenialOption = true)
             ClientPermissionResolution.Permanent.Denied -> Result.ClientPermissionDeniedPermanently

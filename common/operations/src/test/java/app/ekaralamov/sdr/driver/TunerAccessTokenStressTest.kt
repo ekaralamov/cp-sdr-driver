@@ -37,13 +37,13 @@ class TunerAccessTokenStressTest {
         val sessions = arrayOf(Session(), Session())
         val packageNames = arrayOf("package 1", "package 2")
 
-        val permissionStorage = mockk<ClientPermissionStorage> {
+        val permissionRepository = mockk<ClientPermissionRepository> {
             coEvery { retrieveResolutionFor("package 1") } returns ClientPermissionResolution.Permanent.Granted
             coEvery { retrieveResolutionFor("package 2") } returns ClientPermissionResolution.Permanent.Granted
             coEvery { retrieveResolutionFor("package 3") } returns null
         }
 
-        val sut = TunerAccessToken.Registry<Session, Session>(permissionStorage)
+        val sut = TunerAccessToken.Registry<Session, Session>(permissionRepository)
 
         val random = ThreadLocalRandom.current()
 

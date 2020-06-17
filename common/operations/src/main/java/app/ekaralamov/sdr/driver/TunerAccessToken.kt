@@ -20,7 +20,7 @@ class TunerAccessToken<Address, S : TunerAccessToken.Session> private constructo
 
     @Singleton
     class Registry<Address, S : Session> @Inject constructor(
-        private val permissionStorage: ClientPermissionStorage
+        private val permissionRepository: ClientPermissionRepository
     ) {
 
         private val map = ConcurrentHashMap<Address, TunerAccessToken<Address, S>>()
@@ -42,7 +42,7 @@ class TunerAccessToken<Address, S : TunerAccessToken.Session> private constructo
                     if (oldToken == null) {
                         try {
                             runBlocking {
-                                if (permissionStorage.retrieveResolutionFor(callingPackage) != ClientPermissionResolution.Permanent.Granted)
+                                if (permissionRepository.retrieveResolutionFor(callingPackage) != ClientPermissionResolution.Permanent.Granted)
                                     throw SecurityException("access denied")
                             }
                             freshToken._session = sessionFactory(deviceAddress)

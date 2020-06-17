@@ -1,6 +1,6 @@
 package app.ekaralamov.test
 
-import io.kotest.assertions.throwables.shouldThrowAny
+import io.kotest.assertions.throwables.shouldThrowMessage
 import io.kotest.core.spec.style.DescribeSpecDsl
 import io.kotest.matchers.shouldBe
 
@@ -24,8 +24,8 @@ suspend fun DescribeSpecDsl.DescribeScope.itCallsFor(
     describe("when the outstanding call throws") {
         prompter.prompt(Exception("test exception"))
 
-        it("throws") {
-            shouldThrowAny { testContainer.getResult() }
+        it("passes the throwable through") {
+            shouldThrowMessage("test exception") { testContainer.getResult() }
         }
     }
 }

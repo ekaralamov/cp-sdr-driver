@@ -1,8 +1,8 @@
 package app.ekaralamov.sdr.driver.permissions
 
 import android.hardware.usb.UsbDevice
+import app.ekaralamov.sdr.driver.ClientPermissionRepository
 import app.ekaralamov.sdr.driver.ClientPermissionResolution
-import app.ekaralamov.sdr.driver.ClientPermissionStorage
 import app.ekaralamov.test.*
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.spec.style.DescribeSpec
@@ -14,19 +14,19 @@ import javax.inject.Provider
 
 class GetTunerAccessSpec : DescribeSpec({
     describe("when GetTunerAccess is invoked") {
-        val clientPermissionStorage = mockk<ClientPermissionStorage>()
+        val clientPermissionRepository = mockk<ClientPermissionRepository>()
         val platformDevicePermissionAuthorityProvider =
             mockk<Provider<PlatformDevicePermissionAuthority>>()
 
         val sut = GetTunerAccess(
-            clientPermissionStorage,
+            clientPermissionRepository,
             platformDevicePermissionAuthorityProvider
         )
 
         val device = mockk<UsbDevice>()
 
         val retrieveClientPermissionPrompter = AnswerPrompter.ofSuspend {
-            clientPermissionStorage.retrieveResolutionFor("client package name")
+            clientPermissionRepository.retrieveResolutionFor("client package name")
         }
 
         val testContainer = CoroutineTestContainer.run {
@@ -35,7 +35,7 @@ class GetTunerAccessSpec : DescribeSpec({
 
         itCallsFor("client permission resolution retrieval", retrieveClientPermissionPrompter, testContainer)
 
-        describe("when permission storage responds") {
+        describe("when permission repository responds") {
 
             forAll(
                 row("no resolution", null as ClientPermissionResolution?, false),
@@ -62,7 +62,7 @@ class GetTunerAccessSpec : DescribeSpec({
 
                         describe("when permanent denial answer is given") {
                             val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
-                                clientPermissionStorage.storeResolution(
+                                clientPermissionRepository.storeResolution(
                                     "client package name",
                                     ClientPermissionResolution.Permanent.Denied
                                 )
@@ -97,7 +97,7 @@ class GetTunerAccessSpec : DescribeSpec({
 
                     describe("when _not_ permanent denial answer is given") {
                         val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
-                            clientPermissionStorage.storeResolution(
+                            clientPermissionRepository.storeResolution(
                                 "client package name",
                                 ClientPermissionResolution.Denied
                             )
@@ -128,7 +128,7 @@ class GetTunerAccessSpec : DescribeSpec({
 
                     describe("when grant answer is given") {
                         val storeClientPermissionPrompter = AnswerPrompter.ofSuspend {
-                            clientPermissionStorage.storeResolution(
+                            clientPermissionRepository.storeResolution(
                                 "client package name",
                                 ClientPermissionResolution.Permanent.Granted
                             )
