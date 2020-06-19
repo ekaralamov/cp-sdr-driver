@@ -16,6 +16,6 @@ class ClientPermissionRepository @Inject constructor(
 
     suspend fun deleteResolutionFor(packageName: String) = storage.deleteResolutionFor(packageName)
 
-    fun retrievePermanentResolutions(): Flow<List<Pair<String, ClientPermissionResolution.Permanent>>> =
-        storage.retrievePermanentResolutions()
+    fun resolutions(): Flow<List<Pair<String, ClientPermissionResolution>>> =
+        storage.resolutions()
 }

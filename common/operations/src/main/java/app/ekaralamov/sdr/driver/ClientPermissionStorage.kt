@@ -11,7 +11,7 @@ interface ClientPermissionStorage {
         resolution: ClientPermissionResolution
     )
 
-    fun retrievePermanentResolutions(): Flow<List<Pair<String, ClientPermissionResolution.Permanent>>>
+    fun resolutions(): Flow<List<Pair<String, ClientPermissionResolution>>>
 
     suspend fun deleteResolutionFor(packageName: String)
 

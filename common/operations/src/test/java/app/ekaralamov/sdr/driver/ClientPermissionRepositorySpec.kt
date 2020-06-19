@@ -10,7 +10,7 @@ import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 
-internal class ClientPermissionRepositorySpec : DescribeSpec({
+class ClientPermissionRepositorySpec : DescribeSpec({
     describe("ClientPermissionRepository") {
         val storage = mockk<ClientPermissionStorage>()
 
@@ -104,45 +104,44 @@ internal class ClientPermissionRepositorySpec : DescribeSpec({
             testContainer.close()
         }
 
-        describe("when permanent resolutions flow is started") {
-            val storagePermanentResolutionsTestFlow =
-                TestFlow<List<Pair<String, ClientPermissionResolution.Permanent>>>()
-            every { storage.retrievePermanentResolutions() } returns storagePermanentResolutionsTestFlow.flow
+        describe("when resolutions flow is started") {
+            val storageResolutionsTestFlow = TestFlow<List<Pair<String, ClientPermissionResolution>>>()
+            every { storage.resolutions() } returns storageResolutionsTestFlow.flow
 
-            val permanentResolutionsCollector = sut.retrievePermanentResolutions().test()
+            val resolutionsCollector = sut.resolutions().test()
 
-            it("starts the storage permanent resolutions flow") {
-                storagePermanentResolutionsTestFlow.wasStarted shouldBe true
+            it("starts the storage resolutions flow") {
+                storageResolutionsTestFlow.wasStarted shouldBe true
             }
 
             describe("when the storage emits a value") {
                 val value = listOf("package name" to ClientPermissionResolution.Permanent.Granted)
-                storagePermanentResolutionsTestFlow.emit(value)
+                storageResolutionsTestFlow.emit(value)
 
                 it("emits the value") {
-                    permanentResolutionsCollector.lastOf(1) shouldBe value
+                    resolutionsCollector.lastOf(1) shouldBe value
                 }
 
                 describe("when the storage emits second value") {
-                    storagePermanentResolutionsTestFlow.emit(emptyList())
+                    storageResolutionsTestFlow.emit(emptyList())
 
                     it("emits the second value") {
-                        permanentResolutionsCollector.lastOf(2) shouldBe emptyList()
+                        resolutionsCollector.lastOf(2) shouldBe emptyList()
                     }
                 }
             }
 
             describe("when the storage throws") {
-                storagePermanentResolutionsTestFlow.finishWith(Exception("test exception"))
+                storageResolutionsTestFlow.finishWith(Exception("test exception"))
 
                 it("passes the throwable through") {
                     shouldThrowMessage("test exception") {
-                        permanentResolutionsCollector.lastOf(1)
+                        resolutionsCollector.lastOf(1)
                     }
                 }
             }
 
-            permanentResolutionsCollector.close()
+            resolutionsCollector.close()
         }
     }
 })

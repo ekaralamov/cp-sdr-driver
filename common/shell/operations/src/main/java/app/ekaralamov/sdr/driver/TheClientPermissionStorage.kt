@@ -18,7 +18,7 @@ class TheClientPermissionStorage @Inject constructor() : ClientPermissionStorage
     ) {
     }
 
-    override fun retrievePermanentResolutions(): Flow<List<Pair<String, ClientPermissionResolution.Permanent>>> =
+    override fun resolutions(): Flow<List<Pair<String, ClientPermissionResolution>>> =
         emptyFlow()
 
     override suspend fun deleteResolutionFor(packageName: String) {}
