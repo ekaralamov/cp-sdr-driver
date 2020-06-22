@@ -14,7 +14,7 @@ import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.setMain
 
-internal class GetTunerAccessViewModelSpec : DescribeSpec({
+class GetTunerAccessViewModelSpec : DescribeSpec({
     Dispatchers.setMain(TestDispatcher)
 
     describe("GetTunerAccessViewModel") {

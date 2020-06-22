@@ -1,6 +1,11 @@
 package app.ekaralamov.sdr.driver.onetuner
 
+import android.app.Activity
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiObjectNotFoundException
+import androidx.test.uiautomator.UiSelector
 import app.ekaralamov.sdr.driver.Access
 import app.ekaralamov.sdr.driver.BuddyRule
 import app.ekaralamov.sdr.driver.Data
@@ -19,7 +24,7 @@ class TwoClients {
     val buddy2Rule = BuddyRule.two()
 
     @Test
-    fun conflict() {
+    fun openingConflict() {
         Access.get(TunerOne.Device, buddy1Rule.buddy)
         Access.get(TunerOne.Device, buddy2Rule.buddy)
 
@@ -29,5 +34,20 @@ class TwoClients {
             assertThat(intruder).isNull()
         }
         Data.useChannel(channel1)
+    }
+
+    @Test
+    fun simultaneousPermissionRequests() {
+        val getAccessRequest1Key = buddy1Rule.buddy.requestAccess(TunerOne.Device)
+        val getAccessRequest2Key = buddy2Rule.buddy.requestAccess(TunerOne.Device)
+        val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+        val okPermissionButton =
+            device.findObject(UiSelector().packageName("com.android.systemui").text("OK"))
+        try {
+            okPermissionButton.click()
+        } catch (permissionPossiblyAlreadyGranted: UiObjectNotFoundException) {
+        }
+        assertThat(buddy1Rule.buddy.waitForResult(getAccessRequest1Key)).isEqualTo(Activity.RESULT_OK)
+        assertThat(buddy2Rule.buddy.waitForResult(getAccessRequest2Key)).isEqualTo(Activity.RESULT_OK)
     }
 }

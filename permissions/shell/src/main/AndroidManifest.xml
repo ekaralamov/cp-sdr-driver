@@ -12,7 +12,14 @@
         <activity
             android:name=".GetTunerAccessActivity"
             android:exported="true"
+            android:screenOrientation="locked"
             />
+        <!--
+        Android's USB permission flow misbehaves on configuration change
+        —it signals back as if permission has been denied, which
+        causes `GetTunerAccessActivity` to return the corresponding result.
+        To avoid the most common configuration change, the screen orientation is locked.
+        -->
 
         <activity
             android:name=".DummyActivity"

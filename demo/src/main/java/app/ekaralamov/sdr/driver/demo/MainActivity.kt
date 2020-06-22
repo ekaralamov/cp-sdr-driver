@@ -17,7 +17,8 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        startActivityForResult(TunerAccessClient.intent(device(this)), 0)
+        if (savedInstanceState == null)
+            startActivityForResult(TunerAccessClient.intent(device(this)), 0)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

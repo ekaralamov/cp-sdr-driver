@@ -31,15 +31,8 @@ class GetTunerAccessActivity : ComponentActivity() {
         @Suppress("UNCHECKED_CAST")
         val viewModelProvider = ViewModelProvider(this, object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>) =
-                when (modelClass) {
-                    GetTunerAccessViewModel::class.java -> {
-                        PermissionsComponent.instance.injectGetTunerAccessViewModelFactory()
-                            .create(clientPackageName, device)
-                    }
-                    else -> {
-                        throw Exception("unknown view model type")
-                    }
-                } as T
+                PermissionsComponent.instance.injectGetTunerAccessViewModelFactory()
+                    .create(clientPackageName, device) as T
         })
 
         val getTunerAccessViewModel = viewModelProvider.get(GetTunerAccessViewModel::class.java)
