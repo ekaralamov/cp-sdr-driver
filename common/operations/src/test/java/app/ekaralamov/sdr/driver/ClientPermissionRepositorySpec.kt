@@ -110,9 +110,7 @@ class ClientPermissionRepositorySpec : DescribeSpec({
 
             val resolutionsCollector = sut.resolutions().test()
 
-            it("starts the storage resolutions flow") {
-                storageResolutionsTestFlow.wasStarted shouldBe true
-            }
+            itCollects("the storage resolutions flow", storageResolutionsTestFlow, resolutionsCollector)
 
             describe("when the storage emits a value") {
                 val value = listOf("package name" to ClientPermissionResolution.Permanent.Granted)

@@ -38,7 +38,7 @@ class KotlinPlugin : Plugin<Project> {
                 invoke(
                     group = "org.jetbrains.kotlinx",
                     name = "kotlinx-coroutines-core",
-                    version = "1.3.5"
+                    version = "1.3.7"
                 )
             }
         }

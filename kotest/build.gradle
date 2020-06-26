@@ -7,5 +7,5 @@ dependencies {
     api 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.5'
     api Deps.JUnit
     api Deps.Truth
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
+    api Deps.Viewmodel
 }

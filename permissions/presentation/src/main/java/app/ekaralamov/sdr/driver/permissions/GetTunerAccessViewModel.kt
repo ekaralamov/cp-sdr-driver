@@ -6,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ConflatedBroadcastChannel
-import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class GetTunerAccessViewModel @AssistedInject constructor(
@@ -41,7 +41,7 @@ class GetTunerAccessViewModel @AssistedInject constructor(
                 {
                     viewModelScope.launch {
                         try {
-                            grantPermissionToClientQuestionChannel.offer(null)
+                            _grantPermissionToClientQuestion.value = null
                             delegate.never!!()
                             outcomeChannel.send(Outcome.ClientPermissionDeniedPermanently)
                         } catch (throwable: Throwable) {
@@ -54,7 +54,7 @@ class GetTunerAccessViewModel @AssistedInject constructor(
         fun yes() {
             viewModelScope.launch {
                 try {
-                    grantPermissionToClientQuestionChannel.offer(null)
+                    _grantPermissionToClientQuestion.value = null
                     when (delegate.yes()) {
                         GetTunerAccess.Result.DeviceAccess.Granted -> Outcome.Granted
                         GetTunerAccess.Result.DeviceAccess.Denied -> Outcome.DeviceAccessDenied
@@ -68,7 +68,7 @@ class GetTunerAccessViewModel @AssistedInject constructor(
         fun no() {
             viewModelScope.launch {
                 try {
-                    grantPermissionToClientQuestionChannel.offer(null)
+                    _grantPermissionToClientQuestion.value = null
                     delegate.no()
                     outcomeChannel.send(Outcome.ClientPermissionDenied)
                 } catch (throwable: Throwable) {
@@ -78,13 +78,12 @@ class GetTunerAccessViewModel @AssistedInject constructor(
         }
     }
 
-    fun subscribeToGrantPermissionToClientQuestion(): ReceiveChannel<GrantPermissionToClientQuestion?> =
-        grantPermissionToClientQuestionChannel.openSubscription()
-
-
     private val outcomeChannel = Channel<Outcome>()
-    private val grantPermissionToClientQuestionChannel =
-        ConflatedBroadcastChannel<GrantPermissionToClientQuestion?>(null)
+    private val _grantPermissionToClientQuestion =
+        MutableStateFlow<GrantPermissionToClientQuestion?>(null)
+
+    val grantPermissionToClientQuestion: StateFlow<GrantPermissionToClientQuestion?> =
+        _grantPermissionToClientQuestion
 
     init {
         viewModelScope.launch {
@@ -94,7 +93,7 @@ class GetTunerAccessViewModel @AssistedInject constructor(
                     GetTunerAccess.Result.DeviceAccess.Denied -> outcomeChannel.send(Outcome.DeviceAccessDenied)
                     GetTunerAccess.Result.ClientPermissionDeniedPermanently -> outcomeChannel.send(Outcome.ClientPermissionDeniedPermanently)
                     is GetTunerAccess.Result.GrantPermissionToClientQuestion ->
-                        grantPermissionToClientQuestionChannel.offer(GrantPermissionToClientQuestion(result))
+                        _grantPermissionToClientQuestion.value = GrantPermissionToClientQuestion(result)
                 }
             } catch (throwable: Throwable) {
                 outcomeChannel.close(throwable)

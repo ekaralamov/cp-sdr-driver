@@ -47,3 +47,39 @@ suspend fun DescribeSpecDsl.DescribeScope.itInvokes(
         }
     }
 }
+
+suspend fun DescribeSpecDsl.DescribeScope.itCollects(
+    flowDesc: String,
+    testFlow: TestFlow<*>,
+    testContainer: ViewModelTestContainer
+) {
+    it("starts $flowDesc") {
+        testFlow.state shouldBe TestFlow.State.Started
+    }
+
+    describe("when cleared") {
+        testContainer.clear()
+
+        it("cancels $flowDesc collection") {
+            testFlow.state shouldBe TestFlow.State.Cancelled
+        }
+    }
+}
+
+suspend fun DescribeSpecDsl.DescribeScope.itCollects(
+    flowDesc: String,
+    testFlow: TestFlow<*>,
+    testCollector: FlowTestCollector<*>
+) {
+    it("starts $flowDesc") {
+        testFlow.state shouldBe TestFlow.State.Started
+    }
+
+    describe("when collection is cancelled") {
+        testCollector.close()
+
+        it("cancels $flowDesc collection") {
+            testFlow.state shouldBe TestFlow.State.Cancelled
+        }
+    }
+}

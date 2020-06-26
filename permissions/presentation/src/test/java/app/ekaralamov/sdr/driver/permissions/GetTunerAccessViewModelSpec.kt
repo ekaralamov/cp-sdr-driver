@@ -35,14 +35,14 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
             sut.outcome()
         }
 
-        val grantPermissionToClientQuestionConsumer = sut.subscribeToGrantPermissionToClientQuestion().test()
+        val grantPermissionToClientQuestionCollector = sut.grantPermissionToClientQuestion.test()
 
         describe("initially") {
             it("has no outcome") {
                 outcomeContainer.hasCompleted shouldBe false
             }
             it("has no question for granting permission to the client") {
-                grantPermissionToClientQuestionConsumer.lastOf(1) shouldBe null
+                grantPermissionToClientQuestionCollector.lastOf(1) shouldBe null
             }
             itInvokes("`getTunerAccess`", getTunerAccessPrompter, viewModelTestContainer)
         }
@@ -106,7 +106,7 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
                     }
 
                     val question by nosynchLazy {
-                        grantPermissionToClientQuestionConsumer.lastOf(2)!!
+                        grantPermissionToClientQuestionCollector.lastOf(2)!!
                     }
 
                     it("produces question for granting permission to the client") {
@@ -114,10 +114,10 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
                     }
 
                     it("returns the same question when queried second time") {
-                        val questionRequest2Consumer =
-                            sut.subscribeToGrantPermissionToClientQuestion().test()
-                        questionRequest2Consumer.lastOf(1) shouldBe question
-                        questionRequest2Consumer.close()
+                        val questionRequest2Collector =
+                            sut.grantPermissionToClientQuestion.test()
+                        questionRequest2Collector.lastOf(1) shouldBe question
+                        questionRequest2Collector.close()
                     }
 
                     describe("when the question is answered with _yes_") {
@@ -128,7 +128,7 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
                         question.yes()
 
                         it("removes the question") {
-                            grantPermissionToClientQuestionConsumer.lastOf(3) shouldBe null
+                            grantPermissionToClientQuestionCollector.lastOf(3) shouldBe null
                         }
 
                         itInvokes("the use case _yes_ answer", useCaseAnswerPrompter, viewModelTestContainer)
@@ -173,7 +173,7 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
                         question.no()
 
                         it("removes the question") {
-                            grantPermissionToClientQuestionConsumer.lastOf(3) shouldBe null
+                            grantPermissionToClientQuestionCollector.lastOf(3) shouldBe null
                         }
 
                         itInvokes("the use case _no_ answer", useCaseAnswerPrompter, viewModelTestContainer)
@@ -215,7 +215,7 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
                             question.never?.invoke()
 
                             it("removes the question") {
-                                grantPermissionToClientQuestionConsumer.lastOf(3) shouldBe null
+                                grantPermissionToClientQuestionCollector.lastOf(3) shouldBe null
                             }
 
                             itInvokes(
@@ -253,7 +253,7 @@ class GetTunerAccessViewModelSpec : DescribeSpec({
         }
 
         outcomeContainer.close()
-        grantPermissionToClientQuestionConsumer.close()
+        grantPermissionToClientQuestionCollector.close()
         viewModelTestContainer.close()
     }
 })

@@ -2,7 +2,7 @@ apply plugin: 'app.ekaralamov.kotlin.library'
 apply plugin: 'kotlin-kapt'
 
 dependencies {
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
+    api Deps.Viewmodel
     compileOnly Deps.AssisteInjectApi
     api Deps.DaggerApi
 

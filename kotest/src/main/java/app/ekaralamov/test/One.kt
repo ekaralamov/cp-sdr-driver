@@ -8,7 +8,11 @@ inline class OneStubScope<T> constructor(internal val mockKStubScope: MockKStubS
         mockKStubScope returns returnValue andThenThrows AssertionError("unexpected call")
     }
 
-    infix fun answers(answer:  MockKAnswerScope<T, T>.(Call) -> T) {
+    infix fun throws(throwable: Throwable) {
+        mockKStubScope throws throwable andThenThrows AssertionError("unexpected call")
+    }
+
+    infix fun answers(answer: MockKAnswerScope<T, T>.(Call) -> T) {
         mockKStubScope answers answer andThenThrows AssertionError("unexpected call")
     }
 }
