@@ -30,6 +30,7 @@ android {
 
 dependencies {
     implementation Deps.Timber
+    implementation "com.squareup.sqldelight:android-driver:$Versions.SQLDelight"
 
     implementation project(':permissions:shell')
     implementation project(':permissions:shell:operations:di')

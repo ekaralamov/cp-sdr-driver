@@ -6,7 +6,10 @@ import app.ekaralamov.sdr.driver.PermissionRevokedException
 import app.ekaralamov.sdr.driver.TunerAccessToken
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.concurrent.locks.ReentrantLock
 import javax.inject.Named
 import kotlin.concurrent.withLock
@@ -14,7 +17,7 @@ import kotlin.concurrent.withLock
 class TunerSession @AssistedInject constructor(
     @Assisted private val nativeSession: NativeTunerSession,
     @Named("IO") private val pumpDispatcher: CoroutineDispatcher,
-    @Named("Default") private val releaseTokenDispatcher: CoroutineDispatcher
+    @Named("default") private val releaseTokenDispatcher: CoroutineDispatcher
 ) : TunerAccessToken.Session {
 
     @AssistedInject.Factory

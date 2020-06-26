@@ -13,7 +13,7 @@ import kotlin.coroutines.coroutineContext
 
 class ListAccessResolutions @Inject constructor(
     private val permissionRepository: ClientPermissionRepository,
-    @Named("Default") private val mapDispatcher: CoroutineDispatcher
+    @Named("default") private val mapDispatcher: CoroutineDispatcher
 ) {
 
     operator fun invoke(): Flow<List<Pair<String, Boolean>>> =

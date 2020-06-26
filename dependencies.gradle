@@ -5,6 +5,7 @@ rootProject.extensions.add('Versions', new DefaultExtraPropertiesExtension().tap
     Lifecycle = '2.2.0'
     Dagger = '2.27'
     AssistedInject = '0.5.2'
+    SQLDelight = '1.4.0'
 
     CompileSdk = 29
     MinSdk = 23

@@ -1,7 +1,10 @@
 apply plugin: 'app.ekaralamov.kotlin.library'
+apply plugin: 'com.squareup.sqldelight'
 
 dependencies {
     api Deps.DaggerApi
+    implementation "com.squareup.sqldelight:coroutines-extensions-jvm:$Versions.SQLDelight"
+    testImplementation 'com.squareup.sqldelight:sqlite-driver:1.2.2'
 
     implementation project(':common:operations')
 }
