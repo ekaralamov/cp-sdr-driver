@@ -16,7 +16,7 @@ class AccessWantingActivity : Activity() {
                 TunerAccessClient.intent(
                     checkNotNull(
                         intent.getParcelableExtra(
-                            TunerAccessClient.DeviceExtra
+                            TunerAccessClient.Extra.Device
                         )
                     )
                 ),

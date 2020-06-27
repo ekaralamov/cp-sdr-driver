@@ -9,5 +9,5 @@ fun TunerAccessClient.intent(device: UsbDevice) = Intent().apply {
         "app.ekaralamov.sdr.driver",
         "app.ekaralamov.sdr.driver.permissions.GetTunerAccessActivity"
     )
-    putExtra(DeviceExtra, device)
+    putExtra(TunerAccessClient.Extra.Device, device)
 }

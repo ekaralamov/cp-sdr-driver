@@ -12,6 +12,7 @@
             android:name=".GetTunerAccessActivity"
             android:exported="true"
             android:screenOrientation="locked"
+            android:theme="@style/Transparent"
             />
         <!--
         Android's USB permission flow misbehaves on configuration change

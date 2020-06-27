@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Prinos SDR Driver</string>
+
+    <string name="client_permission_question">Do you allow %1$s to access %2$s?</string>
+    <string name="client_permission_question_yes">Yes</string>
+    <string name="client_permission_question_no">No</string>
+    <string name="client_permission_question_never">Never</string>
+</resources>

@@ -11,7 +11,7 @@ class Endpoints(private val context: Context) : Buddy.Stub() {
     override fun requestAccess(device: UsbDevice): Int {
         val requestKey = ActivityRegistry.newEntry()
         context.startActivity(Intent(context, AccessWantingActivity::class.java).apply {
-            putExtra(TunerAccessClient.DeviceExtra, device)
+            putExtra(TunerAccessClient.Extra.Device, device)
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             putExtra(AccessWantingActivity.RequestKeyExtra, requestKey)
         })
