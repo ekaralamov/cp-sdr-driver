@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Prinos SDR Driver</string>
+    <string name="app_name">RTL-SDR CP Driver</string>
 
     <string name="client_permission_question">Do you allow %1$s to access %2$s?</string>
     <string name="client_permission_question_yes">Yes</string>

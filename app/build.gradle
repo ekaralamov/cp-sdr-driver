@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "app.ekaralamov.sdr.driver"
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
     }
 
     buildTypes {
@@ -31,6 +31,7 @@ android {
 dependencies {
     implementation Deps.Timber
     implementation "com.squareup.sqldelight:android-driver:$Versions.SQLDelight"
+    implementation "androidx.constraintlayout:constraintlayout:1.1.3"
 
     implementation project(':permissions:shell')
     implementation project(':permissions:shell:operations:di')

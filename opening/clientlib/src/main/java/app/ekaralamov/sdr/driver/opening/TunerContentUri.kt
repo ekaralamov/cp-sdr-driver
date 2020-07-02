@@ -9,7 +9,7 @@ object TunerContentUri {
 
     fun build(device: UsbDevice, context: Context): Uri = Uri.Builder()
         .scheme("content")
-        .authority(context.getString(R.string.prinos_sdr_driver_authority))
+        .authority(context.getString(R.string.cp_sdr_driver_authority))
         .appendPath(device.deviceName)
         .build()
 }

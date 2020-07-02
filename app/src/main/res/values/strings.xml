@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="intro">%s enables other applications to access RTL2832-based USB software-defined radio receivers.</string>
+    <string name="manage_permissions">Manage permissions</string>
+    <string name="about_third_party_software_button"><u>third-party software</u></string>
+    <string name="about_license">license: <u>GNU General Public License Version 3</u></string>
+    <string name="about_version">version %s</string>
+</resources>
