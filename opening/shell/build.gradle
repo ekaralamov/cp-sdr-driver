@@ -1,4 +1,4 @@
-apply plugin: 'app.ekaralamov.kotlin.library'
+apply plugin: 'sdr.driver.cp.kotlin.library'
 
 dependencies {
     implementation project(':opening:usecases')

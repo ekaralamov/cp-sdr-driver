@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.ekaralamov.libusb">
+    package="sdr.driver.cp.libusb">
 
     <uses-feature android:name="android.hardware.usb.host" />
 </manifest>

@@ -1,4 +1,4 @@
-package app.ekaralamov.sdr.driver.permissions
+package sdr.driver.cp.permissions
 
 import dagger.Module
 import dagger.Provides

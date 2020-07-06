@@ -1,4 +1,4 @@
-apply plugin: 'app.ekaralamov.test'
+apply plugin: 'sdr.driver.cp.test'
 
 android {
     targetProjectPath ':app'

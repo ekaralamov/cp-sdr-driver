@@ -1,2 +1,2 @@
-apply plugin: 'app.ekaralamov.clientlib'
+apply plugin: 'sdr.driver.cp.clientlib'
 apply plugin: 'kotlin-android-extensions'

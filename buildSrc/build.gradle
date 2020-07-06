@@ -18,44 +18,44 @@ dependencies {
 gradlePlugin {
     plugins {
         myApplication {
-            id = "app.ekaralamov.application"
-            implementationClass = "app.ekaralamov.gradle.ApplicationPlugin"
+            id = "sdr.driver.cp.application"
+            implementationClass = "sdr.driver.cp.gradle.ApplicationPlugin"
         }
         myTest {
-            id = "app.ekaralamov.test"
-            implementationClass = "app.ekaralamov.gradle.TestPlugin"
+            id = "sdr.driver.cp.test"
+            implementationClass = "sdr.driver.cp.gradle.TestPlugin"
         }
         myKotlinLibrary {
-            id = "app.ekaralamov.kotlin.library"
-            implementationClass = "app.ekaralamov.gradle.KotlinLibraryPlugin"
+            id = "sdr.driver.cp.kotlin.library"
+            implementationClass = "sdr.driver.cp.gradle.KotlinLibraryPlugin"
         }
         myKotlin {
-            id = "app.ekaralamov.kotlin"
-            implementationClass = "app.ekaralamov.gradle.KotlinPlugin"
+            id = "sdr.driver.cp.kotlin"
+            implementationClass = "sdr.driver.cp.gradle.KotlinPlugin"
         }
         myLibrary {
-            id = "app.ekaralamov.library"
-            implementationClass = "app.ekaralamov.gradle.LibraryPlugin"
+            id = "sdr.driver.cp.library"
+            implementationClass = "sdr.driver.cp.gradle.LibraryPlugin"
         }
         myNativeExport {
-            id = "app.ekaralamov.library.nativeexport"
-            implementationClass = "app.ekaralamov.gradle.NativeExport"
+            id = "sdr.driver.cp.library.nativeexport"
+            implementationClass = "sdr.driver.cp.gradle.NativeExport"
         }
         myNativeImport {
-            id = "app.ekaralamov.library.nativeimport"
-            implementationClass = "app.ekaralamov.gradle.NativeImport"
+            id = "sdr.driver.cp.library.nativeimport"
+            implementationClass = "sdr.driver.cp.gradle.NativeImport"
         }
         myBase {
-            id = "app.ekaralamov.base"
-            implementationClass = "app.ekaralamov.gradle.BasePlugin"
+            id = "sdr.driver.cp.base"
+            implementationClass = "sdr.driver.cp.gradle.BasePlugin"
         }
         myClientLib {
-            id = "app.ekaralamov.clientlib"
-            implementationClass = "app.ekaralamov.gradle.ClientLibPlugin"
+            id = "sdr.driver.cp.clientlib"
+            implementationClass = "sdr.driver.cp.gradle.ClientLibPlugin"
         }
         myExposeJavaDependencies {
-            id = "app.ekaralamov.exposejavadependencies"
-            implementationClass = "app.ekaralamov.gradle.ExposeJavaDependencies"
+            id = "sdr.driver.cp.exposejavadependencies"
+            implementationClass = "sdr.driver.cp.gradle.ExposeJavaDependencies"
         }
     }
 }

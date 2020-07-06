@@ -1,8 +1,8 @@
-apply plugin: 'app.ekaralamov.application'
+apply plugin: 'sdr.driver.cp.application'
 
 android {
     defaultConfig {
-        applicationId "app.ekaralamov.sdr.driver.demo"
+        applicationId "sdr.driver.cp.demo"
         versionCode 1
         versionName "1.0"
     }

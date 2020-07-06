@@ -1,5 +1,5 @@
-apply plugin: 'app.ekaralamov.kotlin.library'
-apply plugin: 'app.ekaralamov.library.nativeimport'
+apply plugin: 'sdr.driver.cp.kotlin.library'
+apply plugin: 'sdr.driver.cp.library.nativeimport'
 apply plugin: 'kotlin-kapt'
 
 android {

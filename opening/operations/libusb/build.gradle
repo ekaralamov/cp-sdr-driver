@@ -1,5 +1,5 @@
-apply plugin: 'app.ekaralamov.library'
-apply plugin: 'app.ekaralamov.library.nativeexport'
+apply plugin: 'sdr.driver.cp.library'
+apply plugin: 'sdr.driver.cp.library.nativeexport'
 
 def LibUsbSourceRoot = file('libusb')
 

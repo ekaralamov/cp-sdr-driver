@@ -1,4 +1,4 @@
-apply plugin: 'app.ekaralamov.clientlib'
+apply plugin: 'sdr.driver.cp.clientlib'
 
 dependencies {
     api project(':permissions:shell:clientshared')

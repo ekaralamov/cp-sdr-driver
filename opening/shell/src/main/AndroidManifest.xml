@@ -2,13 +2,13 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="app.ekaralamov.sdr.driver.opening"
+    package="sdr.driver.cp.opening"
     >
 
     <application>
 
         <provider
-            android:name=".TunerContentProvider"
+            android:name="sdr.driver.cp.opening.TunerContentProvider"
             android:authorities="@string/cp_sdr_driver_authority"
             android:exported="true"
             tools:ignore="ExportedContentProvider"

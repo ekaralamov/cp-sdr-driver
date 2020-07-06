@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.ekaralamov.sdr.driver"
+    package="sdr.driver.cp"
     >
 
     <application
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:name=".DriverApplication"
+        android:name="sdr.driver.cp.DriverApplication"
         android:allowBackup="false"
         >
         <!-- no backup/restoration, because the permissions DB should be fixed after restoration
@@ -16,7 +16,7 @@
         -->
 
         <activity
-            android:name=".MainActivity"
+            android:name="sdr.driver.cp.MainActivity"
             android:theme="@style/MainActivity"
             >
             <intent-filter>

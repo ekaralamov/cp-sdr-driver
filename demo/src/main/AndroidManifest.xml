@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.ekaralamov.sdr.driver.demo"
+    package="sdr.driver.cp.demo"
     >
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
@@ -9,7 +9,7 @@
     <application android:label="@string/app_name">
 
         <activity
-            android:name=".MainActivity"
+            android:name="sdr.driver.cp.demo.MainActivity"
             android:theme="@android:style/Theme.Translucent"
             >
             <intent-filter>
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".PlayService">
+        <service android:name="sdr.driver.cp.demo.PlayService">
             <intent-filter>
                 <action android:name="androidx.media2.session.MediaSessionService" />
             </intent-filter>

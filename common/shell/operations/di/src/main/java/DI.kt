@@ -1,4 +1,4 @@
-package app.ekaralamov.sdr.driver
+package sdr.driver.cp
 
 import dagger.Module
 import dagger.Provides

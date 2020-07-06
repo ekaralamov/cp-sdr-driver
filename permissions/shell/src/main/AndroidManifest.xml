@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="app.ekaralamov.sdr.driver.permissions"
+    package="sdr.driver.cp.permissions"
     >
 
     <application
@@ -9,7 +9,7 @@
         >
 
         <activity
-            android:name=".GetTunerAccessActivity"
+            android:name="sdr.driver.cp.permissions.GetTunerAccessActivity"
             android:exported="true"
             android:screenOrientation="locked"
             android:theme="@style/Transparent"
@@ -22,7 +22,7 @@
         -->
 
         <activity
-            android:name=".DummyActivity"
+            android:name="sdr.driver.cp.permissions.DummyActivity"
             android:theme="@android:style/Theme.Translucent"
             >
             <intent-filter>

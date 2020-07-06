@@ -1,7 +1,7 @@
-package app.ekaralamov.sdr.driver.opening
+package sdr.driver.cp.opening
 
 import android.hardware.usb.UsbDevice
-import app.ekaralamov.sdr.driver.TunerAccessToken
+import sdr.driver.cp.TunerAccessToken
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent

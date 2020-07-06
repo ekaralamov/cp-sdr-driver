@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'app.ekaralamov.kotlin'
+apply plugin: 'sdr.driver.cp.kotlin'
 
 dependencies {
     api 'io.kotest:kotest-runner-junit5-jvm:4.0.2'
