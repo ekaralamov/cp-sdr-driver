@@ -1,5 +1,9 @@
+import sdr.driver.cp.gradle.licenses.DependencyData
+import sdr.driver.cp.gradle.licenses.PermittedLicense
+
 apply plugin: 'sdr.driver.cp.application'
 apply plugin: 'sdr.driver.cp.exposejavadependencies'
+apply plugin: 'sdr.driver.cp.licenses'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -26,6 +30,19 @@ android {
     packagingOptions {
         pickFirst 'lib/*/libusb.so'
     }
+}
+
+licenses {
+    releaseFlavor = 'notTesting'
+    permittedLicenses = [
+        new PermittedLicense('The Apache Software License, Version 2.0', 'Apache2'),
+        new PermittedLicense('Apache 2.0', 'Apache2'),
+        new PermittedLicense('The Apache License, Version 2.0', 'Apache2')
+    ]
+    localDependencies = [
+        new DependencyData.Final("rtl-sdr", "https://osmocom.org/projects/rtl-sdr/wiki", "Gpl3"),
+        new DependencyData.Final("libusb", "http://libusb.info/", "Lgpl3")
+    ]
 }
 
 dependencies {

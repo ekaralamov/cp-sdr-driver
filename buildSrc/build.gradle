@@ -57,5 +57,9 @@ gradlePlugin {
             id = "sdr.driver.cp.exposejavadependencies"
             implementationClass = "sdr.driver.cp.gradle.ExposeJavaDependencies"
         }
+        myLicenses {
+            id = "sdr.driver.cp.licenses"
+            implementationClass = "sdr.driver.cp.gradle.licenses.LicensesPlugin"
+        }
     }
 }
