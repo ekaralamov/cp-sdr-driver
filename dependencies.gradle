@@ -23,4 +23,5 @@ rootProject.extensions.add('Deps', new DefaultExtraPropertiesExtension().tap {
     MockK = 'io.mockk:mockk:1.9.3'
     Robolectric = 'org.robolectric:robolectric:4.3'
     Viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
+    RecyclerView = 'androidx.recyclerview:recyclerview:1.1.0'
 })

@@ -1,6 +1,7 @@
 package sdr.driver.cp
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -19,6 +20,10 @@ class MainActivity : Activity() {
 
         findViewById<View>(R.id.license).setOnClickListener {
             LicenseActivity.start(Dependencies.License.Gpl3, this)
+        }
+
+        findViewById<View>(R.id.third_party_software).setOnClickListener {
+            startActivity(Intent(this, AttributionActivity::class.java))
         }
     }
 }

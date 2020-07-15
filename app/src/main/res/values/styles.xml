@@ -15,4 +15,16 @@
         <item name="android:paddingBottom">6dp</item>
         <item name="android:background">?android:selectableItemBackground</item>
     </style>
+
+    <style name="AttributionDetails">
+        <item name="android:textSize">14sp</item>
+        <item name="android:paddingLeft">14dp</item>
+        <item name="android:paddingRight">14dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
 </resources>

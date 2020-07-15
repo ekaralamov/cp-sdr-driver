@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Main activity -->
     <string name="intro">%s enables other applications to access RTL2832-based USB software-defined radio receivers.</string>
     <string name="manage_permissions">Manage permissions</string>
     <string name="about_third_party_software_button"><u>third-party software</u></string>
     <string name="about_license">license: <u>GNU General Public License v3.0 or later</u></string>
     <string name="about_version">version %s</string>
+
+    <!-- Attribution activity -->
+    <string name="attribution_subtitle">Included Third-Party Software</string>
+    <string name="attribution_url"><![CDATA[<u>%s</u>]]></string>
+    <string name="attribution_license"><![CDATA[license: <u>%s</u>]]></string>
+
+    <!-- License names -->
+    <string name="license_apache2">Apache License 2.0</string>
+    <string name="license_gpl3">GNU General Public License v3.0</string>
+    <string name="license_lgpl3">GNU Lesser General Public License v3.0</string>
+
 </resources>

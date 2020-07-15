@@ -47,6 +47,7 @@ licenses {
 
 dependencies {
     implementation Deps.Timber
+    implementation Deps.RecyclerView
     implementation "com.squareup.sqldelight:android-driver:$Versions.SQLDelight"
     implementation "androidx.constraintlayout:constraintlayout:1.1.3"
 
