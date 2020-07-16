@@ -19,7 +19,7 @@ class MainActivity : Activity() {
             getString(R.string.about_version, BuildConfig.VERSION_NAME)
 
         findViewById<View>(R.id.license).setOnClickListener {
-            LicenseActivity.start(Dependencies.License.Gpl3, this)
+            LicenseActivity.start("file:///android_asset/gpl3.html", this)
         }
 
         findViewById<View>(R.id.third_party_software).setOnClickListener {

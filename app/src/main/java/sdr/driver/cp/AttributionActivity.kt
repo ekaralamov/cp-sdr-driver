@@ -50,7 +50,12 @@ class AttributionActivity : Activity() {
             setOnClickListener { startActivity(Intent(Intent.ACTION_VIEW, url.toUri())) }
         }
         private val licenseView = itemView.findViewById<TextView>(R.id.license).apply {
-            setOnClickListener { LicenseActivity.start(license, this@AttributionActivity) }
+            setOnClickListener {
+                LicenseActivity.start(
+                    "file:///android_asset/${getLicenseFileName()}.html",
+                    this@AttributionActivity
+                )
+            }
         }
 
         private lateinit var url: String
@@ -64,6 +69,12 @@ class AttributionActivity : Activity() {
 
             license = dependencyData.license
             licenseView.text = Html.fromHtml(String.format(licenseFormatHtml, getNameOf(license)))
+        }
+
+        private fun getLicenseFileName() = when (license) {
+            Dependencies.License.Apache2 -> "apache2"
+            Dependencies.License.Gpl3 -> "gpl3"
+            Dependencies.License.Lgpl3 -> "lgpl3"
         }
     }
 

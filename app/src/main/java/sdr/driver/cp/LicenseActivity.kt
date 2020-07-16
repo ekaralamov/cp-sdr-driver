@@ -31,7 +31,7 @@ class LicenseActivity : Activity() {
             }
         }
 
-        val url = "file:///android_asset/${getLicenseFileName()}.html"
+        val url = intent.getStringExtra(UrlExtra)!!
         if (savedInstanceState == null)
             webView.loadUrl(url)
         else
@@ -44,27 +44,17 @@ class LicenseActivity : Activity() {
         outState.putFloat(ScrollPositionKey, webView.scrollPosition)
     }
 
-    private fun getLicenseFileName(): String {
-        @Suppress("MoveVariableDeclarationIntoWhen")
-        val license = Dependencies.License.valueOf(intent.getStringExtra(LicenseExtra)!!)
-        return when (license) {
-            Dependencies.License.Apache2 -> "apache2"
-            Dependencies.License.Gpl3 -> "gpl3"
-            Dependencies.License.Lgpl3 -> "lgpl3"
-        }
-    }
-
     companion object {
 
-        private val LicenseExtra = "${LicenseActivity::class.qualifiedName}.license"
+        private val UrlExtra = "${LicenseActivity::class.qualifiedName}.url"
 
         private val ScrollPositionKey = "${LicenseActivity::class.qualifiedName}.scrollposition"
 
-        fun start(license: Dependencies.License, parent: Activity) {
+        fun start(url: String, parent: Activity) {
             parent.startActivity(
                 Intent(parent, LicenseActivity::class.java).putExtra(
-                    LicenseExtra,
-                    license.name
+                    UrlExtra,
+                    url
                 )
             )
         }
