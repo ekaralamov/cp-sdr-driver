@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.core.net.toUri
 
 class MainActivity : Activity() {
 
@@ -24,6 +25,10 @@ class MainActivity : Activity() {
 
         findViewById<View>(R.id.third_party_software).setOnClickListener {
             startActivity(Intent(this, AttributionActivity::class.java))
+        }
+
+        findViewById<View>(R.id.web_link).setOnClickListener {
+            startActivity(Intent(Intent.ACTION_VIEW, getString(R.string.app_web_site).toUri()))
         }
     }
 }
