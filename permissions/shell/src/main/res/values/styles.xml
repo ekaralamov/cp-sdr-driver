@@ -8,8 +8,11 @@
         <item name="android:windowIsFloating">true</item>
     </style>
 
-    <style name="ManagePermissions" parent="@android:style/Theme.Material.Light.DarkActionBar">
+    <style name="ContentActivity" parent="@android:style/Theme.Material.Light">
+        <item name="android:colorPrimary">@color/light_sky_blue</item>
+        <item name="android:statusBarColor">@color/light_sky_blue</item>
         <item name="android:colorAccent">@color/sky_blue</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
 </resources>

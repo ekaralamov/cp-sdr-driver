@@ -35,7 +35,7 @@
 
         <activity
             android:name=".ManagePermissionsActivity"
-            android:theme="@style/ManagePermissions"
+            android:theme="@style/ContentActivity"
             />
 
     </application>

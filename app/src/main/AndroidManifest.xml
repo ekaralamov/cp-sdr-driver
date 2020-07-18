@@ -27,12 +27,12 @@
 
         <activity
             android:name=".LicenseActivity"
-            android:theme="@android:style/Theme.Material.Light.DarkActionBar"
+            android:theme="@style/ContentActivity"
             />
 
         <activity
             android:name=".AttributionActivity"
-            android:theme="@android:style/Theme.Material.Light.DarkActionBar"
+            android:theme="@style/ContentActivity"
             />
 
     </application>
