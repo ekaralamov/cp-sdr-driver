@@ -4,9 +4,7 @@
     package="sdr.driver.cp.permissions"
     >
 
-    <application
-        android:supportsRtl="true"
-        >
+    <application android:supportsRtl="true">
 
         <activity
             android:name="sdr.driver.cp.permissions.GetTunerAccessActivity"
@@ -34,6 +32,12 @@
                 android:resource="@xml/device_filter"
                 />
         </activity>
+
+        <activity
+            android:name=".ManagePermissionsActivity"
+            android:theme="@style/ManagePermissions"
+            />
+
     </application>
 
 </manifest>

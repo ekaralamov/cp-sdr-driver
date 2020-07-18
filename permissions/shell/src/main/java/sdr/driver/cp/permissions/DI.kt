@@ -13,6 +13,8 @@ object PermissionsComponent {
     interface Interface {
 
         fun injectGetTunerAccessViewModelFactory(): GetTunerAccessViewModel.Factory
+
+        fun injectManagePermissionsViewModel(): ManagePermissionsViewModel
     }
 
     internal lateinit var instance: Interface

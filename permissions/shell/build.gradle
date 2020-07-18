@@ -4,6 +4,7 @@ dependencies {
     implementation 'androidx.activity:activity:1.1.0'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$Versions.Lifecycle"
     implementation Deps.Timber
+    implementation Deps.RecyclerView
 
     implementation project(':permissions:shell:operations:di')
     implementation project(':permissions:presentation')

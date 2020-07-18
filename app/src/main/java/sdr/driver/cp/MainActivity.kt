@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.net.toUri
+import sdr.driver.cp.permissions.ManagePermissionsActivity
 
 class MainActivity : Activity() {
 
@@ -29,6 +30,10 @@ class MainActivity : Activity() {
 
         findViewById<View>(R.id.web_link).setOnClickListener {
             startActivity(Intent(Intent.ACTION_VIEW, getString(R.string.app_web_site).toUri()))
+        }
+
+        findViewById<View>(R.id.manage_permissions).setOnClickListener {
+            startActivity(Intent(this, ManagePermissionsActivity::class.java))
         }
     }
 }

@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">RTL-SDR CP Driver</string>
 
+    <string name="generic_close_button">Close</string>
+
+    <!-- GetTunerAccessActivity -->
     <string name="client_permission_question">Do you allow %1$s to access %2$s?</string>
     <string name="client_permission_question_yes">Yes</string>
     <string name="client_permission_question_no">No</string>
     <string name="client_permission_question_never">Never</string>
+
+    <!-- ManagePermissionsActivity -->
+    <string name="manage_permissions_no_clients">Applications that have requested access to %s will appear here.</string>
+    <string name="manage_permissions_loading_failed">Something went wrong. The loading of the client permissions failed with the following message: %s</string>
+    <string name="manage_permissions_change_failed">Something went wrong. The client permission change failed with the following message: %s</string>
+    <string name="manage_permissions_subtitle">Client Permissions</string>
+    <string name="manage_permissions_app_icon_description">application icon</string>
+
 </resources>

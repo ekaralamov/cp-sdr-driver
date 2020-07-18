@@ -7,4 +7,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    <style name="ManagePermissions" parent="@android:style/Theme.Material.Light.DarkActionBar">
+        <item name="android:colorAccent">@color/sky_blue</item>
+    </style>
+
 </resources>
