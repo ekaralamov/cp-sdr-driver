@@ -1,6 +1,7 @@
 package sdr.driver.cp.permissions
 
 import android.app.AlertDialog
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import java.lang.Runnable
 
 class ManagePermissionsActivity : ComponentActivity() {
@@ -129,29 +131,44 @@ class ManagePermissionsActivity : ComponentActivity() {
                     @Suppress("UNCHECKED_CAST")
                     result as Result<List<AppPermissionDisplayData>>
                 },
-                onSuccess = { list -> Result.success(list.toDisplayDataList().sorted()) }
+                onSuccess = { list ->
+                    try {
+                        Result.success(
+                            withContext(Dispatchers.Default) {
+                                list.toDisplayDataList().filterNotNull().sorted()
+                            }
+                        )
+                    } catch (throwable: Throwable) {
+                        Result.failure(throwable)
+                    }
+                }
             )
         }
 
-    private suspend fun List<Pair<String, Boolean>>.toDisplayDataList(): List<AppPermissionDisplayData> =
+    private suspend fun List<Pair<String, Boolean>>.toDisplayDataList(): List<AppPermissionDisplayData?> =
         coroutineScope {
             map { async { it.toDisplayData() } }.awaitAll()
         }
 
-    private suspend fun Pair<String, Boolean>.toDisplayData(): AppPermissionDisplayData = coroutineScope {
-        val iconJob = async(Dispatchers.IO) {
-            packageManager.getApplicationInfo(first, 0).loadIcon(packageManager)
+    private suspend fun Pair<String, Boolean>.toDisplayData(): AppPermissionDisplayData? =
+        try {
+            coroutineScope {
+                val iconJob = async(Dispatchers.IO) {
+                    packageManager.getApplicationInfo(first, 0).loadIcon(packageManager)
+                }
+                val nameJob = async(Dispatchers.IO) {
+                    packageManager.resolveAppName(first).toString()
+                }
+                AppPermissionDisplayData(
+                    appIcon = iconJob.await(),
+                    appName = nameJob.await(),
+                    permissionGranted = second,
+                    packageName = first
+                )
+            }
+        } catch (packageUninstalledException: PackageManager.NameNotFoundException) {
+            null
         }
-        val nameJob = async(Dispatchers.IO) {
-            packageManager.resolveAppName(first).toString()
-        }
-        AppPermissionDisplayData(
-            appIcon = iconJob.await(),
-            appName = nameJob.await(),
-            permissionGranted = second,
-            packageName = first
-        )
-    }
 
     private fun display(result: Result<List<AppPermissionDisplayData>>?) {
         if (result == null)
@@ -171,6 +188,7 @@ class ManagePermissionsActivity : ComponentActivity() {
                 }
             },
             onFailure = { throwable ->
+                Timber.e(throwable)
                 permissionsAdapter.set(permissionsList = emptyList())
                 findViewById<TextView>(R.id.empty_or_error_view).run {
                     text = getString(
@@ -193,6 +211,7 @@ class ManagePermissionsActivity : ComponentActivity() {
     }
 
     private fun displayErrorMessage(throwable: Throwable) {
+        Timber.e(throwable)
         AlertDialog.Builder(this)
             .setMessage(
                 getString(
@@ -212,7 +231,5 @@ private class AppPermissionDisplayData(
     val packageName: String
 )
 
-private suspend fun List<AppPermissionDisplayData>.sorted(): List<AppPermissionDisplayData> =
-    withContext(Dispatchers.Default) {
-        sortedWith(Comparator { a, b -> a.appName.compareTo(b.appName, ignoreCase = true) })
-    }
+private fun List<AppPermissionDisplayData>.sorted(): List<AppPermissionDisplayData> =
+     sortedWith(Comparator { a, b -> a.appName.compareTo(b.appName, ignoreCase = true) })
