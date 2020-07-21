@@ -24,7 +24,7 @@ android {
     flavorDimensions 'testing'
     productFlavors {
         notTesting
-        buddy
+        yesTesting
     }
 
     packagingOptions {

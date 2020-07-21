@@ -38,18 +38,14 @@ class TunerSession @AssistedInject constructor(
 
     private var closing = false
 
-    @Suppress("BlockingMethodInNonBlockingContext")
     override suspend fun close() {
         lock.withLock {
             if (closing)
                 throw AssertionError("closing should be managed by TunerAccessToken and should happen only once")
             closing = true
-
-            dataPipe?.close()
-            commandsPipe?.close()
         }
 
-        nativeSession.stopDataPump()
+        nativeSession.stopPumps()
 
         commandsPumping?.join()
         dataPumping?.join()

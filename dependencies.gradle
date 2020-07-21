@@ -19,9 +19,10 @@ rootProject.extensions.add('Deps', new DefaultExtraPropertiesExtension().tap {
     AssisteInjectApi = "com.squareup.inject:assisted-inject-annotations-dagger2:$Versions.AssistedInject"
     AssisteInjectProcessor = "com.squareup.inject:assisted-inject-processor-dagger2:$Versions.AssistedInject"
     Timber = 'com.jakewharton.timber:timber:4.7.1'
-    Truth = 'com.google.truth:truth:1.0.1'
+    Truth = 'androidx.test.ext:truth:1.2.0'
     MockK = 'io.mockk:mockk:1.9.3'
     Robolectric = 'org.robolectric:robolectric:4.3'
     Viewmodel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$Versions.Lifecycle"
     RecyclerView = 'androidx.recyclerview:recyclerview:1.1.0'
+    Activity = 'androidx.activity:activity:1.1.0'
 })

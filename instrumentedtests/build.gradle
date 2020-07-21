@@ -5,17 +5,21 @@ android {
 
     flavorDimensions 'testing'
     productFlavors {
-        buddy
+        yesTesting
     }
 }
 
 dependencies {
     implementation Deps.AndroidJUnit
     implementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.test:rules:1.2.0'
     implementation 'androidx.test.uiautomator:uiautomator:2.2.0'
     implementation Deps.Truth
+    implementation Deps.JUnit
 
     implementation project(':instrumentedtests:buddy:interface')
+    implementation project(':common:operations')
+    implementation project(':clientlib')
 
     androidTestUtil project(configuration: "exposedApk", path: ':instrumentedtests:buddy:buddy1')
     androidTestUtil project(configuration: "exposedApk", path: ':instrumentedtests:buddy:buddy2')

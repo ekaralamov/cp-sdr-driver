@@ -58,7 +58,7 @@ class TunerSessionStressTest {
         val token = mockk<TunerAccessToken<UsbDevice, TunerSession>> {
             coEvery { release() } just Runs
         }
-        one { nativeSession.stopDataPump() } just Runs
+        one { nativeSession.stopPumps() } just Runs
         one { nativeSession.close() } just Runs
 
         val commandsPumping = AtomicBoolean()

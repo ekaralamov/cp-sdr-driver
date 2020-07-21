@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-object CommonOperationsModule {
+object DBModule {
 
     @Provides
     fun provideClientPermissionStorage(): ClientPermissionStorage =

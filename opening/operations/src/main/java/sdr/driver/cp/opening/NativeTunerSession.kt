@@ -29,7 +29,7 @@ class NativeTunerSession @AssistedInject constructor(
 
     fun pumpData(outputFD: Int) = NativeCalls.pumpData(nativeHandle, outputFD)
 
-    fun stopDataPump() = NativeCalls.stopDataPump(nativeHandle)
+    fun stopPumps() = NativeCalls.stopPumps(nativeHandle)
 
     fun close() {
         NativeCalls.close(nativeHandle)

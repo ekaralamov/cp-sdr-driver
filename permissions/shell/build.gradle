@@ -1,7 +1,7 @@
 apply plugin: 'sdr.driver.cp.kotlin.library'
 
 dependencies {
-    implementation 'androidx.activity:activity:1.1.0'
+    implementation Deps.Activity
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$Versions.Lifecycle"
     implementation Deps.Timber
     implementation Deps.RecyclerView

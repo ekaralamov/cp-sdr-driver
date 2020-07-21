@@ -2,27 +2,31 @@ package sdr.driver.cp.onetuner
 
 import android.os.ParcelFileDescriptor
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import sdr.driver.cp.Access
-import sdr.driver.cp.BuddyRule
-import sdr.driver.cp.Commands
-import sdr.driver.cp.Data
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertThrows
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import sdr.driver.cp.*
 
 @RunWith(AndroidJUnit4::class)
-class Straight {
+class Opening {
 
     @get:Rule
     val buddyRule = BuddyRule.one()
 
+    @Before
+    fun clearPermissionsDB() {
+        FakeClientPermissionStorage.clear()
+    }
+
     @Test
-    fun permissionGranted() {
-        Access.get(TunerOne.Device, buddyRule.buddy)
+    fun multipleChannelOpenings() {
+        buddyRule.getAccess(TunerOne.Device)
 
         val commandsChannel1 = buddyRule.buddy.openCommandsChannel(TunerOne.Device)
         val commandsChannel2 = GlobalScope.async(Dispatchers.IO) {
@@ -47,5 +51,15 @@ class Straight {
         }
         Data.useChannel(dataChannel1)
         runBlocking { Data.useChannel(dataChannel2.await()) }
+    }
+
+    @Test
+    fun clientPermissionNotGranted() {
+        assertThrows(SecurityException::class.java) {
+            buddyRule.buddy.openCommandsChannel(TunerOne.Device)
+        }
+        assertThrows(SecurityException::class.java) {
+            buddyRule.buddy.openDataChannel(TunerOne.Device)
+        }
     }
 }

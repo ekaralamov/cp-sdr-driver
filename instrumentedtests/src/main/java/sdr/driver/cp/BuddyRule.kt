@@ -1,14 +1,17 @@
 package sdr.driver.cp
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.hardware.usb.UsbDevice
 import android.os.IBinder
 import android.os.Looper
 import androidx.test.platform.app.InstrumentationRegistry
-import sdr.driver.cp.test.buddy.Buddy
+import com.google.common.truth.Truth.assertThat
 import org.junit.rules.ExternalResource
+import sdr.driver.cp.test.buddy.Buddy
 
 @Suppress("PLATFORM_CLASS_MAPPED_TO_KOTLIN")
 class BuddyRule private constructor(private val id: String = "one") : ExternalResource(), ServiceConnection {
@@ -25,11 +28,13 @@ class BuddyRule private constructor(private val id: String = "one") : ExternalRe
                 }
             }
 
+    val packageName = "sdr.driver.cp.test.buddy.$id"
+
     override fun before() {
         val bound = InstrumentationRegistry.getInstrumentation().context.bindService(
             Intent().apply {
                 component = ComponentName(
-                    "sdr.driver.cp.test.buddy.$id",
+                    packageName,
                     "sdr.driver.cp.test.buddy.MainService"
                 )
             },
@@ -53,6 +58,13 @@ class BuddyRule private constructor(private val id: String = "one") : ExternalRe
     override fun onServiceConnected(name: ComponentName, service: IBinder) {
         _buddy = Buddy.Stub.asInterface(service)
         (this as Object).notifyAll()
+    }
+
+    fun getAccess(tuner: UsbDevice) {
+        FakeClientPermissionStorage[packageName] = ClientPermissionResolution.Permanent.Granted
+        val getAccessRequestKey = buddy.requestAccess(tuner)
+        UsbDeviceAccessDialog.answerWithYes()
+        assertThat(buddy.waitForResult(getAccessRequestKey)).isEqualTo(Activity.RESULT_OK)
     }
 
     companion object {

@@ -148,7 +148,7 @@ class TunerSessionSpec : DescribeSpec({
                         }
 
                         describe("when closed") {
-                            every { nativeSession.stopDataPump() } just Runs
+                            every { nativeSession.stopPumps() } just Runs
 
                             GlobalScope.launch(coroutineContext + Dispatchers.IO) { sut.close() }
                             delay(10)
@@ -161,6 +161,10 @@ class TunerSessionSpec : DescribeSpec({
 
                                 latch.countDown()
                                 delay(10)
+
+                                it("calls for stopping pumps") {
+                                    verify { nativeSession.stopPumps() }
+                                }
 
                                 itCloses("first request", pipe)
 
@@ -327,7 +331,7 @@ class TunerSessionSpec : DescribeSpec({
                         }
 
                         describe("when closed") {
-                            every { nativeSession.stopDataPump() } just Runs
+                            every { nativeSession.stopPumps() } just Runs
 
                             GlobalScope.launch(coroutineContext + Dispatchers.IO) { sut.close() }
                             delay(10)
@@ -341,8 +345,8 @@ class TunerSessionSpec : DescribeSpec({
                                 latch.countDown()
                                 delay(10)
 
-                                it("calls for stopping data pumping") {
-                                    verify { nativeSession.stopDataPump() }
+                                it("calls for stopping pumps") {
+                                    verify { nativeSession.stopPumps() }
                                 }
 
                                 itCloses("first request", pipe)
@@ -367,7 +371,7 @@ class TunerSessionSpec : DescribeSpec({
         }
 
         describe("when closed") {
-            every { nativeSession.stopDataPump() } just Runs
+            every { nativeSession.stopPumps() } just Runs
             one { nativeSession.close() } just Runs
 
             val sut = TunerSession(

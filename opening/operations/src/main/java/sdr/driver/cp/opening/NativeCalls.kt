@@ -14,7 +14,7 @@ internal object NativeCalls {
 
     external fun pumpData(nativeSessionHandle: Long, outputFD: Int)
 
-    external fun stopDataPump(nativeSessionHandle: Long)
+    external fun stopPumps(nativeSessionHandle: Long)
 
     external fun close(nativeSessionHandle: Long)
 }
