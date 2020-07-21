@@ -5,3 +5,7 @@ dependencies {
 
     implementation project(':opening:operations')
 }
+
+android.packagingOptions {
+    pickFirst 'lib/*/libusb.so'
+}

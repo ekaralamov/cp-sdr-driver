@@ -1,8 +1,10 @@
 package sdr.driver.cp.gradle
 
+import com.android.build.gradle.BaseExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.get
 
@@ -19,6 +21,12 @@ class ClientLibPlugin : Plugin<Project> {
                     name = "kotlin-stdlib",
                     version = versionOf("Kotlin")
                 )
+            }
+        }
+
+        configure<BaseExtension> {
+            packagingOptions {
+                exclude("META-INF/*.kotlin_module")
             }
         }
     }

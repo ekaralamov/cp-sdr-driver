@@ -9,6 +9,10 @@ android {
         arguments "-DANDROID_STL=c++_shared"
         targets "rtlsdr_shared"
     }
+
+    packagingOptions {
+        pickFirst 'lib/*/libusb.so'
+    }
 }
 
 dependencies {

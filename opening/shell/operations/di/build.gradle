@@ -8,3 +8,7 @@ dependencies {
 
     kapt Deps.DaggerProcessor
 }
+
+android.packagingOptions {
+    pickFirst 'lib/*/libusb.so'
+}

@@ -5,3 +5,7 @@ dependencies {
     api project(':opening:shell:clientshared')
     implementation project(':opening:shell:operations:di')
 }
+
+android.packagingOptions {
+    pickFirst 'lib/*/libusb.so'
+}

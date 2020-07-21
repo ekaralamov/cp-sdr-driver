@@ -4,3 +4,5 @@ dependencies {
     implementation project(':instrumentedtests:buddy:interface')
     implementation project(':clientlib')
 }
+
+android.packagingOptions.exclude 'META-INF/**'
