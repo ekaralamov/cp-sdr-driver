@@ -16,9 +16,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.mapLatest
 import timber.log.Timber
-import java.lang.Runnable
 
 class ManagePermissionsActivity : ComponentActivity() {
 
@@ -156,12 +157,12 @@ class ManagePermissionsActivity : ComponentActivity() {
                 val iconJob = async(Dispatchers.IO) {
                     packageManager.getApplicationInfo(first, 0).loadIcon(packageManager)
                 }
-                val nameJob = async(Dispatchers.IO) {
+                val name = withContext(Dispatchers.IO) {
                     packageManager.resolveAppName(first).toString()
                 }
                 AppPermissionDisplayData(
                     appIcon = iconJob.await(),
-                    appName = nameJob.await(),
+                    appName = name,
                     permissionGranted = second,
                     packageName = first
                 )
