@@ -1,6 +1,6 @@
 package sdr.driver.cp.gradle
 
-import com.android.build.gradle.BaseExtension
+import com.jfrog.bintray.gradle.BintrayExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
@@ -13,6 +13,8 @@ class ClientLibPlugin : Plugin<Project> {
         apply(plugin = "com.android.library")
         apply(plugin = "kotlin-android")
         apply(plugin = "sdr.driver.cp.base")
+        apply(plugin = "maven-publish")
+        apply(plugin = "com.jfrog.bintray")
 
         dependencies {
             with(configurations["implementation"]) {
@@ -24,9 +26,13 @@ class ClientLibPlugin : Plugin<Project> {
             }
         }
 
-        configure<BaseExtension> {
-            packagingOptions {
-                exclude("META-INF/*.kotlin_module")
+        configure<BintrayExtension> {
+            user = findProperty("BINTRAY_USER") as String?
+            key = findProperty("BINTRAY_KEY") as String?
+            with(pkg) {
+                repo = "maven"
+                setLicenses("Apache-2.0")
+                vcsUrl = "https://gitlab.com/ekaralamov/cp-sdr-driver"
             }
         }
     }

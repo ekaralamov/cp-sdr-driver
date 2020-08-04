@@ -13,6 +13,9 @@ dependencies {
     implementation("com.android.tools.build:gradle:4.0.1")
     implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:$rootProject.Versions.Kotlin")
     implementation("com.squareup.sqldelight:gradle-plugin:$rootProject.Versions.SQLDelight")
+
+    //noinspection GradleDynamicVersion
+    implementation('com.jfrog.bintray.gradle:gradle-bintray-plugin:1.+')
 }
 
 gradlePlugin {

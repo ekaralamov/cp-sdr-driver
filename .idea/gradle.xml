@@ -15,7 +15,6 @@
             <option value="$PROJECT_DIR$/clientlib" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/common/entities" />
-            <option value="$PROJECT_DIR$/common/entities/clientshared" />
             <option value="$PROJECT_DIR$/common/operations" />
             <option value="$PROJECT_DIR$/common/shell" />
             <option value="$PROJECT_DIR$/common/shell/operations" />
@@ -30,7 +29,6 @@
             <option value="$PROJECT_DIR$/opening" />
             <option value="$PROJECT_DIR$/opening/clientlib" />
             <option value="$PROJECT_DIR$/opening/entities" />
-            <option value="$PROJECT_DIR$/opening/entities/clientshared" />
             <option value="$PROJECT_DIR$/opening/operations" />
             <option value="$PROJECT_DIR$/opening/operations/libusb" />
             <option value="$PROJECT_DIR$/opening/shell" />
@@ -41,7 +39,6 @@
             <option value="$PROJECT_DIR$/permissions" />
             <option value="$PROJECT_DIR$/permissions/clientlib" />
             <option value="$PROJECT_DIR$/permissions/entities" />
-            <option value="$PROJECT_DIR$/permissions/entities/clientshared" />
             <option value="$PROJECT_DIR$/permissions/operations" />
             <option value="$PROJECT_DIR$/permissions/presentation" />
             <option value="$PROJECT_DIR$/permissions/shell" />

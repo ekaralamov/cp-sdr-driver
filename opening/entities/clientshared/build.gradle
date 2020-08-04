@@ -1,5 +1,0 @@
-apply plugin: 'sdr.driver.cp.clientlib'
-
-dependencies {
-    api project(':common:entities:clientshared')
-}

@@ -3,3 +3,36 @@ apply plugin: 'sdr.driver.cp.clientlib'
 dependencies {
     api project(':permissions:shell:clientshared')
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'sdr.driver.cp'
+                artifactId = 'permissions-client'
+                version = '1.0.0'
+
+                pom {
+                    name = 'RTL-SDR CP Driver Client Library'
+                    url = 'https://gitlab.com/ekaralamov/cp-sdr-driver'
+                    licenses {
+                        license {
+                            name = 'Apache License 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0'
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    bintray {
+        publications = ['release']
+        pkg {
+            name = 'cp-sdr-driver'
+            version.name = '1.0.0'
+        }
+    }
+}

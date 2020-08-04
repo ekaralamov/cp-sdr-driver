@@ -7,7 +7,6 @@ dependencies {
     api Deps.DaggerApi
 
     implementation project(':permissions:usecases')
-    api project(':common:entities:clientshared')
 
     kapt Deps.AssisteInjectProcessor
 }

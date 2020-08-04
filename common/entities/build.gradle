@@ -1,5 +1,1 @@
 apply plugin: 'sdr.driver.cp.kotlin.library'
-
-dependencies {
-    api project(':common:entities:clientshared')
-}
