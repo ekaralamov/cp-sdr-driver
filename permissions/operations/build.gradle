@@ -1,6 +1,5 @@
 apply plugin: 'sdr.driver.cp.kotlin.library'
 
 dependencies {
-    api project(':permissions:entities')
     api project(':common:operations')
 }
