@@ -10,6 +10,8 @@ afterEvaluate {
                 artifactId = 'opening-shell-clientshared'
                 version = '1.0.0'
 
+                artifact androidSourcesJar
+
                 pom {
                     name = 'RTL-SDR CP Driver Client Library'
                     url = 'https://gitlab.com/ekaralamov/cp-sdr-driver'

@@ -1,12 +1,11 @@
 package sdr.driver.cp.gradle
 
+import com.android.build.gradle.BaseExtension
 import com.jfrog.bintray.gradle.BintrayExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.get
+import org.gradle.api.tasks.bundling.Jar
+import org.gradle.kotlin.dsl.*
 
 class ClientLibPlugin : Plugin<Project> {
     override fun apply(project: Project) = with(project) {
@@ -23,6 +22,13 @@ class ClientLibPlugin : Plugin<Project> {
                     name = "kotlin-stdlib",
                     version = versionOf("Kotlin")
                 )
+            }
+        }
+
+        configure<BaseExtension> {
+            tasks.register<Jar>("androidSourcesJar") {
+                archiveClassifier.set("sources")
+                from(sourceSets["main"].java.srcDirs)
             }
         }
 
