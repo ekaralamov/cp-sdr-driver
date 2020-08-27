@@ -1,6 +1,6 @@
 [submodule "libusb"]
 	path = opening/operations/libusb/libusb
-	url = ../libusb/libusb.git
+	url = ../libusb.git
 [submodule "rtl-sdr"]
 	path = opening/operations/rtl-sdr
-	url = ../rtl-sdr/rtl-sdr.git
+	url = ../rtl-sdr.git
