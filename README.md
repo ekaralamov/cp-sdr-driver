@@ -61,8 +61,7 @@ Accessing Receivers
 
 To access a receiver, clients need to open two streams by using `ContentResolver`. One of the
 streams is for writing the commands and the other is for reading the data. These two streams
-combined function exactly as rtl_tcp does. The list of commands can be found in
-[rtl_tcp.c](opening/operations/rtl-sdr/src/rtl_tcp.c).
+combined function exactly as rtl_tcp does. The list of commands can be found in rtl_tcp.c.
 
 Opening the commands stream (i.e. mode `"w"`):
 
