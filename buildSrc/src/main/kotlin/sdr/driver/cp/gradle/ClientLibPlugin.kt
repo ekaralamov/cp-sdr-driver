@@ -38,7 +38,7 @@ class ClientLibPlugin : Plugin<Project> {
             with(pkg) {
                 repo = "maven"
                 setLicenses("Apache-2.0")
-                vcsUrl = "https://gitlab.com/ekaralamov/cp-sdr-driver"
+                vcsUrl = "https://gitlab.com/cp-sdr-driver/main"
             }
         }
     }
