@@ -120,6 +120,7 @@ class TunerSession @AssistedInject constructor(
     }
 }
 
+@Suppress("EXPERIMENTAL_FEATURE_WARNING")
 private inline class Pipe(private val descriptors: Array<ParcelFileDescriptor>) {
 
     constructor() : this(ParcelFileDescriptor.createPipe())

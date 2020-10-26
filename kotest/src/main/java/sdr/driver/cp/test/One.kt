@@ -2,6 +2,7 @@ package sdr.driver.cp.test
 
 import io.mockk.*
 
+@Suppress("EXPERIMENTAL_FEATURE_WARNING")
 inline class OneStubScope<T> constructor(internal val mockKStubScope: MockKStubScope<T, T>) {
 
     infix fun returns(returnValue: T) {

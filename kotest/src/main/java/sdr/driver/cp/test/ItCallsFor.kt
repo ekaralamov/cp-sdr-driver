@@ -1,10 +1,10 @@
 package sdr.driver.cp.test
 
 import io.kotest.assertions.throwables.shouldThrowMessage
-import io.kotest.core.spec.style.DescribeSpecDsl
+import io.kotest.core.spec.style.scopes.DescribeScope
 import io.kotest.matchers.shouldBe
 
-suspend fun DescribeSpecDsl.DescribeScope.itCallsFor(
+suspend fun DescribeScope.itCallsFor(
     callDesc: String,
     prompter: AnswerPrompter<*>,
     testContainer: CoroutineTestContainer<*>
@@ -30,7 +30,7 @@ suspend fun DescribeSpecDsl.DescribeScope.itCallsFor(
     }
 }
 
-suspend fun DescribeSpecDsl.DescribeScope.itInvokes(
+suspend fun DescribeScope.itInvokes(
     callDesc: String,
     prompter: AnswerPrompter<*>,
     testContainer: ViewModelTestContainer
@@ -48,7 +48,7 @@ suspend fun DescribeSpecDsl.DescribeScope.itInvokes(
     }
 }
 
-suspend fun DescribeSpecDsl.DescribeScope.itCollects(
+suspend fun DescribeScope.itCollects(
     flowDesc: String,
     testFlow: TestFlow<*>,
     testContainer: ViewModelTestContainer
@@ -66,7 +66,7 @@ suspend fun DescribeSpecDsl.DescribeScope.itCollects(
     }
 }
 
-suspend fun DescribeSpecDsl.DescribeScope.itCollects(
+suspend fun DescribeScope.itCollects(
     flowDesc: String,
     testFlow: TestFlow<*>,
     testCollector: FlowTestCollector<*>

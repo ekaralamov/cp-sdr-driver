@@ -7,12 +7,11 @@ import sdr.driver.cp.TunerAccessToken
 import sdr.driver.cp.test.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.core.spec.style.DescribeSpecDsl
+import io.kotest.core.spec.style.scopes.DescribeScope
 import io.kotest.matchers.shouldBe
 import io.mockk.*
 import kotlinx.coroutines.*
 import java.util.concurrent.CountDownLatch
-import kotlin.coroutines.coroutineContext
 
 @Suppress("BlockingMethodInNonBlockingContext")
 class TunerSessionSpec : DescribeSpec({
@@ -417,7 +416,7 @@ private class MockPipe {
     }
 }
 
-private suspend fun DescribeSpecDsl.DescribeScope.itCloses(pipeName: String, pipe: MockPipe) =
+private suspend fun DescribeScope.itCloses(pipeName: String, pipe: MockPipe) =
     it("closes $pipeName pipe") {
         verify {
             pipe.input.close()
@@ -425,7 +424,7 @@ private suspend fun DescribeSpecDsl.DescribeScope.itCloses(pipeName: String, pip
         }
     }
 
-private suspend fun DescribeSpecDsl.DescribeScope.itDoesNotClose(pipeName: String, pipe: MockPipe) =
+private suspend fun DescribeScope.itDoesNotClose(pipeName: String, pipe: MockPipe) =
     it("does not close $pipeName pipe") {
         verify(exactly = 0) {
             pipe.input.close()

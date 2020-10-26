@@ -30,7 +30,7 @@ class TunerAccessToken<Address, S : TunerAccessToken.Session> private constructo
             callingPackage: String,
             sessionFactory: (Address) -> S
         ): TunerAccessToken<Address, S> {
-            var oldToken: TunerAccessToken<Address, S>? = null
+            var oldToken: TunerAccessToken<Address, S>?
             while (true) {
                 val freshToken = TunerAccessToken(
                     deviceAddress,
@@ -53,7 +53,7 @@ class TunerAccessToken<Address, S : TunerAccessToken.Session> private constructo
                         }
                     }
                 }
-                val oldToken = oldToken!!
+                @Suppress("NAME_SHADOWING") val oldToken = oldToken!!
                 oldToken.lock.lockInterruptibly()
                 try {
                     if (oldToken._session == null) continue
