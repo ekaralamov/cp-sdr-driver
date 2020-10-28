@@ -20,8 +20,9 @@
         -->
 
         <activity
-            android:name="sdr.driver.cp.permissions.DummyActivity"
+            android:name=".DummyActivity"
             android:theme="@android:style/Theme.Translucent"
+            android:taskAffinity="sdr.driver.cp.permissions.dummy"
             >
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
