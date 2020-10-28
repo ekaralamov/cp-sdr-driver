@@ -1,7 +1,7 @@
 package sdr.driver.cp.gradle.licenses
 
 import com.android.build.gradle.AppExtension
-import com.android.builder.core.DefaultManifestParser
+import com.android.ide.common.symbols.getPackageNameFromManifest
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.artifacts.result.ResolvedArtifactResult
@@ -62,14 +62,11 @@ internal fun Project.createGenerationTask(
     }
 }
 
-private fun Project.getMainPackageName(): String = DefaultManifestParser(
+private fun Project.getMainPackageName(): String = getPackageNameFromManifest(
     the<AppExtension>()
         .sourceSets.getByName("main")
-        .manifest.srcFile,
-    { true },
-    true,
-    null
-).`package`
+        .manifest.srcFile
+)
 
 private fun Project.getPomsData(dependenciesFile: File): ArrayList<DependencyData> {
     val pomsData = ArrayList<DependencyData>()
