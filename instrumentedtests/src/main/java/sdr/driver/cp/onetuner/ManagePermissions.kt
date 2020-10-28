@@ -4,11 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.os.ParcelFileDescriptor
 import androidx.test.core.app.ActivityScenario
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
+import androidx.test.uiautomator.UiDevice
+import androidx.test.uiautomator.UiSelector
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertThrows
 import org.junit.Before
@@ -37,7 +36,8 @@ class ManagePermissions {
         FakeClientPermissionStorage[buddyRule.packageName] = ClientPermissionResolution.Permanent.Denied
         FakeClientPermissionStorage["some.uninstalled.package"] = ClientPermissionResolution.Permanent.Denied
         withManagePermissionsActivity {
-            onView(withText("SDR Driver Test Buddy")).perform(click())
+            // could be done via Espresso once https://github.com/Kotlin/kotlinx.coroutines/issues/242 is fixed
+            UiDevice.getInstance(getInstrumentation()).findObject(UiSelector().textContains("SDR Driver Test Buddy")).click()
         }
         assertThat(FakeClientPermissionStorage[buddyRule.packageName]).isEqualTo(ClientPermissionResolution.Permanent.Granted)
     }
@@ -48,7 +48,8 @@ class ManagePermissions {
         val commandsChannel = buddyRule.buddy.openCommandsChannel(TunerOne.Device)
         val dataChannel = buddyRule.buddy.openDataChannel(TunerOne.Device)
         withManagePermissionsActivity {
-            onView(withText("SDR Driver Test Buddy")).perform(click())
+            // could be done via Espresso once https://github.com/Kotlin/kotlinx.coroutines/issues/242 is fixed
+            UiDevice.getInstance(getInstrumentation()).findObject(UiSelector().textContains("SDR Driver Test Buddy")).click()
         }
         assertThat(FakeClientPermissionStorage[buddyRule.packageName]).isEqualTo(ClientPermissionResolution.Permanent.Denied)
         assertThrows(IOException::class.java) {
