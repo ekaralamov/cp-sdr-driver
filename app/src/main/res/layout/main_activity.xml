@@ -41,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/third_party_software"
         app:layout_constraintEnd_toStartOf="@id/aerial"
-        tools:text="version 1.0.0"
+        tools:text="version 1.0.1"
         style="@style/AboutTextView"
         />
 
