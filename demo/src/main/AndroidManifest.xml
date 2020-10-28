@@ -9,7 +9,7 @@
     <application android:label="@string/app_name">
 
         <activity
-            android:name="sdr.driver.cp.demo.MainActivity"
+            android:name=".MainActivity"
             android:theme="@android:style/Theme.Translucent"
             >
             <intent-filter>
@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name="sdr.driver.cp.demo.PlayService">
+        <service android:name=".PlayService">
             <intent-filter>
                 <action android:name="androidx.media2.session.MediaSessionService" />
             </intent-filter>

@@ -15,11 +15,11 @@
         >
 
         <service
-            android:name="sdr.driver.cp.test.buddy.MainService"
+            android:name=".MainService"
             android:exported="true"
             />
 
-        <activity android:name="sdr.driver.cp.test.buddy.AccessWantingActivity" />
+        <activity android:name=".AccessWantingActivity" />
 
     </application>
 

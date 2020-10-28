@@ -7,7 +7,7 @@
     <application android:supportsRtl="true">
 
         <activity
-            android:name="sdr.driver.cp.permissions.GetTunerAccessActivity"
+            android:name=".GetTunerAccessActivity"
             android:exported="true"
             android:screenOrientation="locked"
             android:theme="@style/Transparent"
