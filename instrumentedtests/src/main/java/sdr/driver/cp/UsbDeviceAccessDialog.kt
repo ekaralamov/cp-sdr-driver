@@ -9,11 +9,19 @@ object UsbDeviceAccessDialog {
 
     fun answerWithYes() {
         val device = UiDevice.getInstance(getInstrumentation())
-        val okPermissionButton =
+
+        val okButton =
             device.findObject(UiSelector().packageName("com.android.systemui").text("OK"))
         try {
-            okPermissionButton.click()
+            okButton.click()
         } catch (permissionPossiblyAlreadyGranted: UiObjectNotFoundException) {
+        }
+
+        val possiblyBroughtToFrontPreexistingTunerConnectDialogButton =
+            device.findObject(UiSelector().packageName("com.android.systemui").text("CANCEL"))
+        try {
+            possiblyBroughtToFrontPreexistingTunerConnectDialogButton.click()
+        } catch (noPreexistingDeviceConnectDialog: UiObjectNotFoundException) {
         }
     }
 }
