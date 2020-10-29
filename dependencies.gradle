@@ -6,6 +6,7 @@ rootProject.extensions.add('Versions', new DefaultExtraPropertiesExtension().tap
     Dagger = '2.29.1'
     AssistedInject = '0.6.0'
     SQLDelight = '1.4.4'
+    ConstraintLayoutNotDependingOnAppcompat = '1.1.3'
 
     CompileSdk = 29
     MinSdk = 23

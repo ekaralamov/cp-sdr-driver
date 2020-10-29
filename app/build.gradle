@@ -49,7 +49,7 @@ dependencies {
     implementation Deps.Timber
     implementation Deps.RecyclerView
     implementation "com.squareup.sqldelight:android-driver:$Versions.SQLDelight"
-    implementation "androidx.constraintlayout:constraintlayout:2.0.2"
+    implementation "androidx.constraintlayout:constraintlayout:$Versions.ConstraintLayoutNotDependingOnAppcompat"
 
     implementation project(':permissions:shell')
     implementation project(':permissions:shell:operations:di')
