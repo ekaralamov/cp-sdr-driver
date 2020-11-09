@@ -2,12 +2,13 @@ package sdr.driver.cp.demo
 
 import android.content.Context
 import android.os.ParcelFileDescriptor
+import android.util.Log
 import androidx.media.AudioAttributesCompat
 import androidx.media2.common.MediaItem
 import androidx.media2.common.MediaMetadata
 import androidx.media2.common.SessionPlayer
-import sdr.driver.cp.opening.TunerContentUri
 import com.google.common.util.concurrent.ListenableFuture
+import sdr.driver.cp.opening.TunerContentUri
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
@@ -51,17 +52,22 @@ class Player(private val context: Context) : SessionPlayer() {
     }
 
     override fun play(): ListenableFuture<PlayerResult> {
-        if (state == PLAYER_STATE_PLAYING)
+        try {
+            if (state == PLAYER_STATE_PLAYING)
+                return noFuture
+
+            val uri = TunerContentUri.build(device(context), context)
+            commandsFD = context.contentResolver.openFileDescriptor(uri, "w")
+            dataFD = context.contentResolver.openFileDescriptor(uri, "r")
+
+            fm(commandsFD = commandsFD!!.fd, dataFD = dataFD!!.fd)
+
+            state = PLAYER_STATE_PLAYING
             return noFuture
-
-        val uri = TunerContentUri.build(device(context), context)
-        commandsFD = context.contentResolver.openFileDescriptor(uri, "w")
-        dataFD = context.contentResolver.openFileDescriptor(uri, "r")
-
-        fm(commandsFD = commandsFD!!.fd, dataFD = dataFD!!.fd)
-
-        state = PLAYER_STATE_PLAYING
-        return noFuture
+        } catch (throwable: Throwable) {
+            Log.e("Player", null, throwable);
+            throw throwable
+        }
     }
 
     override fun skipToPreviousPlaylistItem(): ListenableFuture<PlayerResult> {
