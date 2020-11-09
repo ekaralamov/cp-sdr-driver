@@ -33,7 +33,7 @@ class TwoClients {
         buddy2Rule.buddy.openCommandsChannel(TunerOne.Device).use { intruder ->
             assertThat(intruder).isNull()
         }
-        Data.useChannel(channel1)
+        DataStream(channel1).close()
     }
 
     @Test

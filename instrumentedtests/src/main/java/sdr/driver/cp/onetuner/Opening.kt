@@ -11,7 +11,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import sdr.driver.cp.*
+import sdr.driver.cp.BuddyRule
+import sdr.driver.cp.Commands
+import sdr.driver.cp.DataStream
+import sdr.driver.cp.FakeClientPermissionStorage
 
 @RunWith(AndroidJUnit4::class)
 class Opening {
@@ -36,7 +39,7 @@ class Opening {
         ParcelFileDescriptor.AutoCloseOutputStream(commandsChannel1).use {
             it.write(Commands.Ignored)
 
-            Data.useChannel(buddyRule.buddy.openDataChannel(TunerOne.Device))
+            DataStream(buddyRule.buddy.openDataChannel(TunerOne.Device)).close()
         }
 
         runBlocking {
@@ -49,8 +52,8 @@ class Opening {
         val dataChannel2 = GlobalScope.async(Dispatchers.IO) {
             buddyRule.buddy.openDataChannel(TunerOne.Device)
         }
-        Data.useChannel(dataChannel1)
-        runBlocking { Data.useChannel(dataChannel2.await()) }
+        DataStream(dataChannel1).close()
+        runBlocking { DataStream(dataChannel2.await()).close() }
     }
 
     @Test
@@ -60,6 +63,21 @@ class Opening {
         }
         assertThrows(SecurityException::class.java) {
             buddyRule.buddy.openDataChannel(TunerOne.Device)
+        }
+    }
+
+    @Test
+    fun priming() {
+        buddyRule.getAccess(TunerOne.Device)
+        DataStream(buddyRule.buddy.openDataChannel(TunerOne.Device)).use { dataStream ->
+            ParcelFileDescriptor.AutoCloseOutputStream(buddyRule.buddy.openCommandsChannel(TunerOne.Device))
+                .use { commandsStream ->
+                    dataStream.assertNotActive()
+                    commandsStream.write(Commands.Frequency)
+                    dataStream.assertNotActive()
+                    commandsStream.write(Commands.SampleRate)
+                    dataStream.assertActive()
+                }
         }
     }
 }

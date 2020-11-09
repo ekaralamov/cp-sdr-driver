@@ -75,10 +75,15 @@ Opening the data stream (i.e. mode `"r"`):
 contentResolver.openFileDescriptor(TunerContentUri.build(receiverUsbDevice, context), "r")
 ```
 
-The streams can be opened in any order. For any particular receiver, only one stream of each type
-can be opened at a time, with further opening requests blocking until the previous stream is
-closed. If the receiver is being used by another application, the `openFileDescriptor` call does not
-block and fails immediately by returning `null`.
+When either stream is opened, order doesn't matter, a client session for the particular device is established.
+Within a session, only one stream of each type can be opened at a time,
+with further opening requests blocking until the previous stream is closed.
+The session ends when there's neither a commands, nor a data stream open anymore.
+If the receiver is being used by another application,
+the `openFileDescriptor` call does not block and fails immediately by returning `null`.
+
+Within a session, I/Q data from the receiver starts flowing through the data stream once the receiver has been
+primed with center frequency and sample rate commands.
 
 Building
 ========
